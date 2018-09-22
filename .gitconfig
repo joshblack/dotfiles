@@ -1,0 +1,15 @@
+[user]
+	name = Josh Black
+	email = josh@josh.black
+
+[color]
+	ui = auto
+
+[color "status"]
+	untracked = blue
+
+[include]
+	path = .gitconfig.local
+
+[credential]
+	helper = osxkeychain
