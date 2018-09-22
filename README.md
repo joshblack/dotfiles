@@ -2,6 +2,10 @@
 
 > [WIP] Dotfiles for setting up a new machine.
 
+## iTerm2
+
+Settings are stored in the `iterm2` folder!
+
 ## Homebrew
 
 ```bash
