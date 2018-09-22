@@ -16,3 +16,6 @@
 [submodule ".config/nvim/pack/bundle/start/editorconfig-vim"]
 	path = .config/nvim/pack/bundle/start/editorconfig-vim
 	url = git@github.com:editorconfig/editorconfig-vim.git
+[submodule ".config/nvim/pack/bundle/start/emmet-vim"]
+	path = .config/nvim/pack/bundle/start/emmet-vim
+	url = git@github.com:mattn/emmet-vim.git
