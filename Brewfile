@@ -2,6 +2,8 @@ tap "homebrew/bundle"
 tap "homebrew/core"
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
+# Add GitHub support to git on the command-line
+brew "hub"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
 # Interpreted, interactive, object-oriented programming language
