@@ -1,5 +1,7 @@
 # dotfiles
 
+> [WIP] Dotfiles for setting up a new machine.
+
 ## Homebrew
 
 ```bash
