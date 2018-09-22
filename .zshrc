@@ -18,6 +18,7 @@ ENABLE_CORRECTION="true"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  ssh-agent
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -111,13 +112,10 @@ add-zsh-hook chpwd auto-ls-after-cd
 # for prompt, this is what renders the git status circles
 add-zsh-hook precmd vcs_info
 
-
 # History
 export HISTSIZE=100000
 export HISTFILE="$HOME/.history"
 export SAVEHIST=$HISTSIZE
-
-# User configuration
 
 export MANPATH="/usr/local/man:$MANPATH"
 
@@ -140,6 +138,7 @@ export ARCHFLAGS="-arch x86_64"
 # For a full list of active aliases, run `alias`.
 
 alias c="clear"
+alias hl="pbpaste | highlight --font-size 36 --font 'IBM Plex Mono' --syntax=js --style Neon -O rtf | pbcopy"
 
 # `nvm` support
 export NVM_DIR="$HOME/.nvm"
@@ -155,6 +154,3 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 # Golang support
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
-
-# Highlight Function
-alias hl="pbpaste | highlight --font-size 36 --font 'IBM Plex Mono' --syntax=js --style Neon -O rtf | pbcopy"
