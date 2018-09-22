@@ -727,6 +727,8 @@
 	</dict>
 	<key>PrefsCustomFolder</key>
 	<string>/Users/joshblack/dotfiles/iterm2</string>
+	<key>QuitWhenAllWindowsClosed</key>
+	<true/>
 	<key>SUEnableAutomaticChecks</key>
 	<true/>
 	<key>SUFeedAlternateAppNameKey</key>
