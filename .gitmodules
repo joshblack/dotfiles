@@ -1,3 +1,15 @@
 [submodule ".config/base16-shell"]
 	path = .config/base16-shell
 	url = git@github.com:chriskempson/base16-shell.git
+[submodule ".config/nvim/pack/bundle/start/nerdtree"]
+	path = .config/nvim/pack/bundle/start/nerdtree
+	url = git@github.com:scrooloose/nerdtree.git
+[submodule ".config/nvim/pack/bundle/start/base16-vim"]
+	path = .config/nvim/pack/bundle/start/base16-vim
+	url = git@github.com:chriskempson/base16-vim.git
+[submodule ".config/nvim/pack/bundle/start/pinnacle"]
+	path = .config/nvim/pack/bundle/start/pinnacle
+	url = git@github.com:wincent/pinnacle.git
+[submodule ".config/nvim/pack/bundle/start/vim-prettier"]
+	path = .config/nvim/pack/bundle/start/vim-prettier
+	url = git@github.com:prettier/vim-prettier.git
