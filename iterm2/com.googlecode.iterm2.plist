@@ -65,6 +65,11 @@
 	</data>
 	<key>NSTableView Supports v2 KeyBingingTable</key>
 	<true/>
+	<key>NSToolbar Configuration com.apple.NSColorPanel</key>
+	<dict>
+		<key>TB Is Shown</key>
+		<integer>1</integer>
+	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>735 244 445 103 0 0 1680 1027 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
@@ -72,7 +77,7 @@
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>675 369 796 486 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>842 575 570 452 0 0 1680 1027 </string>
+	<string>565 50 1110 977 0 0 1680 1027 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>212 101 570 452 0 0 1680 1027 </string>
 	<key>New Bookmarks</key>
@@ -283,7 +288,7 @@
 			<key>Custom Command</key>
 			<string>No</string>
 			<key>Custom Directory</key>
-			<string>No</string>
+			<string>Recycle</string>
 			<key>Default Bookmark</key>
 			<string>No</string>
 			<key>Description</key>
