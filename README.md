@@ -1,21 +1,21 @@
 # dotfiles
 
-> [WIP] Dotfiles for setting up a new machine.
+> Dotfiles for git, zsh, iTerm2, Homebrew, Neovim, and more
 
-## iTerm2
+## Features
 
-Settings are stored in the `iterm2` folder!
+- [x] Basic `.gitconfig`
+- [x] [Oh my zsh](https://ohmyz.sh/) with custom `.zshrc`
+- [x] [iTerm 2](https://www.iterm2.com/) preferences synced to folder
+- [x] [Homebrew](https://brew.sh/) settings synced to `Brewfile`
+- [x] [Neovim](https://neovim.io/) support with native packages
+- [ ] [`tmux`](https://github.com/tmux/tmux) config
+
+### Tips
 
 ## Homebrew
 
 ```bash
+# Dump installed homebrew packages into `Brewfile`
 brew bundle dump --describe --force --file Brewfile
-```
-
-## ssh
-
-When asking you to provide password between restarts, can run the following command:
-
-```bash
-ssh-add -K ~/.ssh/id_rsa
 ```
