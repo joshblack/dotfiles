@@ -10,9 +10,11 @@
 [submodule ".config/nvim/pack/bundle/start/pinnacle"]
 	path = .config/nvim/pack/bundle/start/pinnacle
 	url = git@github.com:wincent/pinnacle.git
+	ignore = dirty
 [submodule ".config/nvim/pack/bundle/start/vim-prettier"]
 	path = .config/nvim/pack/bundle/start/vim-prettier
 	url = git@github.com:prettier/vim-prettier.git
+	ignore = dirty
 [submodule ".config/nvim/pack/bundle/start/editorconfig-vim"]
 	path = .config/nvim/pack/bundle/start/editorconfig-vim
 	url = git@github.com:editorconfig/editorconfig-vim.git
@@ -40,6 +42,7 @@
 [submodule ".config/nvim/pack/bundle/start/vim-textobj-user"]
 	path = .config/nvim/pack/bundle/start/vim-textobj-user
 	url = https://github.com/kana/vim-textobj-user
+	ignore = dirty
 [submodule ".config/nvim/pack/bundle/start/vim-textobj-comment"]
 	path = .config/nvim/pack/bundle/start/vim-textobj-comment
 	url = git://github.com/glts/vim-textobj-comment.git
