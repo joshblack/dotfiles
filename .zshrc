@@ -12,6 +12,13 @@ export UPDATE_ZSH_DAYS=7
 # Uncomment the following line to enable command auto-correction.
 ENABLE_CORRECTION="true"
 
+# exceptions to auto-correction
+alias man='nocorrect man'
+alias mkdir='nocorrect mkdir'
+alias mv='nocorrect mv'
+alias sudo='nocorrect sudo'
+alias fd='nocorrect fd'
+
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
@@ -154,4 +161,8 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 # Golang support
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
+
+# fzf support
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Setting fd as the default source for fzf
+export FZF_DEFAULT_COMMAND='fd --type f'
