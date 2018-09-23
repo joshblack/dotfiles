@@ -19,3 +19,9 @@
 [submodule ".config/nvim/pack/bundle/start/emmet-vim"]
 	path = .config/nvim/pack/bundle/start/emmet-vim
 	url = git@github.com:mattn/emmet-vim.git
+[submodule ".config/nvim/pack/bundle/start/groovy.vim"]
+	path = .config/nvim/pack/bundle/start/groovy.vim
+	url = git@github.com:vim-scripts/groovy.vim.git
+[submodule ".config/nvim/pack/bundle/start/json5.vim"]
+	path = .config/nvim/pack/bundle/start/json5.vim
+	url = git@github.com:gutenye/json5.vim.git
