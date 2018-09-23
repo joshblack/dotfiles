@@ -61,3 +61,21 @@
 [submodule ".config/nvim/pack/bundle/start/fzf.vim"]
 	path = .config/nvim/pack/bundle/start/fzf.vim
 	url = git@github.com:junegunn/fzf.vim.git
+[submodule ".config/nvim/pack/bundle/start/deoplete.nvim"]
+	path = .config/nvim/pack/bundle/start/deoplete.nvim
+	url = git@github.com:Shougo/deoplete.nvim.git
+[submodule ".config/nvim/pack/bundle/start/tern_for_vim"]
+	path = .config/nvim/pack/bundle/start/tern_for_vim
+	url = git@github.com:ternjs/tern_for_vim.git
+[submodule ".config/nvim/pack/bundle/start/alchemist.vim"]
+	path = .config/nvim/pack/bundle/start/alchemist.vim
+	url = git@github.com:slashmili/alchemist.vim.git
+[submodule ".config/nvim/pack/bundle/start/deoplete-go"]
+	path = .config/nvim/pack/bundle/start/deoplete-go
+	url = git@github.com:zchee/deoplete-go.git
+[submodule ".config/nvim/pack/bundle/start/LanguageClient-neovim"]
+	path = .config/nvim/pack/bundle/start/LanguageClient-neovim
+	url = git@github.com:autozimu/LanguageClient-neovim.git
+[submodule ".config/nvim/pack/bundle/start/ultisnips"]
+	path = .config/nvim/pack/bundle/start/ultisnips
+	url = git@github.com:SirVer/ultisnips.git

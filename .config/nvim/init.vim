@@ -24,6 +24,15 @@ endif
 " See: https://webpack.js.org/guides/development/#adjusting-your-text-editor
 set backupcopy=yes
 
+" Enable deoplete
+let g:deoplete#enable_at_startup = 1
+
+" Enable LanguageClient-Neovim
+set rtp+=$HOME/.config/nvim/pack/bundle/start/LanguageClient-neovim
+
+" Update runtime to include fzf
+set rtp+=/usr/local/opt/fzf
+
 " If supports loading packages, will load from `pack` directory.
 " In the `pack` directory, it will look for any folders. In each folder,
 " it will look for an `start` folder for packages to load at startup.
