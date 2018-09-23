@@ -8,6 +8,11 @@ function s:CheckColorScheme()
     source ~/.vimrc_background
   endif
 
+
+  " Fix for foreground color issue in NERDTree
+  " https://github.com/neovim/neovim/issues/9019#issuecomment-423791923
+  execute 'highlight NERDTreeFile ctermfg=251'
+
   execute 'highlight Comment ' . pinnacle#italicize('Comment')
   " doautocmd ColorScheme
 endfunction

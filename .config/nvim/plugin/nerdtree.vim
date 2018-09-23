@@ -25,31 +25,3 @@ let g:NERDTreeHijackNetrw=1
 " Custom NERDTree bindings
 nnoremap <leader>d :NERDTreeToggle<CR>
 nnoremap <leader>f :NERDTreeFind<CR>
-
-" if has('autocmd')
-"   augroup JBNERDTree
-"     autocmd!
-"     autocmd User NERDTreeInit call joshblack#autocmds#attempt_select_last_file()
-"     autocmd vimenter * NERDTree
-"     " autocmd bufenter * NERDTreeMirror
-"     autocmd vimenter * wincmd w
-"   augroup END
-" endif
-
-" call joshblack#plugin#lazy({
-"       \   'pack': 'nerdtree',
-"       \   'plugin': 'NERD_tree.vim',
-"       \   'commands': {
-"       \     'NERDTree': '-n=? -complete=dir -bar',
-"       \     'NERDTreeCWD': '-n=0 -bar',
-"       \     'NERDTreeClose': '-n=0 -bar',
-"       \     'NERDTreeFind': '-n=0 -bar',
-"       \     'NERDTreeFocus': '-n=0 -bar',
-"       \     'NERDTreeFromBookmark': '-n=1 -bar',
-"       \     'NERDTreeMirror': '-n=0 -bar',
-"       \     'NERDTreeToggle': '-n=? -complete=dir -bar',
-"       \   },
-"       \   'nnoremap': {
-"       \     '<silent> -': ":silent edit <C-R>=empty(expand('%')) ? '.' : fnameescape(expand('%:p:h'))<CR><CR>"
-"       \   }
-"       \ })
