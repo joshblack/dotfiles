@@ -13,7 +13,7 @@
 
 ### Tips
 
-## Homebrew
+#### Homebrew
 
 ```bash
 # Dump installed homebrew packages into `Brewfile`
