@@ -25,3 +25,39 @@
 [submodule ".config/nvim/pack/bundle/start/json5.vim"]
 	path = .config/nvim/pack/bundle/start/json5.vim
 	url = git@github.com:gutenye/json5.vim.git
+[submodule ".config/nvim/pack/bundle/start/nerdcommenter"]
+	path = .config/nvim/pack/bundle/start/nerdcommenter
+	url = https://github.com/scrooloose/nerdcommenter.git
+[submodule ".config/nvim/pack/bundle/start/vim-go"]
+	path = .config/nvim/pack/bundle/start/vim-go
+	url = https://github.com/fatih/vim-go.git
+[submodule ".config/nvim/pack/bundle/start/vim-git"]
+	path = .config/nvim/pack/bundle/start/vim-git
+	url = git@github.com:tpope/vim-git.git
+[submodule ".config/nvim/pack/bundle/start/vim-fugitive"]
+	path = .config/nvim/pack/bundle/start/vim-fugitive
+	url = git@github.com:tpope/vim-fugitive.git
+[submodule ".config/nvim/pack/bundle/start/vim-textobj-user"]
+	path = .config/nvim/pack/bundle/start/vim-textobj-user
+	url = https://github.com/kana/vim-textobj-user
+[submodule ".config/nvim/pack/bundle/start/vim-textobj-comment"]
+	path = .config/nvim/pack/bundle/start/vim-textobj-comment
+	url = git://github.com/glts/vim-textobj-comment.git
+[submodule ".config/nvim/pack/bundle/start/vim-vue"]
+	path = .config/nvim/pack/bundle/start/vim-vue
+	url = git@github.com:posva/vim-vue.git
+[submodule ".config/nvim/pack/bundle/start/vim-javascript"]
+	path = .config/nvim/pack/bundle/start/vim-javascript
+	url = git@github.com:pangloss/vim-javascript.git
+[submodule ".config/nvim/pack/bundle/start/vim-jsx"]
+	path = .config/nvim/pack/bundle/start/vim-jsx
+	url = git@github.com:mxw/vim-jsx.git
+[submodule ".config/nvim/pack/bundle/start/vim-json"]
+	path = .config/nvim/pack/bundle/start/vim-json
+	url = git@github.com:elzr/vim-json.git
+[submodule ".config/nvim/pack/bundle/start/terminus"]
+	path = .config/nvim/pack/bundle/start/terminus
+	url = git@github.com:wincent/terminus.git
+[submodule ".config/nvim/pack/bundle/start/fzf.vim"]
+	path = .config/nvim/pack/bundle/start/fzf.vim
+	url = git@github.com:junegunn/fzf.vim.git
