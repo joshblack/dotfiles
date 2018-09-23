@@ -2,6 +2,7 @@
 set hidden
 
 let g:LanguageClient_serverCommands = {
-\ 'javascript.jsx': ['/usr/local/bin/javascript-typescript-stdio'],
+\ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
+\ 'javascript.jsx': ['flow-language-server', '--stdio'],
 \ 'go': ['$GOPATH/bin/go-langserver']
 \ }

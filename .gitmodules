@@ -82,3 +82,9 @@
 [submodule ".config/nvim/pack/bundle/start/ultisnips"]
 	path = .config/nvim/pack/bundle/start/ultisnips
 	url = git@github.com:SirVer/ultisnips.git
+[submodule ".config/nvim/pack/bundle/start/vim-airline"]
+	path = .config/nvim/pack/bundle/start/vim-airline
+	url = git@github.com:vim-airline/vim-airline.git
+[submodule ".config/nvim/pack/bundle/start/vim-airline-themes"]
+	path = .config/nvim/pack/bundle/start/vim-airline-themes
+	url = git@github.com:vim-airline/vim-airline-themes.git
