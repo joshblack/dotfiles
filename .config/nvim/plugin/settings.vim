@@ -7,7 +7,7 @@ if exists('$SUDO_USER')
   set nobackup                        " don't create root-owned files
   set nowritebackup                   " don't create root-owned files
 else
-  set backupdir+=~/.config/nvim/tmp/backup    " keep backup files out of the way
+  set backupdir+=~/.config/nvim/tmp/backup//    " keep backup files out of the way
   set backupdir+=.
 endif
 
@@ -19,10 +19,10 @@ if exists('&belloff')
   set belloff=all                     " never ring the bell for any reason
 endif
 
-" if exists('+colorcolumn')
-"   " Highlight up to 255 columns (this is the current Vim max) beyond 'textwidth'
-"   let &l:colorcolumn='+' . join(range(0, 254), ',+')
-" endif
+if exists('+colorcolumn')
+  " Highlight up to 255 columns (this is the current Vim max) beyond 'textwidth'
+  let &l:colorcolumn='+' . join(range(0, 254), ',+')
+endif
 
 set cursorline                        " highlight current line
 
@@ -30,7 +30,7 @@ if exists('$SUDO_USER')
   set noswapfile                      " don't create root-owned files
 else
   set directory=~/local/.vim/tmp/swap//
-  set directory+=~/.vim/tmp/swap//    " keep swap files out of the way
+  set directory+=~/.config/nvim/tmp/swap//    " keep swap files out of the way
   set directory+=.
 endif
 

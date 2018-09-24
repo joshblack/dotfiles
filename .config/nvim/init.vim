@@ -15,8 +15,8 @@ set clipboard=unnamed
 " Enable basic mouse behavior such as resizing buffers
 set mouse=a
 
-" Support resizing tmux
-if exists('$TMUX')
+if !has('nvim')
+  " Support resizing tmux
   set ttymouse=xterm2
 endif
 
