@@ -18,6 +18,7 @@ alias mkdir='nocorrect mkdir'
 alias mv='nocorrect mv'
 alias sudo='nocorrect sudo'
 alias fd='nocorrect fd'
+alias storybook='nocorrect storybook'
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -146,6 +147,7 @@ export ARCHFLAGS="-arch x86_64"
 
 alias c="clear"
 alias hl="pbpaste | highlight --font-size 36 --font 'IBM Plex Mono' --syntax=js --style Neon -O rtf | pbcopy"
+alias vim="nvim"
 
 # `nvm` support
 export NVM_DIR="$HOME/.nvm"
