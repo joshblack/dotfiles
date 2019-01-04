@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "flow-language-server": "^0.6.0",
-    "javascript-typescript-langserver": "^2.11.1",
-    "neovim": "^4.2.1"
-  }
-}

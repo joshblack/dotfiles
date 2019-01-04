@@ -10,15 +10,15 @@ export ZSH=$HOME/.oh-my-zsh
 export UPDATE_ZSH_DAYS=7
 
 # Uncomment the following line to enable command auto-correction.
-ENABLE_CORRECTION="true"
+# ENABLE_CORRECTION="true"
 
 # exceptions to auto-correction
-alias man='nocorrect man'
-alias mkdir='nocorrect mkdir'
-alias mv='nocorrect mv'
-alias sudo='nocorrect sudo'
-alias fd='nocorrect fd'
-alias storybook='nocorrect storybook'
+# alias man='nocorrect man'
+# alias mkdir='nocorrect mkdir'
+# alias mv='nocorrect mv'
+# alias sudo='nocorrect sudo'
+# alias fd='nocorrect fd'
+# alias storybook='nocorrect storybook'
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
