@@ -94,3 +94,6 @@
 [submodule ".config/nvim/pack/bundle/start/vim-toml"]
 	path = .config/nvim/pack/bundle/start/vim-toml
 	url = git@github.com:cespare/vim-toml.git
+[submodule ".config/nvim/pack/bundle/start/typescript-vim"]
+	path = .config/nvim/pack/bundle/start/typescript-vim
+	url = git@github.com:leafgarland/typescript-vim.git
