@@ -13,6 +13,10 @@
 
 ### Tips
 
+#### Vim directory structure
+
+- [Learn vimscript the hard way](http://learnvimscriptthehardway.stevelosh.com/chapters/42.html#vimftdetect)
+
 #### Updating submodules
 
 ```bash
