@@ -91,9 +91,6 @@
 [submodule ".config/nvim/pack/bundle/start/vim-mustache-handlebars"]
 	path = .config/nvim/pack/bundle/start/vim-mustache-handlebars
 	url = git@github.com:mustache/vim-mustache-handlebars.git
-[submodule ".config/nvim/pack/bundle/start/yats.vim"]
-	path = .config/nvim/pack/bundle/start/yats.vim
-	url = git@github.com:HerringtonDarkholme/yats.vim.git
 [submodule ".config/nvim/pack/bundle/start/vim-toml"]
 	path = .config/nvim/pack/bundle/start/vim-toml
 	url = git@github.com:cespare/vim-toml.git
