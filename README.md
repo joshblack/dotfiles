@@ -13,6 +13,13 @@
 
 ### Tips
 
+#### Updating submodules
+
+```bash
+git pull --recurse-submodules
+git submodule update --remote --recursive
+```
+
 #### Homebrew
 
 ```bash
