@@ -11,6 +11,15 @@
 - [x] [Neovim](https://neovim.io/) support with native packages
 - [ ] [`tmux`](https://github.com/tmux/tmux) config
 
+## Installation
+
+- [ ] Install LanguageClient-neovim
+
+```bash
+cd .config/nvim/pack/bundle/opt/LanguageClient-neovim
+bash install.sh
+```
+
 ### Tips
 
 #### Vim directory structure
