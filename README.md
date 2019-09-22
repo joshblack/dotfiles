@@ -11,20 +11,73 @@
 - [x] [Neovim](https://neovim.io/) support with native packages
 - [ ] [`tmux`](https://github.com/tmux/tmux) config
 
-## Installation
+## `.config`
 
-- [ ] Install LanguageClient-neovim
+## Tips & Tricks
+
+Instead of symlink'ing the whole `.config` directory, just symlink all the sub-directories over to the `.config` directory that already exists.
+
+The reason for this is mostly to support `yarn link`. When linking projects, Yarn will put them in `~/.config/yarn/link/*` on MacOS. If we have this folder symlinked to a different folder, say `~/dotfiles/.config/yarn/link`, then all of the symlinks they put in the `link` directory will be off by one directory.
 
 ```bash
-cd .config/nvim/pack/bundle/opt/LanguageClient-neovim
-bash install.sh
+ln -s ~/dotfiles/.config/* .config/
 ```
 
-### Tips
+## Vim (Neovim)
 
-#### Vim directory structure
+## Install
 
+- Generate `:helptags`
+
+```vimscript
+" Get help for this command:
+:help :helptags
+
+" Generate :helptags for directory {dir}
+" When {dir} is ALL then all directories in runtimepath
+" are included
+:helpt ALL
+```
+
+- LanguageClient-Neovim
+  - https://github.com/autozimu/LanguageClient-neovim/blob/next/INSTALL.md#manual
+  - Language Servers
+    - javascript-typescript-stdio
+      - `npm install -g typescript-language-server`
+    - flow-language-server
+    - go-langserver
+  - `gocode`: `go get -u github.com/mdempsky/gocode`
+  - `:GoInstallBinaries`
+
+- `deoplete.nvim`
+  - [Install](https://github.com/Shougo/deoplete.nvim#install)
+  - `:UpdateRemotePlugins` if no handler registered
+
+## Debugging
+
+#### Using `echo`
+
+`echo` often can get surpressed, use `echom` instead and check with `:messages`
+if not immediately visible
+
+## Reference
+
+- [Vimscript](https://github.com/johngrib/vimscript-cheatsheet)
 - [Learn vimscript the hard way](http://learnvimscriptthehardway.stevelosh.com/chapters/42.html#vimftdetect)
+
+### UltiSnips
+
+```vimscript
+" UltiSnips
+" b - only run at the beginning of a line
+```
+
+## Tips
+
+#### `:checkhealth` for the win
+
+This command can be run in `neovim` to make sure everything is working as
+expected.
 
 #### Updating submodules
 
