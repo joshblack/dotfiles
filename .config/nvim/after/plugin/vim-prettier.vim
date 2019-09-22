@@ -1,3 +1,7 @@
+"
+" vim-prettier.vim
+"
+
 let g:prettier#autoformat=0
 let g:prettier#exec_cmd_async=1
 let g:prettier#quickfix_enabled=0
@@ -29,6 +33,12 @@ let g:prettier#config#trailing_comma='es5'
 " cli-override|file-override|prefer-file
 let g:prettier#config#config_precedence='prefer-file'
 
+" always|never|preserve
+let g:prettier#config#prose_wrap = 'preserve'
+
+" css|strict|ignore
+let g:prettier#config#html_whitespace_sensitivity = 'css'
+
 " Manually override file formatting
 let g:joshblack#format_on_save=1
 function! FormatFile()
@@ -37,4 +47,4 @@ function! FormatFile()
   endif
 endfunction
 
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.css,*.scss,*.graphql,*.md,*.mdx,*.vue call FormatFile()
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.css,*.scss,*.graphql,*.md,*.mdx,*.vue,*.yml,*.html,*.json,*.json5 call FormatFile()

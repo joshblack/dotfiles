@@ -1,0 +1,66 @@
+[submodule ".config/base16-shell"]
+	path = .config/base16-shell
+	url = git@github.com:chriskempson/base16-shell.git
+[submodule ".config/nvim/pack/bundle/opt/base16-vim"]
+	path = .config/nvim/pack/bundle/opt/base16-vim
+	url = git@github.com:chriskempson/base16-vim.git
+[submodule ".config/nvim/pack/bundle/opt/LanguageClient-neovim"]
+	path = .config/nvim/pack/bundle/opt/LanguageClient-neovim
+	url = git@github.com:autozimu/LanguageClient-neovim.git
+[submodule ".config/nvim/pack/bundle/opt/fzf.vim"]
+	path = .config/nvim/pack/bundle/opt/fzf.vim
+	url = git@github.com:junegunn/fzf.vim.git
+[submodule ".config/nvim/pack/bundle/opt/ultisnips"]
+	path = .config/nvim/pack/bundle/opt/ultisnips
+	url = git@github.com:SirVer/ultisnips.git
+[submodule ".config/nvim/pack/bundle/opt/vim-javascript"]
+	path = .config/nvim/pack/bundle/opt/vim-javascript
+	url = git@github.com:pangloss/vim-javascript.git
+[submodule ".config/nvim/pack/bundle/opt/pinnacle"]
+	path = .config/nvim/pack/bundle/opt/pinnacle
+	url = https://github.com/wincent/pinnacle
+[submodule ".config/nvim/pack/bundle/opt/vim-jsx"]
+	path = .config/nvim/pack/bundle/opt/vim-jsx
+	url = git@github.com:mxw/vim-jsx.git
+[submodule ".config/nvim/pack/bundle/opt/vim-json"]
+	path = .config/nvim/pack/bundle/opt/vim-json
+	url = git@github.com:elzr/vim-json.git
+[submodule ".config/nvim/pack/bundle/opt/deoplete.nvim"]
+	path = .config/nvim/pack/bundle/opt/deoplete.nvim
+	url = git@github.com:Shougo/deoplete.nvim.git
+[submodule ".config/nvim/pack/bundle/opt/vim-prettier"]
+	path = .config/nvim/pack/bundle/opt/vim-prettier
+	url = git@github.com:prettier/vim-prettier.git
+[submodule ".config/nvim/pack/bundle/opt/emmet-vim"]
+	path = .config/nvim/pack/bundle/opt/emmet-vim
+	url = git@github.com:mattn/emmet-vim.git
+[submodule ".config/nvim/pack/bundle/opt/vim-airline"]
+	path = .config/nvim/pack/bundle/opt/vim-airline
+	url = git@github.com:vim-airline/vim-airline.git
+[submodule ".config/nvim/pack/bundle/opt/vim-airline-themes"]
+	path = .config/nvim/pack/bundle/opt/vim-airline-themes
+	url = git@github.com:vim-airline/vim-airline-themes.git
+[submodule ".config/nvim/pack/bundle/opt/nerdtree"]
+	path = .config/nvim/pack/bundle/opt/nerdtree
+	url = git@github.com:scrooloose/nerdtree.git
+[submodule ".config/nvim/pack/bundle/opt/editorconfig-vim"]
+	path = .config/nvim/pack/bundle/opt/editorconfig-vim
+	url = git@github.com:editorconfig/editorconfig-vim.git
+[submodule ".config/nvim/pack/bundle/opt/json5.vim"]
+	path = .config/nvim/pack/bundle/opt/json5.vim
+	url = git@github.com:gutenye/json5.vim.git
+[submodule ".config/nvim/pack/bundle/opt/terminus"]
+	path = .config/nvim/pack/bundle/opt/terminus
+	url = git@github.com:wincent/terminus.git
+[submodule ".config/nvim/pack/bundle/opt/nerdcommenter"]
+	path = .config/nvim/pack/bundle/opt/nerdcommenter
+	url = git@github.com:scrooloose/nerdcommenter.git
+[submodule ".config/nvim/pack/bundle/opt/vim-fugitive"]
+	path = .config/nvim/pack/bundle/opt/vim-fugitive
+	url = git@github.com:tpope/vim-fugitive.git
+[submodule ".config/nvim/pack/bundle/opt/vim-go"]
+	path = .config/nvim/pack/bundle/opt/vim-go
+	url = git@github.com:fatih/vim-go.git
+[submodule ".config/nvim/pack/bundle/opt/vim-toml"]
+	path = .config/nvim/pack/bundle/opt/vim-toml
+	url = git@github.com:cespare/vim-toml.git

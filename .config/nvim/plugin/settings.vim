@@ -37,21 +37,12 @@ endif
 set expandtab                         " always use spaces instead of tabs
 
 if has('folding')
-  " if has('windows')
-  "   set fillchars=vert:┃              " BOX DRAWINGS HEAVY VERTICAL (U+2503, UTF-8: E2 94 83)
-  "   set fillchars+=fold:·             " MIDDLE DOT (U+00B7, UTF-8: C2 B7)
-  " endif
   set foldmethod=indent               " not as cool as syntax, but faster
   set foldlevelstart=99               " start unfolded
-  " set foldtext=joshblack#settings#foldtext()
 endif
 
 set formatoptions+=n                  " smart auto-indenting inside numbered lists
 set hidden                            " allows you to hide buffers with unsaved changes without being prompted
-
-" if exists('&inccommand')
-"   set inccommand=split                " live preview of :s results
-" endif
 
 set laststatus=2                      " always show status line
 set lazyredraw                        " don't bother updating screen during macro playback
@@ -63,7 +54,8 @@ endif
 set list                              " show whitespace
 set listchars=nbsp:¬,tab:>-,extends:»,precedes:«,trail:·
 set nojoinspaces                      " don't autoinsert two spaces after '.', '?', '!' for join command
-set number                            " show line numbers in gutter
+" set number                            " show line numbers in gutter
+set relativenumber                    " show line numbers in gutter
 
 set scrolloff=3                       " start scrolling 3 lines before edge of viewport
 set shiftround                        " always indent by multiple of shiftwidth
@@ -154,4 +146,4 @@ endif
 set wildmode=longest:full,full        " shell-like autocomplete to unambiguous portion
 
 " Ignore gutter symbols, too much noise
-set signcolumn=no
+" set signcolumn=no

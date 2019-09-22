@@ -4,11 +4,6 @@ endif
 
 let mapleader=','
 
-" Automatic, language-dependent indentation, syntax coloring and other
-" functionality.
-filetype indent plugin on
-syntax on
-
 " Yank and paste with the system clipboard
 set clipboard=unnamed
 
@@ -28,7 +23,7 @@ set backupcopy=yes
 let g:deoplete#enable_at_startup = 1
 
 " Enable LanguageClient-Neovim
-set rtp+=$HOME/.config/nvim/pack/bundle/start/LanguageClient-neovim
+set rtp+=$HOME/.config/nvim/pack/bundle/opt/LanguageClient-neovim
 
 " Update runtime to include fzf
 set rtp+=/usr/local/opt/fzf
@@ -40,6 +35,39 @@ set rtp+=/usr/local/opt/fzf
 " `packload` command
 if &loadplugins
   if has('packages')
-    packloadall
+    " start, vim loads by default
+    " opt, not loaded by default, can manually enable
+    " packadd, packadd!, packloadall
+    " packadd!, get ready to load the package but don't load it till the end
+    " packloadall
+    packadd! LanguageClient-neovim
+    packadd! base16-vim
+    packadd! deoplete.nvim
+    packadd! editorconfig-vim
+    packadd! emmet-vim
+    packadd! fzf.vim
+    packadd! json5.vim
+    packadd! nerdcommenter
+    packadd! nerdtree
+    packadd! pinnacle
+    packadd! terminus
+    packadd! ultisnips
+    packadd! vim-airline
+    packadd! vim-airline-themes
+    packadd! vim-fugitive
+    packadd! vim-go
+    packadd! vim-javascript
+    packadd! vim-json
+    packadd! vim-jsx
+    packadd! vim-prettier
+    packadd! vim-toml
   endif
 endif
+
+" Automatic, language-dependent indentation, syntax coloring and other
+" functionality.
+"
+" Must come *after* the `:packadd!` calls above otherwise the contents of
+" package "ftdetect" directories won't be evaluated.
+filetype indent plugin on
+syntax on
