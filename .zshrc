@@ -61,7 +61,6 @@ RPROMPT_BASE="\${vcs_info_msg_0_}%F{blue}%~%f"
 setopt PROMPT_SUBST
 export PS1="$RPROMPT_BASE %F{red}%B%(!.#.$)%b%f "
 export RPROMPT=$RPROMPT_BASE
-# export SPROMPT="zsh: correct %F{red}'%R'%f to %F{red}'%r'%f [%B%Uy%u%bes, %B%Un%u%bo, %B%Ue%u%bdit, %B%Ua%u%bbort]? "
 
 # Hooks
 
