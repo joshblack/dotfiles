@@ -55,6 +55,7 @@ if &loadplugins
     packadd! vim-airline
     packadd! vim-airline-themes
     packadd! vim-fugitive
+    packadd! vim-gitgutter
     packadd! vim-go
     packadd! vim-javascript
     packadd! vim-json

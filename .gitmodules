@@ -64,3 +64,6 @@
 [submodule ".config/nvim/pack/bundle/opt/vim-toml"]
 	path = .config/nvim/pack/bundle/opt/vim-toml
 	url = git@github.com:cespare/vim-toml.git
+[submodule ".config/nvim/pack/bundle/opt/vim-gitgutter"]
+	path = .config/nvim/pack/bundle/opt/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter

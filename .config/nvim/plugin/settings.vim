@@ -145,5 +145,4 @@ if has('wildmenu')
 endif
 set wildmode=longest:full,full        " shell-like autocomplete to unambiguous portion
 
-" Ignore gutter symbols, too much noise
-" set signcolumn=no
+set signcolumn=yes
