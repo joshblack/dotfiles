@@ -49,6 +49,15 @@ ln -s ~/dotfiles/.config/* .config/
   - `gocode`: `go get -u github.com/mdempsky/gocode`
   - `:GoInstallBinaries`
 
+### Language Servers
+
+#### Rust
+
+```bash
+# Install rls
+rustup component add rls --toolchain stable-x86_64-apple-darwin
+```
+
 - `deoplete.nvim`
   - [Install](https://github.com/Shougo/deoplete.nvim#install)
   - `:UpdateRemotePlugins` if no handler registered

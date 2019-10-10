@@ -54,8 +54,7 @@ endif
 set list                              " show whitespace
 set listchars=nbsp:¬,tab:>-,extends:»,precedes:«,trail:·
 set nojoinspaces                      " don't autoinsert two spaces after '.', '?', '!' for join command
-" set number                            " show line numbers in gutter
-set relativenumber                    " show line numbers in gutter
+set number relativenumber             " Show relative line numbers
 
 set scrolloff=3                       " start scrolling 3 lines before edge of viewport
 set shiftround                        " always indent by multiple of shiftwidth

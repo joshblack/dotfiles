@@ -1,1 +1,1 @@
-autocmd BufNewFile,BufRead Dockerfile.* set ft=dockerfile
+autocmd BufNewFile,BufRead Dockerfile,Dockerfile.* set ft=dockerfile

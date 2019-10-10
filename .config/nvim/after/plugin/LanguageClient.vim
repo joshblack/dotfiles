@@ -10,9 +10,19 @@ set hidden
 " let g:LanguageClient_loggingFile =  expand('~/.config/nvim/log/LanguageClient.log')
 " let g:LanguageClient_serverStderr = expand('~/.config/nvim/log/LanguageServer.log')
 
-let g:LanguageClient_fzfContextMenu=1
-let g:LanguageClient_useFloatingHover=1
+let g:LanguageClient_fzfContextMenu=0
+" let g:LanguageClient_useFloatingHover=1
 let g:LanguageClient_hoverPreview='Always'
+" Disable inline text from appearing
+let g:LanguageClient_selectionUI="location-list"
+let g:LanguageClient_selectionUI_autoOpen=1
+let g:LanguageClient_useVirtualText=0
+let g:LanguageClient_diagnosticsDisplay = {
+      \   1: {'signTexthl': 'LineNr', 'virtualTexthl': 'ErrorMsg'},
+      \   2: {'signTexthl': 'LineNr', 'virtualTexthl': 'ErrorMsg'},
+      \   3: {'signTexthl': 'LineNr', 'virtualTexthl': 'ErrorMsg'},
+      \   4: {'signTexthl': 'LineNr', 'virtualTexthl': 'ErrorMsg'},
+      \ }
 
 let g:LanguageClient_rootMarkers = {
       \   'javascript': ['tsconfig.json', '.flowconfig', 'package.json'],
@@ -89,3 +99,6 @@ endif
 
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <Leader>fm :call LanguageClient#textDocument_formatting()<CR>
+nnoremap <silent> <Leader>e :call LanguageClient#explainErrorAtPoint()<CR>
+vnoremap <silent> <Leader>e :call LanguageClient#explainErrorAtPoint()<CR>

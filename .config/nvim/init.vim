@@ -26,7 +26,9 @@ let g:deoplete#enable_at_startup = 1
 set rtp+=$HOME/.config/nvim/pack/bundle/opt/LanguageClient-neovim
 
 " Update runtime to include fzf
-set rtp+=/usr/local/opt/fzf
+if executable('fzf')
+  set rtp+=/usr/local/opt/fzf
+endif
 
 " If supports loading packages, will load from `pack` directory.
 " In the `pack` directory, it will look for any folders. In each folder,
@@ -34,35 +36,33 @@ set rtp+=/usr/local/opt/fzf
 " You can also use the `opt` directory and add in packages using the
 " `packload` command
 if &loadplugins
-  if has('packages')
-    " start, vim loads by default
-    " opt, not loaded by default, can manually enable
-    " packadd, packadd!, packloadall
-    " packadd!, get ready to load the package but don't load it till the end
-    " packloadall
-    packadd! LanguageClient-neovim
-    packadd! base16-vim
-    packadd! deoplete.nvim
-    packadd! editorconfig-vim
-    packadd! emmet-vim
-    packadd! fzf.vim
-    packadd! json5.vim
-    packadd! nerdcommenter
-    packadd! nerdtree
-    packadd! pinnacle
-    packadd! terminus
-    packadd! ultisnips
-    packadd! vim-airline
-    packadd! vim-airline-themes
-    packadd! vim-fugitive
-    packadd! vim-gitgutter
-    packadd! vim-go
-    packadd! vim-javascript
-    packadd! vim-json
-    packadd! vim-jsx
-    packadd! vim-prettier
-    packadd! vim-toml
-  endif
+  " start, vim loads by default
+  " opt, not loaded by default, can manually enable
+  " packadd, packadd!, packloadall
+  " packadd!, get ready to load the package but don't load it till the end
+  " packloadall
+  packadd! LanguageClient-neovim
+  packadd! base16-vim
+  packadd! deoplete.nvim
+  packadd! editorconfig-vim
+  packadd! emmet-vim
+  packadd! fzf.vim
+  packadd! json5.vim
+  packadd! nerdcommenter
+  packadd! nerdtree
+  packadd! pinnacle
+  packadd! terminus
+  packadd! ultisnips
+  packadd! vim-airline
+  packadd! vim-airline-themes
+  packadd! vim-fugitive
+  packadd! vim-gitgutter
+  packadd! vim-go
+  packadd! vim-javascript
+  packadd! vim-json
+  packadd! vim-jsx
+  packadd! vim-prettier
+  packadd! vim-toml
 endif
 
 " Automatic, language-dependent indentation, syntax coloring and other
