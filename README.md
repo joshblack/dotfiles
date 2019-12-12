@@ -42,8 +42,6 @@ ln -s ~/dotfiles/.config/* .config/
 - LanguageClient-Neovim
   - https://github.com/autozimu/LanguageClient-neovim/blob/next/INSTALL.md#manual
   - Language Servers
-    - javascript-typescript-stdio
-      - `npm install -g typescript-language-server`
     - flow-language-server
     - go-langserver
   - `gocode`: `go get -u github.com/mdempsky/gocode`
@@ -51,11 +49,17 @@ ln -s ~/dotfiles/.config/* .config/
 
 ### Language Servers
 
+#### JavaScript
+
+```bash
+# javascript-typescript-stdio
+npm install -g typescript-language-server
+```
+
 #### Rust
 
 ```bash
-# Install rls
-rustup component add rls --toolchain stable-x86_64-apple-darwin
+rustup component add rls rust-analysis rust-src --toolchain stable-x86_64-apple-darwin
 ```
 
 - `deoplete.nvim`

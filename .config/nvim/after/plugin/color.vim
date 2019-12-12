@@ -21,11 +21,9 @@ function s:CheckColorScheme()
   execute 'highlight Comment ' . pinnacle#italicize('Comment')
 endfunction
 
-if v:progname !=# 'vi'
-  augroup AutoColor
-    autocmd!
-    autocmd FocusGained * call s:CheckColorScheme()
-  augroup END
+augroup JBAutoColor
+  autocmd!
+  autocmd FocusGained * call s:CheckColorScheme()
+augroup END
 
-  call s:CheckColorScheme()
-endif
+call s:CheckColorScheme()

@@ -1,52 +1,47 @@
 "
-" Language Client support
+" LanguageClient-neovim
 "
 
 " Required for operations modifying multiple buffers like rename.
 set hidden
 
-" let g:LanguageClient_loggingLevel = 'INFO'
-" let g:LanguageClient_virtualTextPrefix = ''
-" let g:LanguageClient_loggingFile =  expand('~/.config/nvim/log/LanguageClient.log')
-" let g:LanguageClient_serverStderr = expand('~/.config/nvim/log/LanguageServer.log')
-
-let g:LanguageClient_fzfContextMenu=0
-" let g:LanguageClient_useFloatingHover=1
+let g:LanguageClient_useFloatingHover=1
 let g:LanguageClient_hoverPreview='Always'
-" Disable inline text from appearing
-let g:LanguageClient_selectionUI="location-list"
-let g:LanguageClient_selectionUI_autoOpen=1
-let g:LanguageClient_useVirtualText=0
+let g:LanguageClient_diagnosticsList='Location'
+" Sometimes the LanguageServer can be noisy, in particular the TypeScript one
+" can be noisy if used in a non-TypeScript project. It will emit warnings about
+" not being able to find type files that will get flushed to the window unless
+" this is set to 'Error'
+let g:LanguageClient_windowLogMessageLevel='Error'
 let g:LanguageClient_diagnosticsDisplay = {
-      \   1: {'signTexthl': 'LineNr', 'virtualTexthl': 'ErrorMsg'},
-      \   2: {'signTexthl': 'LineNr', 'virtualTexthl': 'ErrorMsg'},
-      \   3: {'signTexthl': 'LineNr', 'virtualTexthl': 'ErrorMsg'},
-      \   4: {'signTexthl': 'LineNr', 'virtualTexthl': 'ErrorMsg'},
+      \   1: {'signTexthl': 'LineNr', 'virtualTexthl': 'User8'},
+      \   2: {'signTexthl': 'LineNr', 'virtualTexthl': 'User8'},
+      \   3: {'signTexthl': 'LineNr', 'virtualTexthl': 'User8'},
+      \   4: {'signTexthl': 'LineNr', 'virtualTexthl': 'User8'},
       \ }
+
+if exists('$DEBUG_LC_LOGFILE')
+  let g:LanguageClient_loggingFile=$DEBUG_LC_LOGFILE
+  let g:LanguageClient_loggingLevel='DEBUG'
+endif
 
 let g:LanguageClient_rootMarkers = {
       \   'javascript': ['tsconfig.json', '.flowconfig', 'package.json'],
-      \   'typescript': ['tsconfig.json', '.flowconfig', 'package.json']
+      \   'typescript': ['tsconfig.json', '.flowconfig', 'package.json'],
+      \   'rust': ['Cargo.toml']
       \ }
-
-" let g:LanguageClient_serverCommands = {
-    " \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-    " \ 'javascript': ['/usr/local/bin/javascript-typescript-stdio'],
-    " \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
-    " \ }
 
 let g:LanguageClient_serverCommands = {}
 
 if executable('javascript-typescript-stdio')
   " ie. via `npm install -g javascript-typescript-langserver`
-  " if exists('$DEBUG_LSP_LOGFILE')
-    " let s:debug_args=['--trace', '--logfile', $DEBUG_LSP_LOGFILE]
-  " else
-    " let s:debug_args=[]
-  " endif
+  if exists('$DEBUG_LSP_LOGFILE')
+    let s:debug_args=['--trace', '--logfile', $DEBUG_LSP_LOGFILE]
+  else
+    let s:debug_args=[]
+  endif
 
-  " let s:ts_lsp=extend([exepath('javascript-typescript-stdio')], s:debug_args)
-  let s:ts_lsp=extend([exepath('javascript-typescript-stdio')], [])
+  let s:ts_lsp=extend([exepath('javascript-typescript-stdio')], s:debug_args)
 else
   let s:ts_lsp=[]
 endif
@@ -99,6 +94,5 @@ endif
 
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <Leader>fm :call LanguageClient#textDocument_formatting()<CR>
-nnoremap <silent> <Leader>e :call LanguageClient#explainErrorAtPoint()<CR>
-vnoremap <silent> <Leader>e :call LanguageClient#explainErrorAtPoint()<CR>
+nnoremap <silent> ds :call LanguageClient#textDocument_documentSymbol()<CR>
+nnoremap <silent> rn :call LanguageClient#textDocument_rename()<CR>

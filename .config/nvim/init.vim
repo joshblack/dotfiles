@@ -23,7 +23,7 @@ set backupcopy=yes
 let g:deoplete#enable_at_startup = 1
 
 " Enable LanguageClient-Neovim
-set rtp+=$HOME/.config/nvim/pack/bundle/opt/LanguageClient-neovim
+" set rtp+=$HOME/.config/nvim/pack/bundle/opt/LanguageClient-neovim
 
 " Update runtime to include fzf
 if executable('fzf')
@@ -41,7 +41,7 @@ if &loadplugins
   " packadd, packadd!, packloadall
   " packadd!, get ready to load the package but don't load it till the end
   " packloadall
-  packadd! LanguageClient-neovim
+  " packadd! LanguageClient-neovim
   packadd! base16-vim
   packadd! deoplete.nvim
   packadd! editorconfig-vim

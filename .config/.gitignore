@@ -1,2 +1,5 @@
 hub
 configstore
+# I use the `tmp` directory as a temporary location for my full config when I
+# want to try loading up NeoVim with a minimal setup
+tmp
