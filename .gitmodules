@@ -67,3 +67,9 @@
 [submodule ".config/nvim/pack/bundle/opt/vim-gitgutter"]
 	path = .config/nvim/pack/bundle/opt/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter
+[submodule ".config/nvim/pack/bundle/opt/nord-vim"]
+	path = .config/nvim/pack/bundle/opt/nord-vim
+	url = git@github.com:arcticicestudio/nord-vim.git
+[submodule ".config/nvim/pack/bundle/opt/goyo.vim"]
+	path = .config/nvim/pack/bundle/opt/goyo.vim
+	url = git@github.com:junegunn/goyo.vim.git

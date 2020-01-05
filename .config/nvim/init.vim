@@ -47,6 +47,7 @@ if &loadplugins
   packadd! editorconfig-vim
   packadd! emmet-vim
   packadd! fzf.vim
+  packadd! goyo.vim
   packadd! json5.vim
   packadd! nerdcommenter
   packadd! nerdtree
