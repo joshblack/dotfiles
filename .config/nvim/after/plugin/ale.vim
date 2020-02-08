@@ -14,7 +14,6 @@ let g:ale_fixers = {
 \   'css': ['prettier'],
 \   'html': ['prettier'],
 \   'javascript': ['prettier'],
-\   'javascript.jsx': ['prettier', 'flow', 'flow-language-server', 'tsserver'],
 \   'json': ['prettier'],
 \   'json5': ['prettier'],
 \   'md': ['prettier'],
