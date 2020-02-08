@@ -28,9 +28,6 @@
 [submodule ".config/nvim/pack/bundle/opt/deoplete.nvim"]
 	path = .config/nvim/pack/bundle/opt/deoplete.nvim
 	url = git@github.com:Shougo/deoplete.nvim.git
-[submodule ".config/nvim/pack/bundle/opt/vim-prettier"]
-	path = .config/nvim/pack/bundle/opt/vim-prettier
-	url = git@github.com:prettier/vim-prettier.git
 [submodule ".config/nvim/pack/bundle/opt/emmet-vim"]
 	path = .config/nvim/pack/bundle/opt/emmet-vim
 	url = git@github.com:mattn/emmet-vim.git

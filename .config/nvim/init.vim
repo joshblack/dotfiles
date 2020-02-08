@@ -62,7 +62,6 @@ if &loadplugins
   packadd! vim-javascript
   packadd! vim-json
   packadd! vim-jsx
-  " packadd! vim-prettier
   packadd! vim-toml
 endif
 
