@@ -47,4 +47,4 @@ function! FormatFile()
   endif
 endfunction
 
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.css,*.scss,*.graphql,*.md,*.mdx,*.vue,*.yml,*.html,*.json,*.json5 call FormatFile()
+" autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.css,*.scss,*.graphql,*.md,*.mdx,*.vue,*.yml,*.html,*.json,*.json5 call FormatFile()

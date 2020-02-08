@@ -73,3 +73,6 @@
 [submodule ".config/nvim/pack/bundle/opt/goyo.vim"]
 	path = .config/nvim/pack/bundle/opt/goyo.vim
 	url = git@github.com:junegunn/goyo.vim.git
+[submodule ".config/nvim/pack/bundle/opt/ale"]
+	path = .config/nvim/pack/bundle/opt/ale
+	url = git@github.com:dense-analysis/ale.git

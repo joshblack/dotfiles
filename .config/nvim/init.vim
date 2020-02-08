@@ -41,7 +41,7 @@ if &loadplugins
   " packadd, packadd!, packloadall
   " packadd!, get ready to load the package but don't load it till the end
   " packloadall
-  " packadd! LanguageClient-neovim
+  packadd! ale
   packadd! base16-vim
   packadd! deoplete.nvim
   packadd! editorconfig-vim
@@ -62,7 +62,7 @@ if &loadplugins
   packadd! vim-javascript
   packadd! vim-json
   packadd! vim-jsx
-  packadd! vim-prettier
+  " packadd! vim-prettier
   packadd! vim-toml
 endif
 
@@ -73,3 +73,7 @@ endif
 " package "ftdetect" directories won't be evaluated.
 filetype indent plugin on
 syntax on
+
+" Load all of the helptags now, after plugins have been loaded.
+" All messages and errors will be ignored.
+silent! helptags ALL
