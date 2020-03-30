@@ -53,6 +53,7 @@ if &loadplugins
   packadd! nerdtree
   packadd! pinnacle
   packadd! terminus
+  packadd! typescript-vim
   packadd! ultisnips
   packadd! vim-airline
   packadd! vim-airline-themes

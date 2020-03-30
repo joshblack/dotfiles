@@ -76,3 +76,9 @@
 [submodule ".config/nvim/pack/bundle/opt/any-jump.vim"]
 	path = .config/nvim/pack/bundle/opt/any-jump.vim
 	url = git@github.com:pechorin/any-jump.vim.git
+[submodule ".config/nvim/pack/bundle/opt/--force"]
+	path = .config/nvim/pack/bundle/opt/--force
+	url = git@github.com:leafgarland/typescript-vim.git
+[submodule ".config/nvim/pack/bundle/opt/typescript-vim"]
+	path = .config/nvim/pack/bundle/opt/typescript-vim
+	url = git@github.com:leafgarland/typescript-vim.git
