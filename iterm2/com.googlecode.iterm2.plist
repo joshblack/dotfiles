@@ -107,17 +107,21 @@
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>1173 541 445 77 0 0 2560 1417 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
-	<string>1520 980 400 129 0 0 1680 1027 </string>
+	<string>814 604 400 129 0 0 1680 1027 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>1357 424 700 622 0 0 2560 1417 </string>
+	<string>490 317 700 622 0 0 1680 1027 </string>
 	<key>NSWindow Frame SessionsPreferences</key>
 	<string>268 127 606 469 0 0 3440 1417 </string>
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>1299 855 796 486 0 0 2560 1417 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>0 89 890 938 0 0 1680 1027 </string>
+	<string>1341 353 868 658 0 0 3440 1417 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>880 414 890 938 0 0 2560 1417 </string>
+	<key>NeverWarnAboutShortLivedSessions_268FDEB2-8402-4B49-9A51-F97320AB6716</key>
+	<true/>
+	<key>NeverWarnAboutShortLivedSessions_268FDEB2-8402-4B49-9A51-F97320AB6716_selection</key>
+	<integer>0</integer>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -776,15 +780,16 @@
 	<key>NoSyncAllAppVersions</key>
 	<array>
 		<string>3.3.6</string>
-		<string>3.3.4</string>
 		<string>3.3.8</string>
+		<string>3.3.4</string>
 		<string>3.3.1</string>
 		<string>3.3.3</string>
 		<string>3.3.5</string>
 		<string>3.3.7</string>
-		<string>3.3.0</string>
-		<string>3.3.2</string>
+		<string>3.3.9</string>
 		<string>3.2.9</string>
+		<string>3.3.2</string>
+		<string>3.3.0</string>
 	</array>
 	<key>NoSyncFrame_SharedPreferences</key>
 	<dict>
@@ -802,7 +807,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>A97C9D26-1422-4709-ABBD-69D06DFE09CB</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>35</integer>
+	<integer>47</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
@@ -1579,9 +1584,11 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2020-02-05T18:39:12Z</date>
+	<date>2020-03-11T20:09:25Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
+	<key>SUUpdateGroupIdentifier</key>
+	<integer>59524621</integer>
 	<key>SUUpdateRelaunchingMarker</key>
 	<false/>
 	<key>SeparateStatusBarsPerPane</key>
@@ -1609,7 +1616,7 @@
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
 	<key>iTerm Version</key>
-	<string>3.3.8</string>
+	<string>3.3.9</string>
 	<key>kCPKSelectionViewPreferredModeKey</key>
 	<integer>0</integer>
 	<key>kCPKSelectionViewShowHSBTextFieldsKey</key>
