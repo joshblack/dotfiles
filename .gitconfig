@@ -13,3 +13,6 @@
 
 [credential]
 	helper = osxkeychain
+
+[merge]
+	renamelimit = 2000

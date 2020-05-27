@@ -16,7 +16,7 @@ let g:ale_fixers = {
 \   'javascript': ['prettier'],
 \   'json': ['prettier'],
 \   'json5': ['prettier'],
-\   'md': ['prettier'],
+\   'markdown': ['prettier'],
 \   'mdx': ['prettier'],
 \   'scss': ['prettier'],
 \   'ts': ['prettier'],
