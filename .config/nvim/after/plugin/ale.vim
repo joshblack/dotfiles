@@ -5,21 +5,26 @@
 "
 
 let g:ale_linters = {
-\  'javascript': ['flow', 'flow-language-server', 'tsserver']
+\  'elixir': [],
+\  'javascript': ['flow', 'flow-language-server', 'tsserver'],
+\  'rust': ['rls'],
+\  'typescript': ['tsserver']
 \}
 
 let g:ale_linters_explicit = 1
 
 let g:ale_fixers = {
 \   'css': ['prettier'],
+\   'elixir': [],
 \   'html': ['prettier'],
 \   'javascript': ['prettier'],
 \   'json': ['prettier'],
 \   'json5': ['prettier'],
 \   'markdown': ['prettier'],
 \   'mdx': ['prettier'],
+\   'rust': ['rustfmt'],
 \   'scss': ['prettier'],
-\   'ts': ['prettier'],
+\   'typescript': ['prettier'],
 \   'yaml': ['prettier'],
 \   'yml': ['prettier'],
 \}
@@ -40,3 +45,8 @@ let g:ale_fix_on_save = 1
 
 " Set this. Airline will handle the rest.
 let g:airline#extensions#ale#enabled = 1
+
+" Rust settings
+let g:ale_rust_cargo_use_clippy = 1
+let g:ale_rust_rls_toolchain = 'stable'
+let g:ale_rust_rustfmt_options = '--edition 2018'

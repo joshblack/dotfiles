@@ -41,6 +41,7 @@ if &loadplugins
   " packadd, packadd!, packloadall
   " packadd!, get ready to load the package but don't load it till the end
   " packloadall
+  packadd! alchemist.vim
   packadd! ale
   packadd! base16-vim
   packadd! deoplete.nvim
@@ -53,16 +54,18 @@ if &loadplugins
   packadd! nerdtree
   packadd! pinnacle
   packadd! terminus
-  packadd! typescript-vim
   packadd! ultisnips
   packadd! vim-airline
   packadd! vim-airline-themes
+  packadd! vim-elixir
   packadd! vim-fugitive
   packadd! vim-gitgutter
+  packadd! vim-graphql
   packadd! vim-go
   packadd! vim-javascript
   packadd! vim-json
   packadd! vim-jsx
+  packadd! vim-mix-format
   packadd! vim-toml
 endif
 

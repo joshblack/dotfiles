@@ -82,3 +82,12 @@
 [submodule ".config/nvim/pack/bundle/opt/typescript-vim"]
 	path = .config/nvim/pack/bundle/opt/typescript-vim
 	url = git@github.com:leafgarland/typescript-vim.git
+[submodule ".config/nvim/pack/bundle/opt/vim-elixir"]
+	path = .config/nvim/pack/bundle/opt/vim-elixir
+	url = git@github.com:elixir-editors/vim-elixir.git
+[submodule ".config/nvim/pack/bundle/opt/alchemist.vim"]
+	path = .config/nvim/pack/bundle/opt/alchemist.vim
+	url = git@github.com:slashmili/alchemist.vim.git
+[submodule ".config/nvim/pack/bundle/opt/vim-mix-format"]
+	path = .config/nvim/pack/bundle/opt/vim-mix-format
+	url = git@github.com:mhinz/vim-mix-format.git
