@@ -60,7 +60,7 @@ if &loadplugins
   packadd! vim-elixir
   packadd! vim-fugitive
   packadd! vim-gitgutter
-  packadd! vim-graphql
+  " packadd! vim-graphql
   packadd! vim-go
   packadd! vim-javascript
   packadd! vim-json
