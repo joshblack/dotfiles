@@ -40,27 +40,25 @@ if &loadplugins
   " opt, not loaded by default, can manually enable
   " packadd, packadd!, packloadall
   " packadd!, get ready to load the package but don't load it till the end
-  " packloadall
+
   packadd! alchemist.vim
   packadd! ale
   packadd! base16-vim
-  packadd! deoplete.nvim
+  packadd! completion-nvim
   packadd! editorconfig-vim
   packadd! emmet-vim
   packadd! fzf.vim
-  packadd! goyo.vim
   packadd! json5.vim
   packadd! nerdcommenter
   packadd! nerdtree
+  packadd! nvim-lspconfig
   packadd! pinnacle
-  packadd! terminus
   packadd! ultisnips
   packadd! vim-airline
   packadd! vim-airline-themes
   packadd! vim-elixir
   packadd! vim-fugitive
   packadd! vim-gitgutter
-  " packadd! vim-graphql
   packadd! vim-go
   packadd! vim-javascript
   packadd! vim-json

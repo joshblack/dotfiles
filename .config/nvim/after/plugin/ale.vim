@@ -6,9 +6,9 @@
 
 let g:ale_linters = {
 \  'elixir': [],
-\  'javascript': ['flow', 'flow-language-server', 'tsserver'],
-\  'rust': ['rls'],
-\  'typescript': ['tsserver']
+\  'javascript': [],
+\  'rust': [],
+\  'typescript': []
 \}
 
 let g:ale_linters_explicit = 1

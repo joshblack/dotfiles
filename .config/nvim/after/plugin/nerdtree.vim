@@ -16,7 +16,7 @@ let g:NERDTreeMinimalUI=1
 " nodes.
 let g:NERDTreeMouseMode=2
 
-" " Use NERDTree by default
+" Use NERDTree by default
 let g:NERDTreeHijackNetrw=1
 
 " Custom NERDTree bindings

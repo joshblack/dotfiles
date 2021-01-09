@@ -4,9 +4,6 @@
 [submodule ".config/nvim/pack/bundle/opt/base16-vim"]
 	path = .config/nvim/pack/bundle/opt/base16-vim
 	url = git@github.com:chriskempson/base16-vim.git
-[submodule ".config/nvim/pack/bundle/opt/LanguageClient-neovim"]
-	path = .config/nvim/pack/bundle/opt/LanguageClient-neovim
-	url = git@github.com:autozimu/LanguageClient-neovim.git
 [submodule ".config/nvim/pack/bundle/opt/fzf.vim"]
 	path = .config/nvim/pack/bundle/opt/fzf.vim
 	url = git@github.com:junegunn/fzf.vim.git
@@ -25,9 +22,6 @@
 [submodule ".config/nvim/pack/bundle/opt/vim-json"]
 	path = .config/nvim/pack/bundle/opt/vim-json
 	url = git@github.com:elzr/vim-json.git
-[submodule ".config/nvim/pack/bundle/opt/deoplete.nvim"]
-	path = .config/nvim/pack/bundle/opt/deoplete.nvim
-	url = git@github.com:Shougo/deoplete.nvim.git
 [submodule ".config/nvim/pack/bundle/opt/emmet-vim"]
 	path = .config/nvim/pack/bundle/opt/emmet-vim
 	url = git@github.com:mattn/emmet-vim.git
@@ -46,9 +40,6 @@
 [submodule ".config/nvim/pack/bundle/opt/json5.vim"]
 	path = .config/nvim/pack/bundle/opt/json5.vim
 	url = git@github.com:gutenye/json5.vim.git
-[submodule ".config/nvim/pack/bundle/opt/terminus"]
-	path = .config/nvim/pack/bundle/opt/terminus
-	url = git@github.com:wincent/terminus.git
 [submodule ".config/nvim/pack/bundle/opt/nerdcommenter"]
 	path = .config/nvim/pack/bundle/opt/nerdcommenter
 	url = git@github.com:scrooloose/nerdcommenter.git
@@ -64,24 +55,9 @@
 [submodule ".config/nvim/pack/bundle/opt/vim-gitgutter"]
 	path = .config/nvim/pack/bundle/opt/vim-gitgutter
 	url = https://github.com/airblade/vim-gitgutter
-[submodule ".config/nvim/pack/bundle/opt/nord-vim"]
-	path = .config/nvim/pack/bundle/opt/nord-vim
-	url = git@github.com:arcticicestudio/nord-vim.git
-[submodule ".config/nvim/pack/bundle/opt/goyo.vim"]
-	path = .config/nvim/pack/bundle/opt/goyo.vim
-	url = git@github.com:junegunn/goyo.vim.git
 [submodule ".config/nvim/pack/bundle/opt/ale"]
 	path = .config/nvim/pack/bundle/opt/ale
 	url = git@github.com:dense-analysis/ale.git
-[submodule ".config/nvim/pack/bundle/opt/any-jump.vim"]
-	path = .config/nvim/pack/bundle/opt/any-jump.vim
-	url = git@github.com:pechorin/any-jump.vim.git
-[submodule ".config/nvim/pack/bundle/opt/--force"]
-	path = .config/nvim/pack/bundle/opt/--force
-	url = git@github.com:leafgarland/typescript-vim.git
-[submodule ".config/nvim/pack/bundle/opt/typescript-vim"]
-	path = .config/nvim/pack/bundle/opt/typescript-vim
-	url = git@github.com:leafgarland/typescript-vim.git
 [submodule ".config/nvim/pack/bundle/opt/vim-elixir"]
 	path = .config/nvim/pack/bundle/opt/vim-elixir
 	url = git@github.com:elixir-editors/vim-elixir.git
@@ -91,3 +67,9 @@
 [submodule ".config/nvim/pack/bundle/opt/vim-mix-format"]
 	path = .config/nvim/pack/bundle/opt/vim-mix-format
 	url = git@github.com:mhinz/vim-mix-format.git
+[submodule ".config/nvim/pack/bundle/opt/nvim-lspconfig"]
+	path = .config/nvim/pack/bundle/opt/nvim-lspconfig
+	url = git@github.com:neovim/nvim-lspconfig.git
+[submodule ".config/nvim/pack/bundle/opt/completion-nvim"]
+	path = .config/nvim/pack/bundle/opt/completion-nvim
+	url = git@github.com:nvim-lua/completion-nvim.git
