@@ -73,3 +73,9 @@
 [submodule ".config/nvim/pack/bundle/opt/completion-nvim"]
 	path = .config/nvim/pack/bundle/opt/completion-nvim
 	url = git@github.com:nvim-lua/completion-nvim.git
+[submodule ".config/nvim/pack/bundle/opt/terminus"]
+	path = .config/nvim/pack/bundle/opt/terminus
+	url = git@github.com:wincent/terminus.git
+[submodule ".config/nvim/pack/bundle/opt/deoplete.nvim"]
+	path = .config/nvim/pack/bundle/opt/deoplete.nvim
+	url = git@github.com:Shougo/deoplete.nvim.git

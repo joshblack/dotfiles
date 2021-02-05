@@ -22,9 +22,6 @@ set backupcopy=yes
 " Enable deoplete
 let g:deoplete#enable_at_startup = 1
 
-" Enable LanguageClient-Neovim
-" set rtp+=$HOME/.config/nvim/pack/bundle/opt/LanguageClient-neovim
-
 " Update runtime to include fzf
 if executable('fzf')
   set rtp+=/usr/local/opt/fzf
@@ -45,6 +42,7 @@ if &loadplugins
   packadd! ale
   packadd! base16-vim
   packadd! completion-nvim
+  packadd! deoplete.nvim
   packadd! editorconfig-vim
   packadd! emmet-vim
   packadd! fzf.vim
@@ -53,6 +51,7 @@ if &loadplugins
   packadd! nerdtree
   packadd! nvim-lspconfig
   packadd! pinnacle
+  packadd! terminus
   packadd! ultisnips
   packadd! vim-airline
   packadd! vim-airline-themes
