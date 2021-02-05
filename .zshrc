@@ -169,3 +169,6 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden'
 
 # rbenv support
 eval "$(rbenv init -)"
+
+# Homebrew sbin support
+export PATH="/usr/local/sbin:$PATH"
