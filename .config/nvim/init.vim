@@ -39,7 +39,7 @@ if &loadplugins
   " packadd!, get ready to load the package but don't load it till the end
 
   packadd! alchemist.vim
-  packadd! ale
+  " packadd! ale
   packadd! base16-vim
   packadd! completion-nvim
   packadd! deoplete.nvim

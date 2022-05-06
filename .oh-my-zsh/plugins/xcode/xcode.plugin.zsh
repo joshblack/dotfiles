@@ -4,27 +4,31 @@ alias xcp='xcode-select --print-path'
 alias xcsel='sudo xcode-select --switch'
 
 # original author: @subdigital
-# source: http://gist.github.com/subdigital/5420709
+# source: https://gist.github.com/subdigital/5420709
 function xc {
-  local xcode_proj
-  if [[ $# == 0 ]]; then
-    xcode_proj=(*.{xcworkspace,xcodeproj}(N))
-  else
-    xcode_proj=($1/*.{xcworkspace,xcodeproj}(N))
-  fi
+  local xcode_files
+  xcode_files=(${1:-.}/{*.{xcworkspace,xcodeproj,swiftpm},Package.swift}(N))
 
-
-  if [[ ${#xcode_proj} -eq 0 ]]; then
-    if [[ $# == 0 ]]; then
-      echo "No xcworkspace/xcodeproj file found in the current directory."
-    else
-      echo "No xcworkspace/xcodeproj file found in $1."
-    fi
+  if [[ ${#xcode_files} -eq 0 ]]; then
+    echo "No Xcode files found in ${1:-the current directory}." >&2
     return 1
-  else
-    echo "Found ${xcode_proj[1]}"
-    open "${xcode_proj[1]}"
   fi
+
+  local active_path
+  active_path=${"$(xcode-select -p)"%%/Contents/Developer*}
+  echo "Found ${xcode_files[1]}. Opening with ${active_path}"
+  open -a "$active_path" "${xcode_files[1]}"
+}
+
+# Opens a file or files in the Xcode IDE. Multiple files are opened in multi-file browser
+# original author: @possen
+function xx {
+  if [[ $# == 0 ]]; then
+    echo "Specify file(s) to open in xcode."
+    return 1
+  fi
+  echo "${xcode_files}"
+  open -a "Xcode.app" "$@"
 }
 
 # "XCode-SELect by Version" - select Xcode by just version number
@@ -70,7 +74,7 @@ function xcselv {
 
 function _omz_xcode_print_xcselv_usage {
   cat << EOF >&2
-Usage: 
+Usage:
   xcselv <version>
   xcselv [options]
 

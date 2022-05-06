@@ -49,6 +49,11 @@ ln -s ~/dotfiles/.config/* .config/
 
 ### Language Servers
 
+This configuration currently uses `nvim-lspconfig` with the following LSPs
+defined [here](https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md)
+
+- vimls
+
 #### JavaScript
 
 ```bash
@@ -65,6 +70,7 @@ rustup component add rls rust-analysis rust-src --toolchain stable-x86_64-apple-
 - `deoplete.nvim`
   - [Install](https://github.com/Shougo/deoplete.nvim#install)
   - `:UpdateRemotePlugins` if no handler registered
+
 
 ## Debugging
 
