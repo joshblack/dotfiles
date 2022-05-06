@@ -147,6 +147,7 @@ export ARCHFLAGS="-arch x86_64"
 alias c="clear"
 alias hl="pbpaste | highlight --font-size 36 --font 'IBM Plex Mono' --syntax=js --style Neon -O rtf | pbcopy"
 alias vim="nvim"
+alias gcom='git checkout $(git_main_branch)'
 
 # `nvm` support
 export NVM_DIR="$HOME/.nvm"
@@ -172,3 +173,6 @@ eval "$(rbenv init -)"
 
 # Homebrew sbin support
 export PATH="/usr/local/sbin:$PATH"
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/terraform terraform
