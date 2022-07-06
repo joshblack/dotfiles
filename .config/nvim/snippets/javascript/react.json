@@ -1,0 +1,14 @@
+{
+  "useEffect": {
+    "prefix": "useEffect",
+    "body": [
+      "useEffect(() => {",
+      "\t$0",
+      "}, [$1]);"
+    ]
+  },
+  "useState": {
+    "prefix": "useState",
+    "body": "const [${1}, set${2}] = useState(${3});$0"
+  }
+}

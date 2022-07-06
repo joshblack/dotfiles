@@ -1,0 +1,23 @@
+{
+  "console.error": {
+    "prefix": "error",
+    "body": "console.error(${0});"
+  },
+  "console.log": {
+    "prefix": "log",
+    "body": "console.log(${0});"
+  },
+  "console.trace": {
+    "prefix": "trace",
+    "body": "console.trace();"
+  },
+  "console.warn": {
+    "prefix": "warn",
+    "body": "console.warn(${0});"
+  },
+  "Import module": {
+    "prefix": "import",
+    "body": ["import $1 from '${2}';", "$0"],
+    "description": "Import external module."
+  }
+}
