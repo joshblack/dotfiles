@@ -12,7 +12,7 @@ vim.cmd([[
   " Automatic, language-dependent indentation, syntax coloring and other
   " functionality.
   filetype indent plugin on
-  syntax on  
+  syntax on
   " Load all of the helptags now, after plugins have been loaded.
   " All messages and errors will be ignored.
   silent! helptags ALL
@@ -67,6 +67,7 @@ vim.o.list = true
 vim.o.listchars = 'nbsp:¬,tab:>-,extends:»,precedes:«,trail:·'
 -- don't autoinsert two spaces after '.', '?', '!' for join command
 -- vim.o.nojoinspaces = true
+vim.o.number = true
 vim.o.relativenumber = true
 
 vim.o.scrolloff = 3

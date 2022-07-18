@@ -30,12 +30,14 @@ return packer.startup(function(use)
     requires = {
       'JoosepAlviste/nvim-ts-context-commentstring',
       'nvim-treesitter/nvim-treesitter-refactor',
+      'nvim-treesitter/playground',
     },
     run = ':TSUpdate',
     config = function()
       require('jb.treesitter')
     end,
   }
+  use 'nvim-treesitter/playground'
 
   -- File explorer
   use {
@@ -81,9 +83,21 @@ return packer.startup(function(use)
   }
 
   -- FZF
-  use { 'junegunn/fzf', run = './install --all' }
+  -- use { 'junegunn/fzf', run = './install --all' }
+  -- use {
+    -- 'junegunn/fzf.vim',
+    -- config = function()
+      -- require('jb.fuzzy-finder')
+    -- end
+  -- }
+  use 'nvim-telescope/telescope-ui-select.nvim'
   use {
-    'junegunn/fzf.vim',
+    'nvim-telescope/telescope.nvim',
+    tag = '0.1.x',
+    requires = {
+      'nvim-lua/plenary.nvim',
+      'nvim-telescope/telescope-ui-select.nvim',
+    },
     config = function()
       require('jb.fuzzy-finder')
     end
