@@ -14,6 +14,7 @@ cmp.setup({
     { name = 'path' },
     { name = 'buffer' },
     { name = 'nvim_lua' },
+    { name = 'copilot' },
   },
   snippet = {
     expand = function(args)
@@ -30,6 +31,7 @@ cmp.setup({
         nvim_lua = "[api]",
         path = "[path]",
         luasnip = "[snip]",
+        copilot = "[copilot]"
       },
       -- https://github.com/onsails/lspkind-nvim/issues/18#issuecomment-913205575
       symbol_map = {

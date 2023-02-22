@@ -1,76 +1,55 @@
-tap "d12frosted/emacs-plus"
+tap "cloudflare/cloudflare"
+tap "fsouza/prettierd"
 tap "github/gh"
-tap "hashicorp/tap"
 tap "homebrew/bundle"
 tap "homebrew/cask"
 tap "homebrew/cask-versions"
 tap "homebrew/core"
 tap "homebrew/services"
-tap "planetscale/tap"
-tap "superfly/tap"
-brew "ack"
-brew "act"
-brew "python@3.9"
-brew "certbot"
-brew "ctags"
-brew "go"
-brew "dep"
-brew "docker", link: false
-brew "docker-compose", link: false
-brew "erlang"
+tap "ngrok/ngrok"
+# Functional metaprogramming aware language built on Erlang VM
 brew "elixir"
-brew "libevent"
+# Simple, fast and user-friendly alternative to find
 brew "fd"
-brew "gnutls"
-brew "harfbuzz"
-brew "srt"
-brew "ffmpeg"
+# Command-line fuzzy finder written in Go
 brew "fzf"
-brew "gdk-pixbuf"
+# GitHub command-line tool
 brew "gh"
-brew "gifsicle"
+# Distributed revision control system
 brew "git"
+# Syntax-highlighting pager for git and diff output
 brew "git-delta"
-brew "golang-migrate"
-brew "librsvg"
-brew "graphviz"
-brew "hadolint"
-brew "helm"
-brew "highlight"
-brew "hub"
-brew "hyperkit"
-brew "imagemagick"
-brew "imagemagick@6"
-brew "kubernetes-cli"
-brew "luajit", args: ["HEAD"]
-brew "luv"
-brew "minikube"
-brew "mysql-client"
+# Git extension for versioning large files
+brew "git-lfs"
+# OpenType text shaping engine
+brew "harfbuzz"
+# User-friendly cURL replacement (command-line HTTP client)
+brew "httpie"
+# Lightweight and flexible command-line JSON processor
+brew "jq"
+# Framework for layout and rendering of i18n text
+brew "pango"
+# Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
-brew "python@3.8"
-brew "ruby-build"
+# Object-relational database system
+brew "postgresql@14"
+# Emulator for x86 and PowerPC
+brew "qemu"
+# Ruby version manager
 brew "rbenv"
-brew "reattach-to-user-namespace"
+# Search tool like grep and The Silver Searcher
 brew "ripgrep"
-brew "ruby"
-brew "sphinx-doc"
-brew "tmux"
-brew "tree"
+# Vi 'workalike' with many additional features
 brew "vim"
+# Image processing library
+brew "vips"
+# Watch files and take action when they change
 brew "watchman"
-brew "yarn"
-brew "d12frosted/emacs-plus/emacs-plus@27"
-brew "hashicorp/tap/nomad"
-brew "hashicorp/tap/terraform"
-brew "planetscale/tap/pscale"
-brew "superfly/tap/flyctl"
-cask "adoptopenjdk8"
-cask "aerial"
+# Cloudflare Tunnel
+brew "cloudflare/cloudflare/cloudflared"
+# prettier, on SPEED!
+brew "fsouza/prettierd/prettierd"
+# Collaborative team software
 cask "figma"
-cask "figmadaemon"
-cask "licecap"
-cask "ngrok"
-cask "postico"
-cask "postman"
-cask "vlc"
-cask "xquartz"
+# Control your tools with a few keystrokes
+cask "raycast"

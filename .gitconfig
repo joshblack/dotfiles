@@ -1,12 +1,9 @@
 [user]
 	name = Josh Black
-	email = josh@josh.black
+	email = joshblack@github.com
 
 [color]
 	ui = auto
-
-[core]
-	page = delta
 
 [color "status"]
 	untracked = blue
@@ -14,25 +11,14 @@
 [credential]
 	helper = osxkeychain
 
-[delta]
-  line-numbers = true
-	side-by-side = true
-
-[diff]
-	colorMoved = default
-
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
 
-[interactive]
-	diffFilter = delta --color-only
-
 [merge]
 	renamelimit = 2000
-	conflictstyle = diff3
 
 [pull]
   rebase = false

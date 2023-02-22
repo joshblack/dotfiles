@@ -1,25 +1,52 @@
-local capabilities = require('cmp_nvim_lsp').update_capabilities(
+-- Setup
+require('mason').setup()
+require('mason-lspconfig').setup()
+
+local capabilities = require('cmp_nvim_lsp').default_capabilities(
   vim.lsp.protocol.make_client_capabilities()
 )
 
-function default_on_attach(client, bufnr)
-  local function buf_set_keymap(...)
-    vim.api.nvim_buf_set_keymap(bufnr, ...)
-  end
+local lsp_formatting = function(bufnr)
+    vim.lsp.buf.format({
+        filter = function(client)
+            return client.name == 'null-ls'
+        end,
+        bufnr = bufnr,
+    })
+end
+local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
 
-  local function buf_set_option(...)
-    vim.api.nvim_buf_set_option(bufnr, ...)
-  end
-
+function on_attach(client, bufnr)
   -- Enable completion triggered by <c-x><c-o>
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
   -- Mappings.
-  local opts = { noremap = true, silent = true }
+  local nmap = function(keys, func, desc)
+    if desc then
+      desc = 'LSP: ' .. desc
+    end
+    vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+  end
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', 'gca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
+  nmap('K', vim.lsp.buf.hover, 'Hover documentation')
+  nmap('gca', vim.lsp.buf.code_action, '[G]oto [C]ode [A]ctions')
+  nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+  nmap('gD', vim.lsp.buf.type_definition, '[G]oto Type [D]efinition')
+  nmap('god', vim.diagnostic.open_float, '[G]oto [O]pen [D]iagnostics');
+
+  -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Avoiding-LSP-formatting-conflicts
+  if client.supports_method('textDocument/formatting') then
+    vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+    vim.api.nvim_create_autocmd('BufWritePre', {
+      group = augroup,
+      buffer = bufnr,
+      callback = function()
+        lsp_formatting(bufnr)
+      end,
+    })
+  end
 end
 
 vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
@@ -30,24 +57,35 @@ vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = 'single',
 })
 
+require('lspconfig').cssls.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
 
-local config = {}
+require('lspconfig').elixirls.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
 
--- Setup
-require('nvim-lsp-installer').on_server_ready(function (server)
-  local opts = {
-    capabilities = capabilities,
-    on_attach = default_on_attach,
-    flags = {
-      debounce_text_changes = 150,
-    },
-  }
+require('lspconfig').jsonls.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
 
-  if config[server.name] then
-    opts = vim.tbl_deep_extend('force', opts, config[server.name])
-  end
+require('lspconfig').rust_analyzer.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+  settings = {
+    ["rust-analyzer"] = {},
+  },
+})
 
-  server:setup(opts)
+require('lspconfig').tsserver.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+})
 
-  vim.cmd [[ do User LspAttachBuffers ]]
-end)
+require('lspconfig').yamlls.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+})

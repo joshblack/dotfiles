@@ -40,11 +40,11 @@ require('nvim-tree').setup({
     mappings = {
       custom_only = false,
       list = {
-        { key = 'p', cb = tree_cb('parent_node') },
-        { key = 'i', cb = tree_cb('split') },
-        { key = 's', cb = tree_cb('vsplit') },
-        { key = 'r', cb = tree_cb('refresh') },
-        { key = 'm', cb = tree_cb('rename') },
+        { key = 'p', action = 'parent_node' },
+        { key = 'i', action = 'split' },
+        { key = 's', action = 'vsplit' },
+        { key = 'm', action = 'full_rename' },
+        { key = 'I', action = 'toggle_git_ignored' },
       },
     },
   },

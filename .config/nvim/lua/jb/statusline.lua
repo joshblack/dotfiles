@@ -12,7 +12,17 @@ require('lualine').setup({
     },
   },
   sections = {
-    lualine_b = {},
+    lualine_b = {
+      {
+        'diagnostics',
+        symbols = {
+          error = '≢ ',
+          warn = '≅ ',
+          info = 'i',
+          hint = 'Hint: ',
+        },
+      }
+    },
     lualine_x = {'filetype'}
   },
   extensions = {
