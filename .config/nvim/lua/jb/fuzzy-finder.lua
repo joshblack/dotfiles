@@ -22,13 +22,13 @@ require('telescope').setup({
       disable_devicons = true,
     },
     live_grep = {
-      disable_devicons = true,
+      -- disable_devicons = true,
     },
     lsp_references = {
-      disable_devicons = true,
+      -- disable_devicons = true,
     },
     diagnostics = {
-      disable_devicons = true,
+      -- disable_devicons = true,
     },
   },
   extensions = {

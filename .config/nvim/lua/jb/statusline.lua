@@ -1,6 +1,6 @@
 require('lualine').setup({
   options = {
-    icons_enabled = false,
+    icons_enabled = true,
     theme = 'nord',
     section_separators = {
       left = '',
@@ -16,10 +16,10 @@ require('lualine').setup({
       {
         'diagnostics',
         symbols = {
-          error = '≢ ',
-          warn = '≅ ',
-          info = 'i',
-          hint = 'Hint: ',
+          -- error = '≢ ',
+          -- warn = '≅ ',
+          -- info = 'i',
+          -- hint = 'Hint: ',
         },
       }
     },

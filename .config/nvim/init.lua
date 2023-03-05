@@ -1,3 +1,2 @@
-require('jb.packer')
 require('jb.config')
-require('jb.plugins')
+require('jb.config.lazy')
