@@ -5,6 +5,7 @@ return {
     dependencies = {
       'williamboman/mason-lspconfig.nvim',
       'onsails/lspkind-nvim',
+      'hrsh7th/cmp-nvim-lsp',
     },
     config = function()
       -- Setup
@@ -54,11 +55,6 @@ return {
         capabilities = capabilities,
       })
 
-      require('lspconfig').jsonls.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-
       require('lspconfig').rust_analyzer.setup({
         on_attach = on_attach,
         capabilities = capabilities,
@@ -67,12 +63,12 @@ return {
         },
       })
 
-      require('lspconfig').tsserver.setup({
+      require('lspconfig').tailwindcss.setup({
         on_attach = on_attach,
         capabilities = capabilities,
       })
 
-      require('lspconfig').yamlls.setup({
+      require('lspconfig').tsserver.setup({
         on_attach = on_attach,
         capabilities = capabilities,
       })
@@ -128,6 +124,7 @@ return {
   },
   {
     'j-hui/fidget.nvim',
+    tag = 'legacy',
     config = function()
       require('fidget').setup({})
     end
@@ -142,4 +139,14 @@ return {
       })
     end
   },
+  {
+    'simrat39/symbols-outline.nvim',
+    config = function()
+      require('symbols-outline').setup({
+        keymaps = {
+          wrap = true,
+        },
+      })
+    end
+  }
 }

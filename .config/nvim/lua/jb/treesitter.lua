@@ -22,6 +22,7 @@ return {
           'json',
           'json5',
           'lua',
+          'prisma',
           'scss',
           'toml',
           'tsx',
