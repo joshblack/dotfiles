@@ -29,8 +29,6 @@ plugins=(
   ssh-agent
 )
 
-OS="$(uname)"
-
 source $ZSH/oh-my-zsh.sh
 
 # Completion
@@ -63,7 +61,7 @@ function +vi-git-untracked() {
 RPROMPT_BASE="\${vcs_info_msg_0_}%F{blue}%~%f"
 setopt PROMPT_SUBST
 export PS1=""
-if [[ "${OS}" == "Linux" ]]; then
+if [ $CODESPACES ]; then
   PS1="%F{yellow}%f "
 fi
 PS1="$PS1$RPROMPT_BASE %F{red}%B%(!.#.$)%b%f "
@@ -165,6 +163,7 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 # Homebrew sbin support
 export PATH="/usr/local/sbin:$PATH"
 
+OS="$(uname)"
 if [[ "${OS}" == "Linux" ]]; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi

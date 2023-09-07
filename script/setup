@@ -19,3 +19,11 @@ sudo chsh "$(id -un)" --shell $(which zsh)
 
 # Copy over .config files
 cp -R .config/* $HOME/.config/
+
+# Copy over zsh files
+cp .zshrc $HOME/.zshrc
+cp -R .zsh $HOME/.zsh
+
+# Copy over gitconfig files
+cp .gitconfig $HOME/.gitconfig
+cp .gitconfig-linux $HOME/.gitconfig-linux
