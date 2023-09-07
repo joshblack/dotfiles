@@ -1,0 +1,11 @@
+#!/bin/bash
+
+set -e
+
+echo "Setting up dotfiles..."
+
+# Make ZSH the default shell
+sudo chsh "$(id -un)" --shell $(which zsh)
+
+# Copy over .config files
+cp -R .config/* $HOME/.config/

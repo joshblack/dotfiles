@@ -149,20 +149,28 @@ alias hl="pbpaste | highlight --font-size 36 --font 'IBM Plex Mono' --syntax=js 
 alias vim="nvim"
 alias gcom='git checkout $(git_main_branch)'
 
-# `nvm` support
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 # base16 colors. Will populate base16_-prefixed values that will set the terminal colors
 BASE16_SHELL="$HOME/.config/base16-shell/"
 [ -n "$PS1" ] && \
     [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
         source "$BASE16_SHELL/profile_helper.sh"
 
+# Homebrew sbin support
+export PATH="/usr/local/sbin:$PATH"
+
+# OS="$(uname)"
+# if [[ "${OS}" == "Linux" ]]; then
+  # eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# fi
+
 # Golang support
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
+
+# `nvm` support
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # fzf support
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -171,8 +179,6 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden'
 # rbenv support
 eval "$(rbenv init -)"
 
-# Homebrew sbin support
-export PATH="/usr/local/sbin:$PATH"
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform

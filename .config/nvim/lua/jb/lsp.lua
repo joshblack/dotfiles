@@ -10,7 +10,14 @@ return {
     config = function()
       -- Setup
       require('mason').setup()
-      require('mason-lspconfig').setup()
+      require('mason-lspconfig').setup({
+        ensure_installed = {
+          'cssls',
+          'rust_analyzer',
+          'tailwindcss',
+          'tsserver',
+        },
+      })
 
       local capabilities = require('cmp_nvim_lsp').default_capabilities(
         vim.lsp.protocol.make_client_capabilities()
@@ -46,11 +53,6 @@ return {
       })
 
       require('lspconfig').cssls.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-
-      require('lspconfig').elixirls.setup({
         on_attach = on_attach,
         capabilities = capabilities,
       })
