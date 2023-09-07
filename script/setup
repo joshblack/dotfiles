@@ -1,12 +1,16 @@
 #!/bin/bash
 
 set -e
+set -x
 
 echo "Setting up dotfiles..."
 
 # Install Homebrew
 NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# Increase ulimit size for homebrew, the default is 1024
+ulimit -n 1048576
 
 # Install packages used for NeoVim and general terminal utilities
 HOMEBREW_NO_INSTALL_CLEANUP=1 brew install fzf nvm rbenv ripgrep neovim
