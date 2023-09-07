@@ -34,8 +34,8 @@ vim.o.foldlevelstart = 99
 vim.o.backspace = 'indent,start,eol'
 
 -- keep backup files out of the way
-vim.o.backupdir = vim.o.backupdir .. '~/.config/nvim/tmp/backup//'
-vim.o.backupdir = vim.o.backupdir .. '.'
+-- vim.o.backupdir = vim.o.backupdir .. '~/.config/nvim/tmp/backup//'
+-- vim.o.backupdir = vim.o.backupdir .. '.'
 
 -- never ring the bell for any reason
 vim.o.belloff = 'all'
@@ -44,8 +44,8 @@ vim.o.belloff = 'all'
 vim.o.cursorline = true
 
 -- keep swap files out of the way
-vim.o.directory = vim.o.directory .. '~/.config/nvim/tmp/swap//'
-vim.o.directory = vim.o.directory .. '.'
+-- vim.o.directory = vim.o.directory .. '~/.config/nvim/tmp/swap//'
+-- vim.o.directory = vim.o.directory .. '.'
 
 -- always use spaces instead of tabs
 vim.o.expandtab = true

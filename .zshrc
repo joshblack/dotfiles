@@ -29,6 +29,8 @@ plugins=(
   ssh-agent
 )
 
+OS="$(uname)"
+
 source $ZSH/oh-my-zsh.sh
 
 # Completion
@@ -57,9 +59,14 @@ function +vi-git-untracked() {
   fi
 }
 
+
 RPROMPT_BASE="\${vcs_info_msg_0_}%F{blue}%~%f"
 setopt PROMPT_SUBST
-export PS1="$RPROMPT_BASE %F{red}%B%(!.#.$)%b%f "
+export PS1=""
+if [[ "${OS}" == "Linux" ]]; then
+  PS1="%F{yellow}%f "
+fi
+PS1="$PS1$RPROMPT_BASE %F{red}%B%(!.#.$)%b%f "
 export RPROMPT=$RPROMPT_BASE
 
 # Hooks
@@ -158,10 +165,9 @@ BASE16_SHELL="$HOME/.config/base16-shell/"
 # Homebrew sbin support
 export PATH="/usr/local/sbin:$PATH"
 
-# OS="$(uname)"
-# if [[ "${OS}" == "Linux" ]]; then
-  # eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-# fi
+if [[ "${OS}" == "Linux" ]]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
 
 # Golang support
 export GOPATH=$HOME/go
@@ -178,7 +184,6 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden'
 
 # rbenv support
 eval "$(rbenv init -)"
-
 
 autoload -U +X bashcompinit && bashcompinit
 complete -o nospace -C /usr/local/bin/terraform terraform

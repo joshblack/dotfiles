@@ -4,6 +4,16 @@ set -e
 
 echo "Setting up dotfiles..."
 
+# Install Homebrew
+NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# Install packages used for NeoVim and general terminal utilities
+HOMEBREW_NO_INSTALL_CLEANUP=1 brew install fzf nvm rbenv ripgrep neovim
+
+# Setup working directory for nvm
+mkdir $HOME/.nvm
+
 # Make ZSH the default shell
 sudo chsh "$(id -un)" --shell $(which zsh)
 
