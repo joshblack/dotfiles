@@ -52,18 +52,32 @@ return {
         border = 'single',
       })
 
-      require('lspconfig').cssls.setup({
+      -- require('lspconfig').cssls.setup({
+        -- on_attach = on_attach,
+        -- capabilities = capabilities,
+      -- })
+
+      require('lspconfig').gopls.setup({
         on_attach = on_attach,
         capabilities = capabilities,
       })
 
-      require('lspconfig').rust_analyzer.setup({
-        on_attach = on_attach,
-        capabilities = capabilities,
-        settings = {
-          ["rust-analyzer"] = {},
-        },
-      })
+      -- require('lspconfig').rust_analyzer.setup({
+        -- on_attach = on_attach,
+        -- capabilities = capabilities,
+        -- settings = {
+          -- ["rust-analyzer"] = {},
+        -- },
+      -- })
+
+      -- local format_sync_grp = vim.api.nvim_create_augroup("RustFormat", {})
+      -- vim.api.nvim_create_autocmd("BufWritePre", {
+        -- pattern = "*.rs",
+        -- callback = function()
+          -- vim.lsp.buf.format({ timeout_ms = 200 })
+        -- end,
+        -- group = format_sync_grp,
+      -- })
 
       require('lspconfig').tailwindcss.setup({
         on_attach = on_attach,
@@ -76,54 +90,55 @@ return {
       })
     end
   },
-  {
-    'jose-elias-alvarez/null-ls.nvim',
-    event = { 'BufReadPre', 'BufNewFile' },
-    config = function()
-      local null_ls = require('null-ls')
-      local lsp_formatting = function(bufnr)
-        vim.lsp.buf.format({
-          filter = function(client)
-            return client.name == 'null-ls'
-          end,
-          bufnr = bufnr,
-        })
-      end
-      local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
+  -- {
+    -- 'jose-elias-alvarez/null-ls.nvim',
+    -- event = { 'BufReadPre', 'BufNewFile' },
+    -- config = function()
+      -- local null_ls = require('null-ls')
+      -- local lsp_formatting = function(bufnr)
+        -- vim.lsp.buf.format({
+          -- filter = function(client)
+            -- return client.name == 'null-ls'
+          -- end,
+          -- bufnr = bufnr,
+        -- })
+      -- end
+      -- local augroup = vim.api.nvim_create_augroup('LspFormatting', {})
 
-      null_ls.setup({
-        sources = {
-          -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md#diagnostic-config
-          null_ls.builtins.diagnostics.eslint.with({
-            diagnostic_config = {
-              -- see :help vim.diagnostic.config()
-              underline = false,
-              virtual_text = false,
-              signs = false,
-              update_in_insert = false,
-            },
-            method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
-          }),
-          null_ls.builtins.formatting.prettierd.with({
-            extra_filetypes = { "html", "json", "markdown", "yaml" }
-          }),
-        },
-        on_attach = function(client, bufnr)
-          -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Avoiding-LSP-formatting-conflicts
-          if client.supports_method('textDocument/formatting') then
-            vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
-            vim.api.nvim_create_autocmd('BufWritePre', {
-              group = augroup,
-              buffer = bufnr,
-              callback = function()
-                lsp_formatting(bufnr)
-              end,
-            })
-          end
-        end,
-      })
-    end
-  },
+      -- null_ls.setup({
+        -- debug = true,
+        -- sources = {
+          -- -- https://github.com/jose-elias-alvarez/null-ls.nvim/blob/main/doc/BUILTIN_CONFIG.md#diagnostic-config
+          -- null_ls.builtins.diagnostics.eslint.with({
+            -- diagnostic_config = {
+              -- -- see :help vim.diagnostic.config()
+              -- underline = false,
+              -- virtual_text = false,
+              -- signs = false,
+              -- update_in_insert = false,
+            -- },
+            -- method = null_ls.methods.DIAGNOSTICS_ON_SAVE,
+          -- }),
+          -- -- null_ls.builtins.formatting.prettierd.with({
+            -- -- extra_filetypes = { "html", "json", "markdown", "yaml" }
+          -- -- }),
+        -- },
+        -- on_attach = function(client, bufnr)
+          -- -- https://github.com/jose-elias-alvarez/null-ls.nvim/wiki/Avoiding-LSP-formatting-conflicts
+          -- if client.supports_method('textDocument/formatting') then
+            -- vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+            -- vim.api.nvim_create_autocmd('BufWritePre', {
+              -- group = augroup,
+              -- buffer = bufnr,
+              -- callback = function()
+                -- lsp_formatting(bufnr)
+              -- end,
+            -- })
+          -- end
+        -- end,
+      -- })
+    -- end
+  -- },
   {
     'j-hui/fidget.nvim',
     tag = 'legacy',

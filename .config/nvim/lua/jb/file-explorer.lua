@@ -86,6 +86,12 @@ return {
             resize_window = true,
           },
         },
+        filesystem_watchers = {
+          ignore_dirs = {
+            "node_modules",
+            ".next",
+          },
+        },
         renderer = {
           add_trailing = true,
           icons = {

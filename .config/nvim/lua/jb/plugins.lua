@@ -89,6 +89,54 @@ return {
   -- https://github.com/editorconfig/editorconfig-vim
   'editorconfig/editorconfig-vim',
   'tpope/vim-sleuth',
+  {
+    'mhartington/formatter.nvim',
+    config = function()
+      require('formatter').setup({
+        logging = false,
+        log_level = vim.log.levels.DEBUG,
+        filetype = {
+          css = {
+            require('formatter.filetypes.css').prettierd
+          },
+          javascript = {
+            require('formatter.filetypes.javascript').prettierd
+          },
+          javascriptreact = {
+            require('formatter.filetypes.javascriptreact').prettierd
+          },
+          json = {
+            require('formatter.filetypes.json').prettierd
+          },
+          markdown = {
+            require('formatter.filetypes.markdown').prettierd
+          },
+          scss = {
+            require('formatter.defaults').prettierd
+          },
+          typescript = {
+            require('formatter.filetypes.typescript').prettierd
+          },
+          typescriptreact = {
+            require('formatter.filetypes.typescriptreact').prettierd
+          },
+          yaml = {
+            require('formatter.filetypes.yaml').prettierd
+          },
+          -- ['*'] = {
+            -- require('formatter.filetypes.any').remove_trailing_whitespace
+          -- }
+        },
+      })
+
+      vim.cmd([[
+        augroup FormatAutogroup
+          autocmd!
+          autocmd BufWritePost * FormatWrite
+        augroup END
+      ]])
+    end,
+  },
 
   {
     'folke/todo-comments.nvim',
@@ -150,4 +198,7 @@ return {
       require('which-key').setup({})
     end
   },
+
+  -- Golang
+  'fatih/vim-go',
 }

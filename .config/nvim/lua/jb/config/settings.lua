@@ -120,3 +120,6 @@ vim.o.wildmenu = true
 vim.o.wildmode = 'longest:full,full'
 
 vim.o.signcolumn = 'yes'
+
+-- NeoVim v0.10.0
+vim.o.conceallevel = 0

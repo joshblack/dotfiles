@@ -10,6 +10,7 @@ return {
     config = function()
       require('nvim-treesitter.configs').setup({
         ensure_installed = {
+          'astro',
           'css',
           'dockerfile',
           'elixir',
@@ -28,6 +29,7 @@ return {
           'tsx',
           'typescript',
           'vim',
+          'vimdoc',
           'yaml',
         },
         highlight = {
@@ -38,9 +40,9 @@ return {
         indent = {
           enable = false,
         },
-        context_commentstring = {
-          enable = true,
-        },
+        -- context_commentstring = {
+          -- enable = true,
+        -- },
         playground = {
           enable = true,
         },
