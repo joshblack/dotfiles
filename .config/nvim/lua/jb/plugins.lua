@@ -46,16 +46,7 @@ return {
   { import = 'jb.completion' },
 
   -- Fuzzy Finder
-  'nvim-telescope/telescope-ui-select.nvim',
-  {
-    'nvim-telescope/telescope.nvim',
-    dependencies = {
-      'nvim-telescope/telescope-ui-select.nvim',
-    },
-    config = function()
-      require('jb.fuzzy-finder')
-    end
-  },
+  { import = 'jb.fuzzy-finder' },
 
   -- Statusline
   {
@@ -69,13 +60,13 @@ return {
   },
 
   -- Git
-  'tpope/vim-fugitive',
-  {
-    'lewis6991/gitsigns.nvim',
-    config = function()
-      require('gitsigns').setup()
-    end,
-  },
+  -- 'tpope/vim-fugitive',
+  -- {
+    -- 'lewis6991/gitsigns.nvim',
+    -- config = function()
+      -- require('gitsigns').setup()
+    -- end,
+  -- },
 
   -- Comments
   {
@@ -88,53 +79,48 @@ return {
   -- Formatting
   -- https://github.com/editorconfig/editorconfig-vim
   'editorconfig/editorconfig-vim',
-  'tpope/vim-sleuth',
+  -- 'tpope/vim-sleuth',
   {
-    'mhartington/formatter.nvim',
+    'stevearc/conform.nvim',
+    event = { 'BufWritePre' },
+    cmd = { 'ConformInfo' },
     config = function()
-      require('formatter').setup({
-        logging = false,
-        log_level = vim.log.levels.DEBUG,
-        filetype = {
-          css = {
-            require('formatter.filetypes.css').prettierd
-          },
-          javascript = {
-            require('formatter.filetypes.javascript').prettierd
-          },
-          javascriptreact = {
-            require('formatter.filetypes.javascriptreact').prettierd
-          },
-          json = {
-            require('formatter.filetypes.json').prettierd
-          },
-          markdown = {
-            require('formatter.filetypes.markdown').prettierd
-          },
-          scss = {
-            require('formatter.defaults').prettierd
-          },
-          typescript = {
-            require('formatter.filetypes.typescript').prettierd
-          },
-          typescriptreact = {
-            require('formatter.filetypes.typescriptreact').prettierd
-          },
-          yaml = {
-            require('formatter.filetypes.yaml').prettierd
-          },
-          -- ['*'] = {
-            -- require('formatter.filetypes.any').remove_trailing_whitespace
-          -- }
-        },
-      })
+      local slow_format_filetypes = {}
 
-      vim.cmd([[
-        augroup FormatAutogroup
-          autocmd!
-          autocmd BufWritePost * FormatWrite
-        augroup END
-      ]])
+      require('conform').setup({
+        formatters_by_ft = {
+          css = { 'prettierd', 'prettier', stop_after_first = true },
+          javascript = { 'prettierd', 'prettier', stop_after_first = true },
+          javascriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+          typescript = { 'prettierd', 'prettier', stop_after_first = true },
+          typescriptreact = { 'prettierd', 'prettier', stop_after_first = true },
+          json = { 'prettierd', 'prettier', stop_after_first = true },
+          markdown = { 'prettierd', 'prettier', stop_after_first = true },
+          scss = { 'prettierd', 'prettier', stop_after_first = true },
+          yaml = { 'prettierd', 'prettier', stop_after_first = true },
+        },
+
+        -- https://github.com/stevearc/conform.nvim/blob/master/doc/recipes.md#automatically-run-slow-formatters-async
+        format_on_save = function(bufnr)
+          if slow_format_filetypes[vim.bo[bufnr].filetype] then
+            return
+          end
+          local function on_format(err)
+            if err and err:match('timeout$') then
+              slow_format_filetypes[vim.bo[bufnr].filetype] = true
+            end
+          end
+
+          return { timeout_ms = 200, lsp_fallback = true }, on_format
+        end,
+
+        format_after_save = function(bufnr)
+          if not slow_format_filetypes[vim.bo[bufnr].filetype] then
+            return
+          end
+          return { lsp_fallback = true }
+        end,
+      })
     end,
   },
 
@@ -190,14 +176,14 @@ return {
   },
 
   -- Help
-  {
-    'folke/which-key.nvim',
-    config = function()
-      vim.o.timeout = true
-      vim.o.timeoutlen = 500
-      require('which-key').setup({})
-    end
-  },
+  -- {
+    -- 'folke/which-key.nvim',
+    -- config = function()
+      -- vim.o.timeout = true
+      -- vim.o.timeoutlen = 500
+      -- require('which-key').setup({})
+    -- end
+  -- },
 
   -- Golang
   'fatih/vim-go',

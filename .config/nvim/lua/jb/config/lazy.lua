@@ -18,7 +18,6 @@ require('lazy').setup({
     { import = 'jb.plugins' },
   },
   defaults = {
-    lazy = false,
     version = false,
   },
   checker = {
@@ -26,5 +25,6 @@ require('lazy').setup({
   },
   install = {
     colorscheme = {'onenord', 'habamax'},
+    missing = true,
   },
 })

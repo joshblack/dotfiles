@@ -1,6 +1,10 @@
 return {
   {
     'kyazdani42/nvim-tree.lua',
+    keys = {
+      '<leader>d',
+      '<leader>f',
+    },
     dependencies = 'kyazdani42/nvim-web-devicons',
     config = function()
       local map = require('jb.config.utils').map
@@ -85,6 +89,9 @@ return {
           open_file = {
             resize_window = true,
           },
+        },
+        git = {
+          enable = false,
         },
         filesystem_watchers = {
           ignore_dirs = {

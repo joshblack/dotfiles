@@ -52,6 +52,11 @@ return {
         border = 'single',
       })
 
+      require('lspconfig').astro.setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+      })
+
       -- require('lspconfig').cssls.setup({
         -- on_attach = on_attach,
         -- capabilities = capabilities,
@@ -62,13 +67,13 @@ return {
         capabilities = capabilities,
       })
 
-      -- require('lspconfig').rust_analyzer.setup({
-        -- on_attach = on_attach,
-        -- capabilities = capabilities,
-        -- settings = {
-          -- ["rust-analyzer"] = {},
-        -- },
-      -- })
+      require('lspconfig').rust_analyzer.setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+        settings = {
+          ["rust-analyzer"] = {},
+        },
+      })
 
       -- local format_sync_grp = vim.api.nvim_create_augroup("RustFormat", {})
       -- vim.api.nvim_create_autocmd("BufWritePre", {
@@ -84,7 +89,7 @@ return {
         capabilities = capabilities,
       })
 
-      require('lspconfig').tsserver.setup({
+      require('lspconfig').ts_ls.setup({
         on_attach = on_attach,
         capabilities = capabilities,
       })
