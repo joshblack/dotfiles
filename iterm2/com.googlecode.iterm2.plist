@@ -273,6 +273,8 @@
 	<false/>
 	<key>DisableFullscreenTransparency</key>
 	<false/>
+	<key>EnableDivisionView</key>
+	<true/>
 	<key>HapticFeedbackForEsc</key>
 	<false/>
 	<key>HideActivityIndicator</key>
@@ -280,9 +282,11 @@
 	<key>HideScrollbar</key>
 	<true/>
 	<key>HideTab</key>
-	<false/>
+	<true/>
 	<key>HotkeyMigratedFromSingleToMulti</key>
 	<true/>
+	<key>IRMemory</key>
+	<integer>4</integer>
 	<key>NeverWarnAboutShortLivedSessions_268FDEB2-8402-4B49-9A51-F97320AB6716</key>
 	<true/>
 	<key>NeverWarnAboutShortLivedSessions_268FDEB2-8402-4B49-9A51-F97320AB6716_selection</key>
@@ -820,7 +824,7 @@
 			<key>Normal Font</key>
 			<string>JetBrainsMonoNerdFontComplete-Regular 18</string>
 			<key>Option Key Sends</key>
-			<integer>0</integer>
+			<integer>2</integer>
 			<key>Prompt Before Closing 2</key>
 			<false/>
 			<key>Right Option Key Sends</key>
@@ -865,7 +869,7 @@
 			<key>Shortcut</key>
 			<string></string>
 			<key>Show Status Bar</key>
-			<true/>
+			<false/>
 			<key>Silence Bell</key>
 			<false/>
 			<key>Status Bar Layout</key>
@@ -1640,6 +1644,8 @@
 			<string>kNextWindowPointerAction</string>
 		</dict>
 	</dict>
+	<key>PreserveWindowSizeWhenTabBarVisibilityChanges</key>
+	<false/>
 	<key>PromptOnQuit</key>
 	<false/>
 	<key>QuitWhenAllWindowsClosed</key>
@@ -1656,13 +1662,21 @@
 	<integer>1</integer>
 	<key>StretchTabsToFillBar</key>
 	<false/>
+	<key>SwitchTabModifier</key>
+	<integer>1</integer>
 	<key>TabStyle</key>
 	<integer>1</integer>
 	<key>TabStyleWithAutomaticOption</key>
 	<integer>5</integer>
+	<key>TerminalMargin</key>
+	<integer>5</integer>
+	<key>TerminalVMargin</key>
+	<integer>2</integer>
 	<key>UseBorder</key>
 	<false/>
 	<key>VisualIndicatorForEsc</key>
+	<false/>
+	<key>WindowNumber</key>
 	<false/>
 	<key>WordCharacters</key>
 	<string></string>

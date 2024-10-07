@@ -1,26 +1,22 @@
 require('lualine').setup({
   options = {
     icons_enabled = true,
-    theme = 'nord',
+    -- theme = 'nord',
+    theme = 'auto',
     section_separators = {
       left = '',
       right = '',
     },
     component_separators = {
-      left = '',
-      right = '',
+      left = '|',
+      right = '|',
     },
   },
   sections = {
     lualine_b = {
       {
         'diagnostics',
-        symbols = {
-          -- error = '≢ ',
-          -- warn = '≅ ',
-          -- info = 'i',
-          -- hint = 'Hint: ',
-        },
+        symbols = {},
       }
     },
     lualine_x = {'filetype'}
