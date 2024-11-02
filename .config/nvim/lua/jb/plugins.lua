@@ -175,56 +175,30 @@ return {
     end
   },
 
-  -- Help
-  -- {
-    -- 'folke/which-key.nvim',
-    -- config = function()
-      -- vim.o.timeout = true
-      -- vim.o.timeoutlen = 500
-      -- require('which-key').setup({})
-    -- end
-  -- },
-
   -- Golang
   'fatih/vim-go',
 
-  -- Testing
-  -- {
-    -- "nvim-neotest/neotest",
-    -- dependencies = {
-      -- "nvim-neotest/nvim-nio",
-      -- "nvim-lua/plenary.nvim",
-      -- "antoinemadec/FixCursorHold.nvim",
-      -- "nvim-treesitter/nvim-treesitter",
-      -- "nvim-neotest/neotest-jest"
-    -- },
-    -- config = function()
-      -- require('neotest').setup({
-        -- adapters = {
-          -- require('neotest-jest')({
-            -- jestCommand = "npm test --",
-            -- jestConfigFile = function(file)
-              -- if string.find(file, "/packages/") then
-                -- return string.match(file, "(.-/[^/]+/)src") .. "jest.config.js"
-              -- end
+  -- UI
+  {
+    "nvchad/volt",
+    lazy = true,
+  },
+  {
+    "nvchad/menu",
+    lazy = true,
+    config = function()
+      -- Keyboard users
+      -- vim.keymap.set("n", "<C-t>", function()
+        -- require("menu").open("default")
+      -- end, {})
 
-              -- return vim.fn.getcwd() .. "/jest.config.js"
-            -- end,
-            -- -- jest_test_discovery = false,
-            -- cwd = function(file)
-              -- if string.find(file, "/packages/") then
-                -- return string.match(file, "(.-/[^/]+/)src")
-              -- end
-              -- return vim.fn.getcwd()
-            -- end
-          -- }),
-        -- },
-        -- -- discovery = {
-          -- -- enabled = false,
-        -- -- },
-      -- })
+      -- -- mouse users + nvimtree users!
+      -- vim.keymap.set("n", "<RightMouse>", function()
+        -- vim.cmd.exec '"normal! \\<RightMouse>"'
 
-      -- vim.api.nvim_set_keymap("n", "<leader>tw", "<cmd>lua require('neotest').run.run({ jestCommand = 'jest --watch ' })<cr>", {})
-    -- end,
-  -- }
+        -- local options = vim.bo.ft == "NvimTree" and "nvimtree" or "default"
+        -- require("menu").open(options, { mouse = true })
+      -- end, {})
+    end
+  },
 }
