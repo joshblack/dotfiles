@@ -1,0 +1,4 @@
+vim.cmd [[
+  setlocal shiftwidth=2
+  setlocal tabstop=2
+]]
