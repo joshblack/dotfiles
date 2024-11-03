@@ -82,4 +82,32 @@ config.window_padding = {
   bottom = 0,
 }
 
+-- Windows-specific
+if wezterm.target_triple == 'x86_64-pc-windows-msvc' then
+  config.default_domain = 'WSL:Ubuntu'
+
+  local act = wezterm.action
+
+  config.keys = {
+    -- Create a new tab in the same domain as the current pane.
+    {
+      key = 't',
+      mods = 'ALT',
+      action = act.SpawnTab 'CurrentPaneDomain',
+    },
+  }
+
+  for i = 1, 8 do
+    -- ALT + number to activate that tab
+    table.insert(config.keys, {
+      key = tostring(i),
+      mods = 'ALT',
+      action = act.ActivateTab(i - 1),
+    })
+  end
+
+  -- Font overrides
+  config.font_size = 16
+end
+
 return config

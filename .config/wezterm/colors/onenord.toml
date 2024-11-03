@@ -15,8 +15,8 @@
 [colors]
 background = "#2E3440"
 foreground = "#C8D0E0"
-# cursor_bg = "#81A1C1"
-# cursor_border = "#81A1C1"
+cursor_bg = "#81A1C1"
+cursor_border = "#81A1C1"
 selection_bg = "#3F4758"
 ansi = [
   "#3B4252",
