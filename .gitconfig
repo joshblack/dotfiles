@@ -2,6 +2,12 @@
 	name = Josh Black
 	email = joshblack@github.com
 
+[core]
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
 [color]
 	ui = auto
 
@@ -16,6 +22,7 @@
 
 [merge]
 	renamelimit = 2000
+	conflictstyle = zdiff3
 
 [pull]
   rebase = false
@@ -25,6 +32,11 @@
 
 [init]
 	defaultBranch = main
+
+[delta]
+	navigate = true
+	side-by-side = true
+	line-numbers = true
 
 [includeIf "gitdir:/Users"]
   path = ~/.gitconfig-macos
