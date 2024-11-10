@@ -11,6 +11,21 @@ config.use_ime = false
 config.color_scheme = 'OneNord'
 
 -- Font
+config.font = wezterm.font_with_fallback {
+  {
+    family = "JetBrainsMono Nerd Font",
+    weight = "Regular",
+  },
+  {
+    family = "JetBrainsMono Nerd Font",
+    weight = "Medium",
+  },
+  {
+    family = "JetBrainsMono Nerd Font",
+    weight = "Bold",
+  },
+  "JetBrains Mono",
+}
 config.font_size = 20
 config.line_height = 1.1
 config.harfbuzz_features = { 'calt=0', 'clig=0', 'liga=0' }
@@ -74,11 +89,13 @@ wezterm.on(
 )
 
 -- Window
-config.window_decorations = 'INTEGRATED_BUTTONS|RESIZE'
+-- config.window_decorations = 'INTEGRATED_BUTTONS|RESIZE'
+config.window_decorations = 'RESIZE'
 config.window_padding = {
   left = 8,
   right = 8,
-  top = 60,
+  -- top = "1cell",
+  top = "1cell",
   bottom = 0,
 }
 

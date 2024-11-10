@@ -62,10 +62,10 @@ return {
   -- Git
   'tpope/vim-fugitive',
   -- {
-    -- 'lewis6991/gitsigns.nvim',
-    -- config = function()
-      -- require('gitsigns').setup()
-    -- end,
+  -- 'lewis6991/gitsigns.nvim',
+  -- config = function()
+  -- require('gitsigns').setup()
+  -- end,
   -- },
 
   -- Comments
@@ -141,7 +141,7 @@ return {
           }
         },
         colors = {
-          todo = {'Todo'},
+          todo = { 'Todo' },
         },
       })
     end
@@ -169,7 +169,7 @@ return {
   -- Startup screen
   {
     'goolord/alpha-nvim',
-    config = function ()
+    config = function()
       local startify = require('alpha.themes.startify')
       require('alpha').setup(startify.config)
     end
@@ -179,26 +179,48 @@ return {
   'fatih/vim-go',
 
   -- UI
-  {
-    "nvchad/volt",
-    lazy = true,
-  },
-  {
-    "nvchad/menu",
-    lazy = true,
-    config = function()
-      -- Keyboard users
-      -- vim.keymap.set("n", "<C-t>", function()
-        -- require("menu").open("default")
-      -- end, {})
+  -- {
+  -- 'folke/noice.nvim',
+  -- event = "VeryLazy",
+  -- opts = {
+  -- lsp = {
+  -- override = {
+  -- ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+  -- ["vim.lsp.util.stylize_markdown"] = true,
+  -- ["cmp.entry.get_documentation"] = true,
+  -- },
+  -- },
+  -- },
+  -- config = function(_, opts)
+  -- -- HACK: noice shows messages from before it was enabled,
+  -- -- but this is not ideal when Lazy is installing plugins,
+  -- -- so clear the messages in this case.
+  -- if vim.o.filetype == "lazy" then
+  -- vim.cmd([[messages clear]])
+  -- end
+  -- require("noice").setup(opts)
+  -- end,
+  -- },
+  -- {
+  -- "nvchad/volt",
+  -- lazy = true,
+  -- },
+  -- {
+  -- "nvchad/menu",
+  -- lazy = true,
+  -- config = function()
+  -- -- Keyboard users
+  -- -- vim.keymap.set("n", "<C-t>", function()
+  -- -- require("menu").open("default")
+  -- -- end, {})
 
-      -- -- mouse users + nvimtree users!
-      -- vim.keymap.set("n", "<RightMouse>", function()
-        -- vim.cmd.exec '"normal! \\<RightMouse>"'
+  -- -- -- mouse users + nvimtree users!
+  -- -- vim.keymap.set("n", "<RightMouse>", function()
+  -- -- vim.cmd.exec '"normal! \\<RightMouse>"'
 
-        -- local options = vim.bo.ft == "NvimTree" and "nvimtree" or "default"
-        -- require("menu").open(options, { mouse = true })
-      -- end, {})
-    end
-  },
+  -- -- local options = vim.bo.ft == "NvimTree" and "nvimtree" or "default"
+  -- -- require("menu").open(options, { mouse = true })
+  -- -- end, {})
+  -- end
+  -- },
 }
