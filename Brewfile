@@ -2,12 +2,15 @@ tap "ariga/tap"
 tap "cloudflare/cloudflare"
 tap "fsouza/prettierd"
 tap "github/gh"
+tap "golangci/tap"
 tap "homebrew/bundle"
 tap "homebrew/cask-versions"
 tap "homebrew/services"
 tap "ngrok/ngrok"
 # Run your GitHub Actions locally
 brew "act"
+# Clone of cat(1) with syntax highlighting and Git integration
+brew "bat"
 # Next-generation test runner for Rust
 brew "cargo-nextest"
 # Cloudflare Tunnel client (formerly Argo Tunnel)
@@ -28,6 +31,10 @@ brew "flyctl"
 brew "fzf"
 # GitHub command-line tool
 brew "gh"
+# OpenType text shaping engine
+brew "harfbuzz"
+# Framework for layout and rendering of i18n text
+brew "pango"
 # Distributed revision control system
 brew "git"
 # Syntax-highlighting pager for git and diff output
@@ -38,16 +45,12 @@ brew "git-lfs"
 brew "go"
 # Database migrations CLI tool
 brew "golang-migrate"
-# OpenType text shaping engine
-brew "harfbuzz"
 # User-friendly cURL replacement (command-line HTTP client)
 brew "httpie"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
 # Postgres C API library
 brew "libpq"
-# Framework for layout and rendering of i18n text
-brew "pango"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
 # Modern shell for the GitHub era
@@ -70,12 +73,16 @@ brew "vim"
 brew "vips"
 # Watch files and take action when they change
 brew "watchman"
+# A database toolkit
+brew "ariga/tap/atlas"
 # prettier, on SPEED!
 brew "fsouza/prettierd/prettierd"
 # Collaborative team software
 cask "figma"
 # Control your tools with a few keystrokes
 cask "raycast"
+# GPU-accelerated cross-platform terminal emulator and multiplexer
+cask "wezterm"
 vscode "astro-build.astro-vscode"
 vscode "castwide.solargraph"
 vscode "csstools.postcss"
