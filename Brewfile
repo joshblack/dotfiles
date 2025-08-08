@@ -3,12 +3,16 @@ tap "cloudflare/cloudflare"
 tap "fsouza/prettierd"
 tap "github/gh"
 tap "golangci/tap"
+tap "hashicorp/tap"
 tap "homebrew/bundle"
 tap "homebrew/cask-versions"
 tap "homebrew/services"
+tap "jesseduffield/lazygit"
 tap "ngrok/ngrok"
 # Run your GitHub Actions locally
 brew "act"
+# Microsoft Azure CLI 2.0
+brew "azure-cli"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
 # Next-generation test runner for Rust
@@ -31,10 +35,6 @@ brew "flyctl"
 brew "fzf"
 # GitHub command-line tool
 brew "gh"
-# OpenType text shaping engine
-brew "harfbuzz"
-# Framework for layout and rendering of i18n text
-brew "pango"
 # Distributed revision control system
 brew "git"
 # Syntax-highlighting pager for git and diff output
@@ -45,12 +45,24 @@ brew "git-lfs"
 brew "go"
 # Database migrations CLI tool
 brew "golang-migrate"
+# OpenType text shaping engine
+brew "harfbuzz"
+# Package compiler and linker metadata toolkit
+brew "pkgconf"
 # User-friendly cURL replacement (command-line HTTP client)
 brew "httpie"
+# Git-compatible distributed version control system
+brew "jj"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
+# Simple terminal UI for git commands
+brew "lazygit"
 # Postgres C API library
 brew "libpq"
+# Framework for layout and rendering of i18n text
+brew "pango"
+# Package manager for the Lua programming language
+brew "luarocks"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
 # Modern shell for the GitHub era
@@ -73,19 +85,28 @@ brew "vim"
 brew "vips"
 # Watch files and take action when they change
 brew "watchman"
-# A database toolkit
-brew "ariga/tap/atlas"
 # prettier, on SPEED!
 brew "fsouza/prettierd/prettierd"
+# Consul
+brew "hashicorp/tap/consul"
+# Nomad
+brew "hashicorp/tap/nomad"
+# Packer
+brew "hashicorp/tap/packer"
+# Terraform
+brew "hashicorp/tap/terraform"
+# Virtual monitor for screen sharing
+cask "deskpad"
 # Collaborative team software
 cask "figma"
+# Terminal emulator that uses platform-native UI and GPU acceleration
+cask "ghostty"
 # Control your tools with a few keystrokes
 cask "raycast"
-# GPU-accelerated cross-platform terminal emulator and multiplexer
-cask "wezterm"
 vscode "astro-build.astro-vscode"
 vscode "castwide.solargraph"
 vscode "csstools.postcss"
+vscode "docker.docker"
 vscode "eamodio.gitlens"
 vscode "esbenp.prettier-vscode"
 vscode "github.codespaces"
@@ -98,10 +119,15 @@ vscode "jakebecker.elixir-ls"
 vscode "kaiwood.endwise"
 vscode "kleber-swf.ocean-dark-extended"
 vscode "misogi.ruby-rubocop"
+vscode "ms-azuretools.vscode-containers"
 vscode "ms-azuretools.vscode-docker"
 vscode "ms-playwright.playwright"
 vscode "ms-vscode-remote.remote-containers"
 vscode "ms-vscode-remote.remote-wsl"
+vscode "ms-vscode.cmake-tools"
+vscode "ms-vscode.cpptools"
+vscode "ms-vscode.cpptools-extension-pack"
+vscode "ms-vscode.cpptools-themes"
 vscode "ms-vsliveshare.vsliveshare"
 vscode "rust-lang.rust-analyzer"
 vscode "sorbet.sorbet-vscode-extension"
