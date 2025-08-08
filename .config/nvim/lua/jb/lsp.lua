@@ -1,10 +1,5 @@
 return {
   'neovim/nvim-lspconfig',
-  -- {
-    -- 'mrcjkb/rustaceanvim',
-    -- version = '^5',
-    -- lazy = false,
-  -- },
   {
     'williamboman/mason.nvim',
     dependencies = {
@@ -22,6 +17,7 @@ return {
           'tailwindcss',
           'ts_ls',
         },
+        automatic_enable = false,
       })
 
       local capabilities = require('cmp_nvim_lsp').default_capabilities(
@@ -53,19 +49,16 @@ return {
         vim.lsp.handlers.signature_help,
         {}
       )
-      vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
-        border = 'single',
-      })
 
       require('lspconfig').astro.setup({
         on_attach = on_attach,
         capabilities = capabilities,
       })
 
-      -- require('lspconfig').cssls.setup({
-        -- on_attach = on_attach,
-        -- capabilities = capabilities,
-      -- })
+      require('lspconfig').cssls.setup({
+        on_attach = on_attach,
+        capabilities = capabilities,
+      })
 
       require('lspconfig').gopls.setup({
         on_attach = on_attach,
@@ -95,21 +88,15 @@ return {
         },
       })
 
-
-      -- vim.g.rustaceanvim = {
-        -- server = {
-          -- capabilities = capabilities,
-          -- on_attach = on_attach,
-        -- },
-      -- }
+      vim.diagnostic.config({
+        virtual_text = true,
+        -- virtual_lines = true
+      })
     end
   },
   {
     'j-hui/fidget.nvim',
-    tag = 'legacy',
-    config = function()
-      require('fidget').setup({})
-    end
+    opts = {},
   },
   {
     'folke/trouble.nvim',

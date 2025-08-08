@@ -17,14 +17,18 @@ return {
           'go',
           'gomod',
           'graphql',
+          'hcl',
           'html',
           'javascript',
           'jsdoc',
           'json',
           'json5',
           'lua',
+          'markdown',
+          'markdown_inline',
           'prisma',
           'scss',
+          'terraform',
           'toml',
           'tsx',
           'typescript',
@@ -41,7 +45,7 @@ return {
           enable = false,
         },
         -- context_commentstring = {
-          -- enable = true,
+        -- enable = true,
         -- },
         playground = {
           enable = true,
@@ -57,7 +61,7 @@ return {
         query_linter = {
           enable = true,
           use_virtual_text = true,
-          lint_events = {'BufWrite', 'CursorHold'},
+          lint_events = { 'BufWrite', 'CursorHold' },
         },
       })
     end,

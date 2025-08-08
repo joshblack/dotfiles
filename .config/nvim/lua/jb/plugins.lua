@@ -2,24 +2,40 @@
 return {
   -- Colorscheme
   {
-    'rmehri01/onenord.nvim',
+    "folke/tokyonight.nvim",
     lazy = false,
     priority = 1000,
     config = function()
-      require('onenord').setup({
-        theme = "dark",
-        borders = true,
-        italics = {
-          comments = true,
-          strings = false,
-          keywords = false,
-          functions = false,
-          variables = false,
+      require('tokyonight').setup({
+        style = 'moon',
+        styles = {
+          keywords = {
+            italic = false,
+          },
         },
       })
-      vim.cmd.colorscheme('onenord')
-    end
+      vim.cmd [[colorscheme tokyonight]]
+    end,
   },
+  -- {
+  -- 'rmehri01/onenord.nvim',
+  -- lazy = false,
+  -- priority = 1000,
+  -- config = function()
+  -- require('onenord').setup({
+  -- theme = "dark",
+  -- borders = true,
+  -- italics = {
+  -- comments = true,
+  -- strings = false,
+  -- keywords = false,
+  -- functions = false,
+  -- variables = false,
+  -- },
+  -- })
+  -- vim.cmd.colorscheme('onenord')
+  -- end
+  -- },
 
   -- Setup
   'folke/lazy.nvim',
@@ -167,6 +183,45 @@ return {
   -- Note: this requires additional_vim_regex_highlighting = true in treesitter
   'maxmellon/vim-jsx-pretty',
 
+  {
+    'folke/snacks.nvim',
+    priority = 1000,
+    lazy = false,
+    ---@type snacks.Config
+    opts = {
+      bigfile = {
+        enabled = false,
+      },
+      indent = {
+        enabled = false,
+        -- your indent configuration comes here
+        -- or leave it empty to use the default settings
+        -- refer to the configuration section below
+      },
+      notifier = {
+        enabled = false,
+      },
+      quickfile = {
+        enabled = false,
+      },
+      statuscolumn = {
+        enabled = false,
+      },
+      words = {
+        enabled = false,
+      },
+      dashboard = {
+        enabled = false,
+        -- sections = {
+        -- { section = "header" },
+        -- { icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
+        -- { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
+        -- { section = "startup" },
+        -- },
+      },
+    },
+  },
+
   -- Startup screen
   {
     'goolord/alpha-nvim',
@@ -178,6 +233,148 @@ return {
 
   -- Golang
   'fatih/vim-go',
+
+  -- Lazygit
+  {
+    "kdheepak/lazygit.nvim",
+    lazy = true,
+    cmd = {
+      "LazyGit",
+      "LazyGitConfig",
+      "LazyGitCurrentFile",
+      "LazyGitFilter",
+      "LazyGitFilterCurrentFile",
+    },
+    -- optional for floating window border decoration
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    -- setting the keybinding for LazyGit with 'keys' is recommended in
+    -- order to load the plugin when the command is run for the first time
+    keys = {
+      { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" }
+    }
+  },
+
+  -- Text editing
+  {
+    'echasnovski/mini.ai',
+    version = '*',
+    opts = {},
+  },
+
+  -- Notes
+  {
+    'epwalsh/obsidian.nvim',
+    version = '*',
+    lazy = true,
+    ft = "markdown",
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+    },
+    opts = {
+      workspaces = {
+        {
+          name = "default",
+          path = "~/obsidian/jb"
+        },
+      },
+      mappings = {
+        -- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
+        ["gf"] = {
+          action = function()
+            return require("obsidian").util.gf_passthrough()
+          end,
+          opts = { noremap = false, expr = true, buffer = true },
+        },
+
+        -- Toggle check-boxes.
+        ["<leader>ch"] = {
+          action = function()
+            return require("obsidian").util.toggle_checkbox()
+          end,
+          opts = { buffer = true },
+        },
+
+        -- Smart action depending on context, either follow link or toggle checkbox.
+        ["<cr>"] = {
+          action = function()
+            return require("obsidian").util.smart_action()
+          end,
+          opts = { buffer = true, expr = true },
+        }
+      },
+    },
+  },
+
+  -- LLMs
+  {
+    "olimorris/codecompanion.nvim",
+    config = true,
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
+      "j-hui/fidget.nvim",
+    },
+    opts = {
+      adapters = {
+        copilot = function()
+          return require("codecompanion.adapters").extend("copilot", {
+            name = "custom-copilot",
+            schema = {
+              model = {
+                default = "claude-sonnet-4",
+              },
+            },
+          })
+        end,
+      },
+      strategies = {
+        chat = {
+          adapter = "copilot"
+        },
+        inline = {
+          adapter = "copilot"
+        }
+      }
+    },
+    keys = {
+      { "<leader>ac", "<cmd>CodeCompanionChat<cr>", mode = { "n", "v" }, desc = "[A]I CodeCompanion [C]hat" },
+    },
+    init = function()
+      -- Inspired by: https://github.com/jessevdp/personal.nvim/blob/568bc0754ccfc48bf7e20a39e42257cef18b535d/lua/plugins/codecompanion/fidget-spinner.lua
+      local progress = require("fidget.progress")
+      local handle = nil
+
+      local group = vim.api.nvim_create_augroup("CodeCompanionFidgetHooks", {})
+
+      vim.api.nvim_create_autocmd({ "User" }, {
+        pattern = "CodeCompanionRequest*",
+        group = group,
+        callback = function(request)
+          if request.match == "CodeCompanionRequestStarted" then
+            handle = progress.handle.create({
+              title = " Requesting assistance",
+              -- https://codecompanion.olimorris.dev/usage/events.html#event-data
+              lsp_client = {
+                name = request.data.adapter.formatted_name ..
+                    " (" .. request.data.adapter.model .. ")",
+              },
+            })
+          elseif request.match == "CodeCompanionRequestFinished" then
+            if handle then
+              handle:finish()
+            end
+          end
+        end,
+      })
+    end,
+  },
+
+  {
+    'echasnovski/mini.surround',
+    version = '*',
+  },
 
   -- UI
   -- {

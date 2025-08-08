@@ -1,0 +1,29 @@
+adjust-cell-height = "35%"
+
+cursor-style = "block"
+cursor-style-blink = false
+
+font-family = "JetBrainsMono Nerd Font"
+font-feature = "-calt"
+font-size = "20"
+
+macos-titlebar-style = "tabs"
+macos-icon = "custom-style"
+macos-icon-frame = "plastic"
+macos-icon-ghost-color = "Olive"
+macos-icon-screen-color = "Olive"
+
+mouse-hide-while-typing = true
+
+shell-integration-features = "no-cursor"
+
+theme = "tokyonight"
+
+window-inherit-working-directory = true
+window-new-tab-position = "end"
+window-save-state = "always"
+
+confirm-close-surface = false
+quit-after-last-window-closed = true
+
+

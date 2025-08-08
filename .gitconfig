@@ -1,6 +1,6 @@
 [user]
 	name = Josh Black
-	email = joshblack@github.com
+	email = josh@josh.black
 
 [core]
 	pager = delta
@@ -43,3 +43,12 @@
 
 [includeIf "gitdir:/home"]
   path = ~/.gitconfig-linux
+
+[includeIf "gitdir:~/gh/primer/"]
+  path = ~/dotfiles/.gitconfig-github
+
+[includeIf "gitdir:~/gh/github/"]
+  path = ~/dotfiles/.gitconfig-github
+
+[includeIf "gitdir:~/gh/nbdsystem/"]
+  path = ~/dotfiles/.gitconfig-nbdsystem
