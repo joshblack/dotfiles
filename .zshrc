@@ -154,12 +154,6 @@ alias hl="pbpaste | highlight --font-size 36 --font 'IBM Plex Mono' --syntax=js 
 alias vim="nvim"
 alias gcom='git checkout $(git_main_branch)'
 
-# base16 colors. Will populate base16_-prefixed values that will set the terminal colors
-# BASE16_SHELL="$HOME/.config/base16-shell/"
-# [ -n "$PS1" ] && \
-    # [ -s "$BASE16_SHELL/profile_helper.sh" ] && \
-        # source "$BASE16_SHELL/profile_helper.sh"
-
 # Homebrew sbin support
 export PATH="/usr/local/sbin:$PATH"
 
