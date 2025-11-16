@@ -15,7 +15,9 @@ return {
 
       local has_words_before = function()
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
+        return col ~= 0 and
+            vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col)
+            :match('%s') == nil
       end
 
       cmp.setup({
@@ -102,39 +104,39 @@ return {
               behavior = cmp.ConfirmBehavior.Replace,
               select = false
             }),
-            {"i", "c"}
+            { "i", "c" }
           ),
           ['<C-n>'] = cmp.mapping({
-              c = function()
-                  if cmp.visible() then
-                      cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-                  else
-                      vim.api.nvim_feedkeys(t('<Down>'), 'n', true)
-                  end
-              end,
-              i = function(fallback)
-                  if cmp.visible() then
-                      cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
-                  else
-                      fallback()
-                  end
+            c = function()
+              if cmp.visible() then
+                cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+              else
+                vim.api.nvim_feedkeys(t('<Down>'), 'n', true)
               end
+            end,
+            i = function(fallback)
+              if cmp.visible() then
+                cmp.select_next_item({ behavior = cmp.SelectBehavior.Insert })
+              else
+                fallback()
+              end
+            end
           }),
           ['<C-p>'] = cmp.mapping({
-              c = function()
-                  if cmp.visible() then
-                      cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-                  else
-                      vim.api.nvim_feedkeys(t('<Up>'), 'n', true)
-                  end
-              end,
-              i = function(fallback)
-                  if cmp.visible() then
-                      cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
-                  else
-                      fallback()
-                  end
+            c = function()
+              if cmp.visible() then
+                cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+              else
+                vim.api.nvim_feedkeys(t('<Up>'), 'n', true)
               end
+            end,
+            i = function(fallback)
+              if cmp.visible() then
+                cmp.select_prev_item({ behavior = cmp.SelectBehavior.Insert })
+              else
+                fallback()
+              end
+            end
           }),
         },
       })
@@ -142,6 +144,9 @@ return {
   },
   {
     'zbirenbaum/copilot.lua',
+    requires = {
+      'copilotlsp-nvim/copilot-lsp',
+    },
     cmd = 'Copilot',
     event = { 'VimEnter' },
     config = function()
@@ -156,15 +161,17 @@ return {
           panel = {
             enabled = false,
           },
+          nes = {
+            enabled = false,
+          },
         })
       end, 100)
     end,
   },
   {
     'zbirenbaum/copilot-cmp',
-    config = function ()
+    config = function()
       require('copilot_cmp').setup()
     end
   },
 }
-

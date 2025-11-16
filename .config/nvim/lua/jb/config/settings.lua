@@ -108,7 +108,7 @@ vim.o.sidescrolloff = 3
 
 vim.o.splitbelow = true
 vim.o.splitright = true
-vim.o.synmaxcol=200
+vim.o.synmaxcol = 200
 
 vim.o.termguicolors = true
 vim.o.textwidth = 80
@@ -123,3 +123,5 @@ vim.o.signcolumn = 'yes'
 
 -- NeoVim v0.10.0
 vim.o.conceallevel = 0
+
+vim.o.winborder = 'single'

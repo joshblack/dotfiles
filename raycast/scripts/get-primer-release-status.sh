@@ -11,10 +11,11 @@
 
 # echo "Getting latest Primer Release..."
 
-NUMBER=$(gh pr list --label prc-release --label primer-release -R github/github --json number --jq '.[0].number')
+REPO='github/github-ui'
+NUMBER=$(gh pr list --label prc-release --label primer-release -R $REPO --json number --jq '.[0].number')
 
 if [[ $NUMBER ]]; then
-  CHECKS=$(gh pr checks $NUMBER -R github/github --json bucket)
+  CHECKS=$(gh pr checks $NUMBER -R $REPO --json bucket)
   FAIL=$(echo $CHECKS | jq '[.[] | select(.bucket == "fail")] | length')
 
   if [[ $FAIL -gt 0 ]]; then

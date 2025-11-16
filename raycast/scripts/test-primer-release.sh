@@ -10,18 +10,14 @@
 # @raycast.packageName joshblack/dotfiles
 # @raycast.argument1 { "type": "text", "placeholder": "Pull Request", "optional": false }
 
-echo "Getting canary version..."
-VERSION=$(gh pr checks $1 --json name,description --jq '.[] | select(.name == "Published @primer/react").description')
+REPO='github/github-ui'
+echo "Running workflow..."
 
-if [[ $VERSION ]]; then
-  echo "Running workflow..."
-  gh workflow run primer-react-pr-test.yml -R github/github --field prc-pr="$1" --field version="$VERSION"
+gh workflow run primer-react-pr-test.yml -R $REPO --field prc-pr="$1"
 
-  echo "Getting workflow run..."
-  sleep 3
-  WORKFLOW_RUN="$(gh run list --workflow=primer-react-pr-test.yml -R github/github --json url -q '.[0].url')"
+echo "Getting workflow run..."
+sleep 3
 
-  echo "Workflow run: $WORKFLOW_RUN"
-else
-  echo 'No canary version found'
-fi
+WORKFLOW_RUN="$(gh run list --workflow=primer-react-pr-test.yml -R $REPO --json url -q '.[0].url')"
+
+echo "Workflow run: $WORKFLOW_RUN"

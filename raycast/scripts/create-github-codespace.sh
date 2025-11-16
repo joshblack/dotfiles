@@ -12,5 +12,5 @@
 # @raycast.packageName joshblack/dotfiles
 
 echo "Creating codespace..."
-gh cs create -R github/github -b master --default-permissions --devcontainer-path .devcontainer/devcontainer.json -m largePremiumLinux | xargs gh cs code -c
+gh cs create -R github/github-ui -b master --default-permissions --devcontainer-path .devcontainer/devcontainer.json -m largePremiumLinux | xargs gh cs code -c
 echo "Complete! Opening VSCode now"

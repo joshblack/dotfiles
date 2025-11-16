@@ -50,48 +50,86 @@ return {
         {}
       )
 
-      require('lspconfig').astro.setup({
+      vim.lsp.config('astro', {
         on_attach = on_attach,
         capabilities = capabilities,
       })
+      vim.lsp.enable('astro')
 
-      require('lspconfig').cssls.setup({
+      vim.lsp.config('cssls', {
         on_attach = on_attach,
         capabilities = capabilities,
       })
+      vim.lsp.enable('cssls')
 
-      require('lspconfig').gopls.setup({
+      vim.lsp.config('gopls', {
         on_attach = on_attach,
         capabilities = capabilities,
       })
+      vim.lsp.enable('gopls')
 
-      require('lspconfig').lua_ls.setup({
+      vim.lsp.config('lua_ls', {
         on_attach = on_attach,
         capabilities = capabilities,
       })
+      vim.lsp.enable('lua_ls')
 
-      require('lspconfig').tailwindcss.setup({
+      vim.lsp.config('tailwindcss', {
         on_attach = on_attach,
         capabilities = capabilities,
       })
+      vim.lsp.enable('tailwindcss')
 
-      require('lspconfig').ts_ls.setup({
+      vim.lsp.config('ts_ls', {
         on_attach = on_attach,
         capabilities = capabilities,
       })
+      vim.lsp.enable('ts_ls')
 
-      require('lspconfig').rust_analyzer.setup({
+      vim.lsp.config('rust_analyzer', {
         on_attach = on_attach,
         capabilities = capabilities,
         settings = {
           ["rust-analyzer"] = {},
         },
       })
+      vim.lsp.enable('rust_analyzer')
 
       vim.diagnostic.config({
         virtual_text = true,
         -- virtual_lines = true
       })
+
+
+      vim.lsp.config('emmet_language_server', {
+        filetypes = { "css", "html", "javascript", "javascriptreact", "scss", "typescriptreact" },
+        -- Read more about this options in the [vscode docs](https://code.visualstudio.com/docs/editor/emmet#_emmet-configuration).
+        -- **Note:** only the options listed in the table are supported.
+        init_options = {
+          ---@type table<string, string>
+          includeLanguages = {},
+          --- @type string[]
+          excludeLanguages = {},
+          --- @type string[]
+          extensionsPath = {},
+          --- @type table<string, any> [Emmet Docs](https://docs.emmet.io/customization/preferences/)
+          preferences = {},
+          --- @type boolean Defaults to `true`
+          showAbbreviationSuggestions = true,
+          --- @type "always" | "never" Defaults to `"always"`
+          showExpandedAbbreviation = "always",
+          --- @type boolean Defaults to `false`
+          showSuggestionsAsSnippets = false,
+          --- @type table<string, any> [Emmet Docs](https://docs.emmet.io/customization/syntax-profiles/)
+          syntaxProfiles = {},
+          --- @type table<string, string> [Emmet Docs](https://docs.emmet.io/customization/snippets/#variables)
+          variables = {},
+        },
+        -- on_attach = on_attach,
+        -- capabilities = capabilities,
+        -- filetypes = { 'html', 'css', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'svelte', 'vue' },
+      })
+      vim.lsp.enable('emmet_language_server')
     end
   },
   {
@@ -108,14 +146,14 @@ return {
       })
     end
   },
-  {
-    'simrat39/symbols-outline.nvim',
-    config = function()
-      require('symbols-outline').setup({
-        keymaps = {
-          wrap = true,
-        },
-      })
-    end
-  }
+  -- {
+  -- 'simrat39/symbols-outline.nvim',
+  -- config = function()
+  -- require('symbols-outline').setup({
+  -- keymaps = {
+  -- wrap = true,
+  -- },
+  -- })
+  -- end
+  -- }
 }
