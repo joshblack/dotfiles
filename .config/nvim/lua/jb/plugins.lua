@@ -68,10 +68,14 @@ return {
 
   -- Comments
   {
-    'preservim/nerdcommenter',
-    config = function()
-      vim.g.NERDSpaceDelims = 1
-    end
+    'nvim-mini/mini.comment',
+    version = false,
+    opts = {
+      mappings = {
+        comment_line = '<leader>c<Space>',
+        comment_visual = '<leader>c<Space>',
+      },
+    },
   },
 
   -- Formatting
@@ -232,145 +236,4 @@ return {
     opts = {},
   },
 
-  -- LLMs
-  -- {
-  -- "olimorris/codecompanion.nvim",
-  -- config = true,
-  -- dependencies = {
-  -- "nvim-lua/plenary.nvim",
-  -- "nvim-treesitter/nvim-treesitter",
-  -- "j-hui/fidget.nvim",
-  -- },
-  -- opts = {
-  -- adapters = {
-  -- copilot = function()
-  -- return require("codecompanion.adapters").extend("copilot", {
-  -- name = "custom-copilot",
-  -- schema = {
-  -- model = {
-  -- default = "claude-sonnet-4",
-  -- },
-  -- },
-  -- })
-  -- end,
-  -- },
-  -- strategies = {
-  -- chat = {
-  -- adapter = "copilot"
-  -- },
-  -- inline = {
-  -- adapter = "copilot"
-  -- }
-  -- }
-  -- },
-  -- keys = {
-  -- { "<leader>ac", "<cmd>CodeCompanionChat<cr>", mode = { "n", "v" }, desc = "[A]I CodeCompanion [C]hat" },
-  -- },
-  -- init = function()
-  -- -- Inspired by: https://github.com/jessevdp/personal.nvim/blob/568bc0754ccfc48bf7e20a39e42257cef18b535d/lua/plugins/codecompanion/fidget-spinner.lua
-  -- local progress = require("fidget.progress")
-  -- local handle = nil
-
-  -- local group = vim.api.nvim_create_augroup("CodeCompanionFidgetHooks", {})
-
-  -- vim.api.nvim_create_autocmd({ "User" }, {
-  -- pattern = "CodeCompanionRequest*",
-  -- group = group,
-  -- callback = function(request)
-  -- if request.match == "CodeCompanionRequestStarted" then
-  -- handle = progress.handle.create({
-  -- title = " Requesting assistance",
-  -- -- https://codecompanion.olimorris.dev/usage/events.html#event-data
-  -- lsp_client = {
-  -- name = request.data.adapter.formatted_name ..
-  -- " (" .. request.data.adapter.model .. ")",
-  -- },
-  -- })
-  -- elseif request.match == "CodeCompanionRequestFinished" then
-  -- if handle then
-  -- handle:finish()
-  -- end
-  -- end
-  -- end,
-  -- })
-  -- end,
-  -- },
-  {
-    "folke/sidekick.nvim",
-    opts = {
-      cli = {},
-      nes = {
-        enabled = false,
-      },
-    },
-    keys = {
-      {
-        "<c-.>",
-        function() require("sidekick.cli").toggle() end,
-        desc = "Sidekick Toggle",
-        mode = { "n", "t", "i", "x" },
-      },
-      {
-        "<leader>ac",
-        function() require("sidekick.cli").toggle({ name = "copilot" }) end,
-        desc = "Sidekick Toggle CLI",
-      },
-      {
-        "<leader>as",
-        function() require("sidekick.cli").select() end,
-        -- Or to select only installed tools:
-        -- require("sidekick.cli").select({ filter = { installed = true } })
-        desc = "Select CLI",
-      },
-      {
-        "<leader>ad",
-        function() require("sidekick.cli").close() end,
-        desc = "Detach a CLI Session",
-      },
-      {
-        "<leader>at",
-        function() require("sidekick.cli").send({ msg = "{this}" }) end,
-        mode = { "x", "n" },
-        desc = "Send This",
-      },
-      {
-        "<leader>af",
-        function() require("sidekick.cli").send({ msg = "{file}" }) end,
-        desc = "Send File",
-      },
-      {
-        "<leader>av",
-        function() require("sidekick.cli").send({ msg = "{selection}" }) end,
-        mode = { "x" },
-        desc = "Send Visual Selection",
-      },
-      {
-        "<leader>ap",
-        function() require("sidekick.cli").prompt() end,
-        mode = { "n", "x" },
-        desc = "Sidekick Select Prompt",
-      },
-    },
-  },
-
-
-  -- {
-  -- 'echasnovski/mini.surround',
-  -- version = '*',
-  -- },
-
-  -- {
-  -- "folke/which-key.nvim",
-  -- event = "VeryLazy",
-  -- opts = {},
-  -- keys = {
-  -- {
-  -- "<leader>?",
-  -- function()
-  -- require("which-key").show({ global = false })
-  -- end,
-  -- desc = "Buffer Local Keymaps (which-key)",
-  -- },
-  -- },
-  -- },
 }

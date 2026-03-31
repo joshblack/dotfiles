@@ -167,9 +167,12 @@ export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
 
 # `nvm` support
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# mise support
+eval "$(mise activate zsh)"
 
 # fzf support
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -183,3 +186,6 @@ eval "$(rbenv init -)"
 
 autoload -U +X bashcompinit && bashcompinit
 # complete -o nospace -C /usr/local/bin/terraform terraform
+
+# opencode
+export PATH=/Users/joshblack/.opencode/bin:$PATH

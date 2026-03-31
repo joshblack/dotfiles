@@ -13,20 +13,29 @@ return {
       require('mason-lspconfig').setup({
         ensure_installed = {
           'cssls',
-          'rust_analyzer',
           'tailwindcss',
           'ts_ls',
         },
         automatic_enable = false,
       })
 
-      local capabilities = require('cmp_nvim_lsp').default_capabilities(
-        vim.lsp.protocol.make_client_capabilities()
-      )
+      -- local capabilities = vim.lsp.protocol.make_client_capabilities()
+      -- capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+      -- capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
+      -- Experiment to see if this helps with editor locking when using clippy
+      -- @see https://github.com/neovim/neovim/issues/23291
+      -- @see https://github.com/neovim/neovim/issues/24325
+      local capabilities = vim.lsp.protocol.make_client_capabilities()
+      vim.tbl_extend('force', capabilities,
+        require('cmp_nvim_lsp').default_capabilities())
+      capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
 
       function on_attach(client, bufnr)
         -- Enable completion triggered by <c-x><c-o>
-        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+        -- vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+        vim.api.nvim_set_option_value('omnifunc', 'v:lua.vim.lsp.omnifunc',
+          { buf = bufnr })
 
         -- Mappings.
         local nmap = function(keys, func, desc)
@@ -45,115 +54,101 @@ return {
         nmap('god', vim.diagnostic.open_float, '[G]oto [O]pen [D]iagnostics');
       end
 
-      vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
-        vim.lsp.handlers.signature_help,
-        {}
-      )
-
-      vim.lsp.config('astro', {
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-      vim.lsp.enable('astro')
-
-      vim.lsp.config('cssls', {
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-      vim.lsp.enable('cssls')
-
-      vim.lsp.config('gopls', {
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-      vim.lsp.enable('gopls')
-
-      vim.lsp.config('lua_ls', {
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-      vim.lsp.enable('lua_ls')
-
-      vim.lsp.config('tailwindcss', {
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-      vim.lsp.enable('tailwindcss')
-
-      vim.lsp.config('ts_ls', {
-        on_attach = on_attach,
-        capabilities = capabilities,
-      })
-      vim.lsp.enable('ts_ls')
-
-      vim.lsp.config('rust_analyzer', {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        settings = {
-          ["rust-analyzer"] = {},
+      local lsp_configs = {
+        { 'astro' },
+        { 'cssls' },
+        { 'gopls' },
+        {
+          'lua_ls',
+          {
+            settings = {
+              Lua = {
+                workspace = {
+                  library = vim.api.nvim_get_runtime_file("", true),
+                },
+              },
+            },
+          },
         },
-      })
-      vim.lsp.enable('rust_analyzer')
+        { 'tailwindcss' },
+        -- { 'tsgo' },
+        { 'ts_ls' },
+        -- {
+        -- 'bacon_ls',
+        -- {
+        -- init_options = {
+        -- updateOnSave = true,
+        -- -- updateOnSaveWaitMillis = 1000
+        -- }
+        -- }
+        -- },
+        {
+          'rust_analyzer',
+          {
+            settings = {
+              ["rust-analyzer"] = {
+                -- semanticHighlighting = {},
+                -- diagnostics = { enable = false },
+                -- checkOnSave = { enable = false },
+              },
+            },
+          },
+        },
+        {
+          'emmet_language_server',
+          {
+            filetypes = { "css", "html", "javascript", "javascriptreact", "scss", "typescriptreact" },
+            init_options = {
+              includeLanguages = {},
+              excludeLanguages = {},
+              extensionsPath = {},
+              preferences = {},
+              showAbbreviationSuggestions = true,
+              showExpandedAbbreviation = "always",
+              showSuggestionsAsSnippets = false,
+              syntaxProfiles = {},
+              variables = {},
+            },
+          },
+        },
+      }
+
+      for _, lsp in ipairs(lsp_configs) do
+        local name = lsp[1]
+        local config = vim.tbl_extend('force', {
+          on_attach = on_attach,
+          capabilities = capabilities,
+        }, lsp[2] or {})
+        vim.lsp.config(name, config)
+        vim.lsp.enable(name)
+      end
 
       vim.diagnostic.config({
         virtual_text = true,
         -- virtual_lines = true
       })
-
-
-      vim.lsp.config('emmet_language_server', {
-        filetypes = { "css", "html", "javascript", "javascriptreact", "scss", "typescriptreact" },
-        -- Read more about this options in the [vscode docs](https://code.visualstudio.com/docs/editor/emmet#_emmet-configuration).
-        -- **Note:** only the options listed in the table are supported.
-        init_options = {
-          ---@type table<string, string>
-          includeLanguages = {},
-          --- @type string[]
-          excludeLanguages = {},
-          --- @type string[]
-          extensionsPath = {},
-          --- @type table<string, any> [Emmet Docs](https://docs.emmet.io/customization/preferences/)
-          preferences = {},
-          --- @type boolean Defaults to `true`
-          showAbbreviationSuggestions = true,
-          --- @type "always" | "never" Defaults to `"always"`
-          showExpandedAbbreviation = "always",
-          --- @type boolean Defaults to `false`
-          showSuggestionsAsSnippets = false,
-          --- @type table<string, any> [Emmet Docs](https://docs.emmet.io/customization/syntax-profiles/)
-          syntaxProfiles = {},
-          --- @type table<string, string> [Emmet Docs](https://docs.emmet.io/customization/snippets/#variables)
-          variables = {},
-        },
-        -- on_attach = on_attach,
-        -- capabilities = capabilities,
-        -- filetypes = { 'html', 'css', 'javascript', 'typescript', 'javascriptreact', 'typescriptreact', 'svelte', 'vue' },
-      })
-      vim.lsp.enable('emmet_language_server')
-    end
-  },
-  {
-    'j-hui/fidget.nvim',
-    opts = {},
-  },
-  {
-    'folke/trouble.nvim',
-    config = function()
-      require('trouble').setup({
-        icons = true,
-        indent_lines = false,
-        use_diagnostic_signs = true
-      })
     end
   },
   -- {
-  -- 'simrat39/symbols-outline.nvim',
-  -- config = function()
-  -- require('symbols-outline').setup({
-  -- keymaps = {
-  -- wrap = true,
+  -- 'mrcjkb/rustaceanvim',
+  -- lazy = false,
   -- },
+  {
+    'j-hui/fidget.nvim',
+    opts = {
+      -- progress = {
+      -- suppress_on_insert = true
+      -- },
+    },
+  },
+  -- {
+  -- 'folke/trouble.nvim',
+  -- config = function()
+  -- require('trouble').setup({
+  -- icons = true,
+  -- indent_lines = false,
+  -- use_diagnostic_signs = true
   -- })
   -- end
-  -- }
+  -- },
 }
