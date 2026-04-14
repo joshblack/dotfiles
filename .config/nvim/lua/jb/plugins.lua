@@ -179,11 +179,12 @@ return {
         enabled = false,
       },
       picker = {
-        enabled = true,
+        enabled = false,
         sources = {
           gh_issue = {},
           gh_pr = {},
         },
+        ui_select = true,
       },
       quickfile = {
         enabled = false,
@@ -230,10 +231,10 @@ return {
   'fatih/vim-go',
 
   -- Text editing
-  {
-    'echasnovski/mini.ai',
-    version = '*',
-    opts = {},
-  },
+  -- {
+  --   'echasnovski/mini.ai',
+  --   version = '*',
+  --   opts = {},
+  -- },
 
 }

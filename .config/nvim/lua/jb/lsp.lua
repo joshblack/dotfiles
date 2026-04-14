@@ -3,21 +3,13 @@ return {
   {
     'williamboman/mason.nvim',
     dependencies = {
-      'williamboman/mason-lspconfig.nvim',
+      'neovim/nvim-lspconfig',
       'onsails/lspkind-nvim',
       'hrsh7th/cmp-nvim-lsp',
     },
     config = function()
       -- Setup
       require('mason').setup()
-      require('mason-lspconfig').setup({
-        ensure_installed = {
-          'cssls',
-          'tailwindcss',
-          'ts_ls',
-        },
-        automatic_enable = false,
-      })
 
       -- local capabilities = vim.lsp.protocol.make_client_capabilities()
       -- capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
@@ -54,79 +46,108 @@ return {
         nmap('god', vim.diagnostic.open_float, '[G]oto [O]pen [D]iagnostics');
       end
 
-      local lsp_configs = {
-        { 'astro' },
-        { 'cssls' },
-        { 'gopls' },
-        {
-          'lua_ls',
-          {
-            settings = {
-              Lua = {
-                workspace = {
-                  library = vim.api.nvim_get_runtime_file("", true),
-                },
-              },
-            },
-          },
-        },
-        { 'tailwindcss' },
-        -- { 'tsgo' },
-        { 'ts_ls' },
-        -- {
-        -- 'bacon_ls',
-        -- {
-        -- init_options = {
-        -- updateOnSave = true,
-        -- -- updateOnSaveWaitMillis = 1000
-        -- }
-        -- }
-        -- },
-        {
-          'rust_analyzer',
-          {
-            settings = {
-              ["rust-analyzer"] = {
-                -- semanticHighlighting = {},
-                -- diagnostics = { enable = false },
-                -- checkOnSave = { enable = false },
-              },
-            },
-          },
-        },
-        {
-          'emmet_language_server',
-          {
-            filetypes = { "css", "html", "javascript", "javascriptreact", "scss", "typescriptreact" },
-            init_options = {
-              includeLanguages = {},
-              excludeLanguages = {},
-              extensionsPath = {},
-              preferences = {},
-              showAbbreviationSuggestions = true,
-              showExpandedAbbreviation = "always",
-              showSuggestionsAsSnippets = false,
-              syntaxProfiles = {},
-              variables = {},
-            },
-          },
-        },
-      }
+      vim.lsp.config('cssls', {
+        on_attach = on_attach,
+        capabilities = capabilities,
+      })
+      vim.lsp.enable('cssls')
 
-      for _, lsp in ipairs(lsp_configs) do
-        local name = lsp[1]
-        local config = vim.tbl_extend('force', {
-          on_attach = on_attach,
-          capabilities = capabilities,
-        }, lsp[2] or {})
-        vim.lsp.config(name, config)
-        vim.lsp.enable(name)
-      end
+      vim.lsp.config('gopls', {
+        on_attach = on_attach,
+        capabilities = capabilities,
+      })
+      vim.lsp.enable('gopls')
+
+      vim.lsp.config('lua_ls', {
+        on_attach = on_attach,
+        capabilities = capabilities,
+        settings = {
+          Lua = {
+            workspace = {
+              library = vim.api.nvim_get_runtime_file("", true),
+            },
+          },
+        },
+      })
+      vim.lsp.enable('lua_ls')
+
+      vim.lsp.config('tailwindcss', {
+        on_attach = on_attach,
+        capabilities = capabilities,
+      })
+      vim.lsp.enable('tailwindcss')
+
+      vim.lsp.config('terraformls', {
+        on_attach = on_attach,
+        capabilities = capabilities,
+      })
+      vim.lsp.enable('terraformls')
+
+      vim.lsp.config('ts_ls', {
+        on_attach = on_attach,
+        capabilities = capabilities,
+      })
+      vim.lsp.enable('ts_ls')
+
+      vim.lsp.config('rust_analyzer', {
+        on_attach = on_attach,
+        capabilities = capabilities,
+        settings = {
+          ["rust-analyzer"] = {
+            -- semanticHighlighting = {},
+            -- diagnostics = { enable = false },
+            -- checkOnSave = { enable = false },
+          },
+        },
+      })
+      vim.lsp.enable('rust_analyzer')
+
+      vim.lsp.config('emmet_language_server', {
+        on_attach = on_attach,
+        capabilities = capabilities,
+        filetypes = { "css", "html", "javascript", "javascriptreact", "scss", "typescriptreact" },
+        init_options = {
+          includeLanguages = {},
+          excludeLanguages = {},
+          extensionsPath = {},
+          preferences = {},
+          showAbbreviationSuggestions = true,
+          showExpandedAbbreviation = "always",
+          showSuggestionsAsSnippets = false,
+          syntaxProfiles = {},
+          variables = {},
+        },
+      })
+      vim.lsp.enable('emmet_language_server')
+
+      -- for _, lsp in ipairs(lsp_configs) do
+      --   local name = lsp[1]
+      --   local config = vim.tbl_extend('force', {
+      --     on_attach = on_attach,
+      --     capabilities = capabilities,
+      --   }, lsp[2] or {})
+      --   vim.lsp.config(name, config)
+      --   vim.lsp.enable(name)
+      -- end
 
       vim.diagnostic.config({
         virtual_text = true,
         -- virtual_lines = true
       })
+
+      -- vim.api.nvim_create_autocmd('LspProgress', {
+      --   callback = function(ev)
+      --     local value = ev.data.params.value
+      --     vim.api.nvim_echo({ { value.message or 'done' } }, false, {
+      --       id = 'lsp.' .. ev.data.client_id,
+      --       kind = 'progress',
+      --       source = 'vim.lsp',
+      --       title = value.title,
+      --       status = value.kind ~= 'end' and 'running' or 'success',
+      --       percent = value.percentage,
+      --     })
+      --   end,
+      -- })
     end
   },
   -- {
