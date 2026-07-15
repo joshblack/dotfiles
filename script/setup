@@ -13,10 +13,7 @@ eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 ulimit -n 1048576
 
 # Install packages used for NeoVim and general terminal utilities
-HOMEBREW_NO_INSTALL_CLEANUP=1 brew install fzf nvm rbenv ripgrep neovim
-
-# Setup working directory for nvm
-mkdir $HOME/.nvm
+HOMEBREW_NO_INSTALL_CLEANUP=1 brew install fzf mise ripgrep neovim ghostty
 
 # Make ZSH the default shell
 sudo chsh "$(id -un)" --shell $(which zsh)
@@ -31,3 +28,4 @@ cp -R .zsh $HOME/.zsh
 # Copy over gitconfig files
 cp .gitconfig $HOME/.gitconfig
 cp .gitconfig-linux $HOME/.gitconfig-linux
+cp .gitconfig_global $HOME/.gitconfig_global

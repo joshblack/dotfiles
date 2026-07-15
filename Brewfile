@@ -1,6 +1,8 @@
 tap "ariga/tap"
 tap "cloudflare/cloudflare"
+tap "eugene1g/safehouse"
 tap "fsouza/prettierd"
+tap "gastownhall/beads", "https://github.com/gastownhall/homebrew-beads.git"
 tap "github/gh"
 tap "golangci/tap"
 tap "hashicorp/tap"
@@ -9,11 +11,17 @@ tap "homebrew/cask-versions"
 tap "homebrew/services"
 tap "jesseduffield/lazygit"
 tap "ngrok/ngrok"
-tap "steveyegge/beads"
+tap "oven-sh/bun"
 # Run your GitHub Actions locally
 brew "act"
+# Display directories as trees (with optional color/HTML output)
+brew "tree"
+# Automate deployment, configuration, and upgrading
+brew "ansible"
 # Microsoft Azure CLI 2.0
 brew "azure-cli"
+# Bourne-Again SHell, a UNIX command interpreter
+brew "bash"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
 # Next-generation test runner for Rust
@@ -24,14 +32,8 @@ brew "cloudflared"
 brew "cmake"
 # Lightweight, framework-agnostic database migration tool
 brew "dbmate"
-# Secure runtime for JavaScript and TypeScript
-brew "deno"
-# Functional metaprogramming aware language built on Erlang VM
-brew "elixir"
 # Simple, fast and user-friendly alternative to find
 brew "fd"
-# Command-line tools for fly.io services
-brew "flyctl"
 # Command-line fuzzy finder written in Go
 brew "fzf"
 # GitHub command-line tool
@@ -48,6 +50,10 @@ brew "go"
 brew "golang-migrate"
 # OpenType text shaping engine
 brew "harfbuzz"
+# Framework for layout and rendering of i18n text
+brew "pango"
+# Graph visualization software from AT&T and Bell Labs
+brew "graphviz"
 # Package compiler and linker metadata toolkit
 brew "pkgconf"
 # User-friendly cURL replacement (command-line HTTP client)
@@ -58,14 +64,18 @@ brew "jj"
 brew "jjui"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
+# Handy way to save and run project-specific commands
+brew "just"
 # Simple terminal UI for git commands
 brew "lazygit"
 # Postgres C API library
 brew "libpq"
-# Framework for layout and rendering of i18n text
-brew "pango"
 # Package manager for the Lua programming language
 brew "luarocks"
+# Polyglot runtime manager (asdf rust clone)
+brew "mise"
+# Simple tool to make locally trusted development certificates
+brew "mkcert"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
 # Modern shell for the GitHub era
@@ -80,8 +90,6 @@ brew "r"
 brew "rbenv"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
-# Display directories as trees (with optional color/HTML output)
-brew "tree"
 # Vi 'workalike' with many additional features
 brew "vim"
 # Image processing library
@@ -89,15 +97,15 @@ brew "vips"
 # Watch files and take action when they change
 brew "watchman"
 # prettier, on SPEED!
-brew "fsouza/prettierd/prettierd"
+brew "fsouza/prettierd/prettierd", trusted: true
 # Consul
-brew "hashicorp/tap/consul"
+brew "hashicorp/tap/consul", trusted: true
 # Nomad
-brew "hashicorp/tap/nomad"
+brew "hashicorp/tap/nomad", trusted: true
 # Packer
-brew "hashicorp/tap/packer"
+brew "hashicorp/tap/packer", trusted: true
 # Terraform
-brew "hashicorp/tap/terraform"
+brew "hashicorp/tap/terraform", trusted: true
 # Virtual monitor for screen sharing
 cask "deskpad"
 # Collaborative team software
@@ -113,8 +121,6 @@ vscode "docker.docker"
 vscode "eamodio.gitlens"
 vscode "esbenp.prettier-vscode"
 vscode "github.codespaces"
-vscode "github.copilot"
-vscode "github.copilot-chat"
 vscode "github.vscode-github-actions"
 vscode "golang.go"
 vscode "graphql.vscode-graphql-syntax"
@@ -128,6 +134,7 @@ vscode "ms-playwright.playwright"
 vscode "ms-vscode-remote.remote-containers"
 vscode "ms-vscode-remote.remote-wsl"
 vscode "ms-vscode.cmake-tools"
+vscode "ms-vscode.cpp-devtools"
 vscode "ms-vscode.cpptools"
 vscode "ms-vscode.cpptools-extension-pack"
 vscode "ms-vscode.cpptools-themes"
@@ -138,6 +145,7 @@ vscode "stylelint.vscode-stylelint"
 vscode "unifiedjs.vscode-mdx"
 vscode "will-wow.vscode-alternate-file"
 vscode "yoavbls.pretty-ts-errors"
+go "github.com/rhysd/actionlint/cmd/actionlint"
 go "github.com/cosmtrek/air"
 go "github.com/klauspost/asmfmt/cmd/asmfmt"
 go "github.com/go-delve/delve/cmd/dlv"
@@ -156,3 +164,16 @@ go "github.com/josharian/impl"
 go "honnef.co/go/tools/cmd/keyify"
 go "github.com/fatih/motion"
 go "honnef.co/go/tools/cmd/staticcheck"
+cargo "cargo-binstall"
+cargo "cargo-expand"
+cargo "cargo-insta"
+cargo "cargo-shear"
+cargo "cargo-watch"
+cargo "gerust"
+cargo "git-branch-stash-cli"
+cargo "git-stack"
+cargo "rustlings"
+cargo "sqlx-cli"
+npm "@github/copilot"
+npm "@primer/mcp"
+npm "corepack"
