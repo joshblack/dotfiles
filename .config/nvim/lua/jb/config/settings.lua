@@ -8,6 +8,13 @@ vim.o.mouse = 'a'
 -- See: https://webpack.js.org/guides/development/#adjusting-your-text-editor
 vim.o.backupcopy = 'yes'
 
+-- Reload buffers changed outside of Neovim, for example by background agents.
+vim.o.autoread = true
+vim.api.nvim_create_autocmd(
+{ 'FocusGained', 'BufEnter', 'CursorHold', 'CursorHoldI' }, {
+  command = 'checktime',
+})
+
 vim.cmd([[
   " Automatic, language-dependent indentation, syntax coloring and other
   " functionality.
@@ -103,8 +110,6 @@ vim.o.showbreak = '↳ '
 -- vim.o.noshowcmd = true
 
 vim.o.sidescrolloff = 3
-
-
 
 vim.o.splitbelow = true
 vim.o.splitright = true

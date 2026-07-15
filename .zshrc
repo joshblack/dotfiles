@@ -46,13 +46,65 @@ zstyle ':vcs_info:*' check-for-changes true
 zstyle ':vcs_info:*' stagedstr "%F{green}●%f" # default 'S'
 zstyle ':vcs_info:*' unstagedstr "%F{red}●%f" # default 'U'
 zstyle ':vcs_info:*' use-simple true
-zstyle ':vcs_info:git+set-message:*' hooks git-untracked
+zstyle ':vcs_info:git+set-message:*' hooks git-large-repo git-untracked
 zstyle ':vcs_info:git*:*' formats '[%b%m%c%u] ' # default ' (%s)-[%b]%c%u-'
 zstyle ':vcs_info:git*:*' actionformats '[%b|%a%m%c%u] ' # default ' (%s)-[%b|%a]%c%u-'
 
+typeset -g ZSH_GIT_PROMPT_LARGE_REPO=0
+typeset -g ZSH_GIT_PROMPT_LARGE_REPO_FILE_LIMIT=${ZSH_GIT_PROMPT_LARGE_REPO_FILE_LIMIT:-50000}
+typeset -g ZSH_GIT_PROMPT_LARGE_REPO_ICON=${ZSH_GIT_PROMPT_LARGE_REPO_ICON:-▲}
+typeset -gA ZSH_GIT_PROMPT_REPO_SIZE_CACHE
+
+function git-prompt-is-large-repo() {
+  emulate -L zsh
+
+  local git_dir file_count
+  git_dir=$(command git rev-parse --git-dir 2> /dev/null) || return 1
+  git_dir=${git_dir:A}
+
+  if [[ -z ${ZSH_GIT_PROMPT_REPO_SIZE_CACHE[$git_dir]} ]]; then
+    file_count=$(command git ls-files --cached 2> /dev/null | command wc -l)
+    file_count=${file_count//[[:space:]]/}
+    [[ $file_count == <-> ]] || file_count=0
+
+    if (( file_count > ZSH_GIT_PROMPT_LARGE_REPO_FILE_LIMIT )); then
+      ZSH_GIT_PROMPT_REPO_SIZE_CACHE[$git_dir]=1
+    else
+      ZSH_GIT_PROMPT_REPO_SIZE_CACHE[$git_dir]=0
+    fi
+  fi
+
+  [[ ${ZSH_GIT_PROMPT_REPO_SIZE_CACHE[$git_dir]} == 1 ]]
+}
+
+function git-prompt-vcs-info() {
+  emulate -L zsh
+
+  if git-prompt-is-large-repo; then
+    ZSH_GIT_PROMPT_LARGE_REPO=1
+    zstyle ':vcs_info:*' check-for-changes false
+  else
+    ZSH_GIT_PROMPT_LARGE_REPO=0
+    zstyle ':vcs_info:*' check-for-changes true
+  fi
+
+  vcs_info
+}
+
+function +vi-git-large-repo() {
+  emulate -L zsh
+  if (( ZSH_GIT_PROMPT_LARGE_REPO )); then
+    hook_com[misc]+="%F{yellow}${ZSH_GIT_PROMPT_LARGE_REPO_ICON}%f"
+  fi
+}
+
 function +vi-git-untracked() {
   emulate -L zsh
-  if [[ -n $(git ls-files --exclude-standard --others 2> /dev/null) ]]; then
+  if (( ZSH_GIT_PROMPT_LARGE_REPO )); then
+    return
+  fi
+
+  if command git status --porcelain=v1 --untracked-files=normal --ignore-submodules=dirty 2> /dev/null | command grep -q '^?? '; then
     hook_com[unstaged]+="%F{blue}●%f"
   fi
 }
@@ -122,7 +174,7 @@ function auto-ls-after-cd() {
 add-zsh-hook chpwd auto-ls-after-cd
 
 # for prompt, this is what renders the git status circles
-add-zsh-hook precmd vcs_info
+add-zsh-hook precmd git-prompt-vcs-info
 
 # History
 export HISTSIZE=100000

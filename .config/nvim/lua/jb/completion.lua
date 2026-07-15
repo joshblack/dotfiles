@@ -13,13 +13,6 @@ return {
       local cmp = require('cmp')
       local luasnip = require('luasnip')
 
-      local has_words_before = function()
-        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-        return col ~= 0 and
-            vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col)
-            :match('%s') == nil
-      end
-
       cmp.setup({
         sources = {
           { name = 'luasnip' },
@@ -27,7 +20,6 @@ return {
           { name = 'path' },
           { name = 'buffer' },
           { name = 'nvim_lua' },
-          { name = 'copilot' },
         },
         snippet = {
           expand = function(args)
@@ -44,7 +36,7 @@ return {
               nvim_lua = "[api]",
               path = "[path]",
               luasnip = "[snip]",
-              copilot = "[copilot]"
+              -- copilot = "[copilot]"
             },
             -- https://github.com/onsails/lspkind-nvim/issues/18#issuecomment-913205575
             symbol_map = {
@@ -141,37 +133,5 @@ return {
         },
       })
     end,
-  },
-  {
-    'zbirenbaum/copilot.lua',
-    requires = {
-      'copilotlsp-nvim/copilot-lsp',
-    },
-    cmd = 'Copilot',
-    event = { 'VimEnter' },
-    config = function()
-      vim.defer_fn(function()
-        require('copilot').setup({
-          filetypes = {
-            ['*'] = true,
-          },
-          suggestions = {
-            enabled = false,
-          },
-          panel = {
-            enabled = false,
-          },
-          nes = {
-            enabled = false,
-          },
-        })
-      end, 100)
-    end,
-  },
-  {
-    'zbirenbaum/copilot-cmp',
-    config = function()
-      require('copilot_cmp').setup()
-    end
   },
 }

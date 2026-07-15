@@ -1,5 +1,3 @@
-auto-update-channel = tip
-
 adjust-cell-height = "35%"
 
 cursor-style = "block"
@@ -28,4 +26,3 @@ window-save-state = "always"
 confirm-close-surface = false
 quit-after-last-window-closed = true
 quick-terminal-animation-duration = 0
-

@@ -1,0 +1,21 @@
+[user]
+name = "Josh Black"
+email = "josh@josh.black"
+
+# https://andre.arko.net/2025/09/28/stupid-jj-tricks/
+[[--scope]]
+--when.repositories = ["~/gh/primer"]
+[--scope.user]
+email = "joshblack@github.com"
+
+# https://andre.arko.net/2025/09/28/stupid-jj-tricks/
+# https://docs.jj-vcs.dev/latest/config/#processing-contents-to-be-paged
+[[--scope]]
+--when.commands = ["diff", "show"]
+[--scope.ui]
+pager = "delta"
+diff-formatter = ":git"
+
+[aliases]
+# https://andre.arko.net/2025/09/28/stupid-jj-tricks/
+tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]

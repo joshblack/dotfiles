@@ -59,12 +59,6 @@ return {
 
   -- Git
   'tpope/vim-fugitive',
-  -- {
-  -- 'lewis6991/gitsigns.nvim',
-  -- config = function()
-  -- require('gitsigns').setup()
-  -- end,
-  -- },
 
   -- Comments
   {
@@ -132,19 +126,19 @@ return {
       require('todo-comments').setup({
         -- show icons in the signs column
         signs = false,
-        highlight = {
-          before = '',
-          keyword = 'fg',
-          after = '',
-        },
-        keywords = {
-          TODO = {
-            color = 'todo',
-          }
-        },
-        colors = {
-          todo = { 'Todo' },
-        },
+        -- highlight = {
+        --   before = '',
+        --   keyword = 'fg',
+        --   after = '',
+        -- },
+        -- keywords = {
+        --   TODO = {
+        --     color = 'todo',
+        --   }
+        -- },
+        -- colors = {
+        --   todo = { 'Todo' },
+        -- },
       })
     end
   },
@@ -168,9 +162,6 @@ return {
       },
       indent = {
         enabled = false,
-        -- your indent configuration comes here
-        -- or leave it empty to use the default settings
-        -- refer to the configuration section below
       },
       lazygit = {
         enabled = true,
@@ -197,12 +188,6 @@ return {
       },
       dashboard = {
         enabled = false,
-        -- sections = {
-        -- { section = "header" },
-        -- { icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
-        -- { icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
-        -- { section = "startup" },
-        -- },
       },
     },
     keys = {
@@ -229,12 +214,4 @@ return {
 
   -- Golang
   'fatih/vim-go',
-
-  -- Text editing
-  -- {
-  --   'echasnovski/mini.ai',
-  --   version = '*',
-  --   opts = {},
-  -- },
-
 }

@@ -11,17 +11,8 @@ return {
       -- Setup
       require('mason').setup()
 
-      -- local capabilities = vim.lsp.protocol.make_client_capabilities()
-      -- capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
-      -- capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
-      -- Experiment to see if this helps with editor locking when using clippy
-      -- @see https://github.com/neovim/neovim/issues/23291
-      -- @see https://github.com/neovim/neovim/issues/24325
       local capabilities = vim.lsp.protocol.make_client_capabilities()
-      vim.tbl_extend('force', capabilities,
-        require('cmp_nvim_lsp').default_capabilities())
-      capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = false
+      capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
       function on_attach(client, bufnr)
         -- Enable completion triggered by <c-x><c-o>
@@ -51,6 +42,17 @@ return {
         capabilities = capabilities,
       })
       vim.lsp.enable('cssls')
+
+      vim.lsp.enable('copilot')
+      vim.lsp.inline_completion.enable()
+      vim.keymap.set('i', '<C-.>', function()
+        if not vim.lsp.inline_completion.get() then
+          return "<C-.>"
+        end
+      end, {
+        expr = true,
+        desc = 'Accept the current inline completion',
+      })
 
       vim.lsp.config('gopls', {
         on_attach = on_attach,
@@ -83,11 +85,17 @@ return {
       })
       vim.lsp.enable('terraformls')
 
-      vim.lsp.config('ts_ls', {
+      -- vim.lsp.config('ts_ls', {
+      --   on_attach = on_attach,
+      --   capabilities = capabilities,
+      -- })
+      -- vim.lsp.enable('ts_ls')
+
+      vim.lsp.config('tsgo', {
         on_attach = on_attach,
         capabilities = capabilities,
       })
-      vim.lsp.enable('ts_ls')
+      vim.lsp.enable('tsgo')
 
       vim.lsp.config('rust_analyzer', {
         on_attach = on_attach,
@@ -120,56 +128,23 @@ return {
       })
       vim.lsp.enable('emmet_language_server')
 
-      -- for _, lsp in ipairs(lsp_configs) do
-      --   local name = lsp[1]
-      --   local config = vim.tbl_extend('force', {
-      --     on_attach = on_attach,
-      --     capabilities = capabilities,
-      --   }, lsp[2] or {})
-      --   vim.lsp.config(name, config)
-      --   vim.lsp.enable(name)
-      -- end
-
       vim.diagnostic.config({
         virtual_text = true,
-        -- virtual_lines = true
       })
 
-      -- vim.api.nvim_create_autocmd('LspProgress', {
-      --   callback = function(ev)
-      --     local value = ev.data.params.value
-      --     vim.api.nvim_echo({ { value.message or 'done' } }, false, {
-      --       id = 'lsp.' .. ev.data.client_id,
-      --       kind = 'progress',
-      --       source = 'vim.lsp',
-      --       title = value.title,
-      --       status = value.kind ~= 'end' and 'running' or 'success',
-      --       percent = value.percentage,
-      --     })
-      --   end,
-      -- })
+      vim.api.nvim_create_autocmd('LspProgress', {
+        callback = function(ev)
+          local value = ev.data.params.value
+          vim.api.nvim_echo({ { value.message or 'done' } }, false, {
+            id = 'lsp.' .. ev.data.client_id,
+            kind = 'progress',
+            source = 'vim.lsp',
+            title = value.title,
+            status = value.kind ~= 'end' and 'running' or 'success',
+            percent = value.percentage,
+          })
+        end,
+      })
     end
   },
-  -- {
-  -- 'mrcjkb/rustaceanvim',
-  -- lazy = false,
-  -- },
-  {
-    'j-hui/fidget.nvim',
-    opts = {
-      -- progress = {
-      -- suppress_on_insert = true
-      -- },
-    },
-  },
-  -- {
-  -- 'folke/trouble.nvim',
-  -- config = function()
-  -- require('trouble').setup({
-  -- icons = true,
-  -- indent_lines = false,
-  -- use_diagnostic_signs = true
-  -- })
-  -- end
-  -- },
 }
