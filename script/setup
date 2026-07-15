@@ -15,8 +15,10 @@ ulimit -n 1048576
 # Install packages used for NeoVim and general terminal utilities
 HOMEBREW_NO_INSTALL_CLEANUP=1 brew install fzf mise ripgrep neovim ghostty
 
+sh script/install-oh-my-zsh.sh
+
 # Make ZSH the default shell
-sudo chsh "$(id -un)" --shell $(which zsh)
+# sudo chsh "$(id -un)" --shell $(which zsh)
 
 # Copy over .config files
 cp -R .config/* $HOME/.config/
