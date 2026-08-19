@@ -85,17 +85,17 @@ return {
       })
       vim.lsp.enable('terraformls')
 
-      -- vim.lsp.config('ts_ls', {
-      --   on_attach = on_attach,
-      --   capabilities = capabilities,
-      -- })
-      -- vim.lsp.enable('ts_ls')
-
-      vim.lsp.config('tsgo', {
+      vim.lsp.config('ts_ls', {
         on_attach = on_attach,
         capabilities = capabilities,
       })
-      vim.lsp.enable('tsgo')
+      vim.lsp.enable('ts_ls')
+
+      -- vim.lsp.config('tsgo', {
+      --   on_attach = on_attach,
+      --   capabilities = capabilities,
+      -- })
+      -- vim.lsp.enable('tsgo')
 
       vim.lsp.config('rust_analyzer', {
         on_attach = on_attach,
@@ -132,17 +132,46 @@ return {
         virtual_text = true,
       })
 
+      local pending_lsp_progress
+
+      local function echo_lsp_progress(data)
+        local value = data.params.value
+        local message = (value.message or 'done'):gsub('%s+', ' ')
+        local title = value.title and value.title:gsub('%s+', ' ') or nil
+
+        vim.api.nvim_echo({ { message } }, false, {
+          id = 'jb.lsp.progress',
+          kind = 'progress',
+          source = 'vim.lsp',
+          title = title,
+          status = value.kind ~= 'end' and 'running' or 'success',
+          percent = value.percentage,
+        })
+      end
+
       vim.api.nvim_create_autocmd('LspProgress', {
         callback = function(ev)
-          local value = ev.data.params.value
-          vim.api.nvim_echo({ { value.message or 'done' } }, false, {
-            id = 'lsp.' .. ev.data.client_id,
-            kind = 'progress',
-            source = 'vim.lsp',
-            title = value.title,
-            status = value.kind ~= 'end' and 'running' or 'success',
-            percent = value.percentage,
-          })
+          -- The command line cannot be replaced while `/`, `:`, or `?` is active.
+          if vim.fn.getcmdtype() ~= '' then
+            pending_lsp_progress = ev.data
+            return
+          end
+
+          echo_lsp_progress(ev.data)
+        end,
+      })
+
+      vim.api.nvim_create_autocmd('CmdlineLeave', {
+        callback = function()
+          if not pending_lsp_progress then
+            return
+          end
+
+          local progress = pending_lsp_progress
+          pending_lsp_progress = nil
+          vim.schedule(function()
+            echo_lsp_progress(progress)
+          end)
         end,
       })
     end

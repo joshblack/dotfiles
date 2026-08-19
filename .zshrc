@@ -32,8 +32,8 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # Completion
-autoload -U compinit
-compinit -u
+# autoload -U compinit
+# compinit -u
 
 # Prompt
 
@@ -229,9 +229,6 @@ eval "$(mise activate zsh)"
 # fzf support
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --hidden'
-
-# rbenv support
-eval "$(rbenv init -)"
 
 # libpq support for pg gem in Rails
 # echo 'export PATH="/opt/homebrew/opt/libpq/bin:$PATH"' >> ~/.zshrc
