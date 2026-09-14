@@ -110,70 +110,75 @@ return {
       })
       vim.lsp.enable('rust_analyzer')
 
-      vim.lsp.config('emmet_language_server', {
-        on_attach = on_attach,
-        capabilities = capabilities,
-        filetypes = { "css", "html", "javascript", "javascriptreact", "scss", "typescriptreact" },
-        init_options = {
-          includeLanguages = {},
-          excludeLanguages = {},
-          extensionsPath = {},
-          preferences = {},
-          showAbbreviationSuggestions = true,
-          showExpandedAbbreviation = "always",
-          showSuggestionsAsSnippets = false,
-          syntaxProfiles = {},
-          variables = {},
-        },
-      })
-      vim.lsp.enable('emmet_language_server')
-
       vim.diagnostic.config({
         virtual_text = true,
       })
 
-      local pending_lsp_progress
-
-      local function echo_lsp_progress(data)
-        local value = data.params.value
-        local message = (value.message or 'done'):gsub('%s+', ' ')
-        local title = value.title and value.title:gsub('%s+', ' ') or nil
-
-        vim.api.nvim_echo({ { message } }, false, {
-          id = 'jb.lsp.progress',
-          kind = 'progress',
-          source = 'vim.lsp',
-          title = title,
-          status = value.kind ~= 'end' and 'running' or 'success',
-          percent = value.percentage,
-        })
-      end
-
-      vim.api.nvim_create_autocmd('LspProgress', {
+      vim.api.nvim_create_autocmd("LspProgress", {
         callback = function(ev)
-          -- The command line cannot be replaced while `/`, `:`, or `?` is active.
-          if vim.fn.getcmdtype() ~= '' then
-            pending_lsp_progress = ev.data
-            return
+          -- ev.data.params.value contains the actual LSP payload
+          local value = ev.data.params.value
+          if not value then return end
+
+          local status = "running"
+          if value.kind == "end" then
+            status = "success"
           end
 
-          echo_lsp_progress(ev.data)
+          -- Send structured progress to Neovim's UI and terminal system
+          vim.api.nvim_echo({}, false, {
+            kind = "progress",
+            title = ev.data.client_id and
+            vim.lsp.get_client_by_id(ev.data.client_id).name or "LSP",
+            status = status,
+            percent = value.percentage,
+            message = value.message or value.title,
+          })
         end,
       })
 
-      vim.api.nvim_create_autocmd('CmdlineLeave', {
-        callback = function()
-          if not pending_lsp_progress then
-            return
-          end
-
-          local progress = pending_lsp_progress
-          pending_lsp_progress = nil
-          vim.schedule(function()
-            echo_lsp_progress(progress)
-          end)
-        end,
-      })
+      --   local pending_lsp_progress
+      --
+      --   local function echo_lsp_progress(data)
+      --     local value = data.params.value
+      --     local message = (value.message or 'done'):gsub('%s+', ' ')
+      --     local title = value.title and value.title:gsub('%s+', ' ') or nil
+      --
+      --     vim.api.nvim_echo({ { message } }, false, {
+      --       id = 'jb.lsp.progress',
+      --       kind = 'progress',
+      --       source = 'vim.lsp',
+      --       title = title,
+      --       status = value.kind ~= 'end' and 'running' or 'success',
+      --       percent = value.percentage,
+      --     })
+      --   end
+      --
+      --   vim.api.nvim_create_autocmd('LspProgress', {
+      --     callback = function(ev)
+      --       -- The command line cannot be replaced while `/`, `:`, or `?` is active.
+      --       if vim.fn.getcmdtype() ~= '' then
+      --         pending_lsp_progress = ev.data
+      --         return
+      --       end
+      --
+      --       echo_lsp_progress(ev.data)
+      --     end,
+      --   })
+      --
+      --   vim.api.nvim_create_autocmd('CmdlineLeave', {
+      --     callback = function()
+      --       if not pending_lsp_progress then
+      --         return
+      --       end
+      --
+      --       local progress = pending_lsp_progress
+      --       pending_lsp_progress = nil
+      --       vim.schedule(function()
+      --         echo_lsp_progress(progress)
+      --       end)
+      --     end,
+      --   })
     end
   },
 }

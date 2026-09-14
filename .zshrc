@@ -208,6 +208,7 @@ alias gcom='git checkout $(git_main_branch)'
 
 # Homebrew sbin support
 export PATH="/usr/local/sbin:$PATH"
+eval "$(brew shellenv)"
 
 OS="$(uname)"
 if [[ "${OS}" == "Linux" ]]; then
@@ -217,11 +218,6 @@ fi
 # Golang support
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
-
-# `nvm` support
-# export NVM_DIR="$HOME/.nvm"
-# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # mise support
 eval "$(mise activate zsh)"
@@ -235,6 +231,3 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden'
 
 autoload -U +X bashcompinit && bashcompinit
 # complete -o nospace -C /usr/local/bin/terraform terraform
-
-# opencode
-export PATH=/Users/joshblack/.opencode/bin:$PATH

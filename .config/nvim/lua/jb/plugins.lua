@@ -143,6 +143,9 @@ return {
     end
   },
 
+  -- Emmet
+  'mattn/emmet-vim',
+
   -- JSX
   -- Note: this requires additional_vim_regex_highlighting = true in treesitter
   'maxmellon/vim-jsx-pretty',

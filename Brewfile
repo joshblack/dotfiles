@@ -1,17 +1,4 @@
-tap "ariga/tap"
-tap "cloudflare/cloudflare"
-tap "eugene1g/safehouse"
-tap "fsouza/prettierd"
-tap "gastownhall/beads", "https://github.com/gastownhall/homebrew-beads.git"
-tap "github/gh"
-tap "golangci/tap"
 tap "hashicorp/tap"
-tap "homebrew/bundle"
-tap "homebrew/cask-versions"
-tap "homebrew/services"
-tap "jesseduffield/lazygit"
-tap "ngrok/ngrok"
-tap "oven-sh/bun"
 # Run your GitHub Actions locally
 brew "act"
 # Display directories as trees (with optional color/HTML output)
@@ -24,8 +11,6 @@ brew "azure-cli"
 brew "bash"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
-# Next-generation test runner for Rust
-brew "cargo-nextest"
 # Cloudflare Tunnel client (formerly Argo Tunnel)
 brew "cloudflared"
 # Cross-platform make
@@ -44,6 +29,8 @@ brew "git"
 brew "git-delta"
 # Git extension for versioning large files
 brew "git-lfs"
+# Audit git repos for secrets
+brew "gitleaks"
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
 # Database migrations CLI tool
@@ -78,6 +65,8 @@ brew "mise"
 brew "mkcert"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
+# Open-source, cross-platform JavaScript runtime environment
+brew "node"
 # Modern shell for the GitHub era
 brew "nushell"
 # Process manager for Procfile-based applications and tmux
@@ -90,14 +79,14 @@ brew "r"
 brew "rbenv"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
+# Rust toolchain installer
+brew "rustup"
 # Vi 'workalike' with many additional features
 brew "vim"
 # Image processing library
 brew "vips"
 # Watch files and take action when they change
 brew "watchman"
-# prettier, on SPEED!
-brew "fsouza/prettierd/prettierd", trusted: true
 # Consul
 brew "hashicorp/tap/consul", trusted: true
 # Nomad
@@ -112,68 +101,5 @@ cask "deskpad"
 cask "figma"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
-# Control your tools with a few keystrokes
-cask "raycast"
-vscode "astro-build.astro-vscode"
-vscode "castwide.solargraph"
-vscode "csstools.postcss"
-vscode "docker.docker"
-vscode "eamodio.gitlens"
-vscode "esbenp.prettier-vscode"
-vscode "github.codespaces"
-vscode "github.vscode-github-actions"
-vscode "golang.go"
-vscode "graphql.vscode-graphql-syntax"
-vscode "jakebecker.elixir-ls"
-vscode "kaiwood.endwise"
-vscode "kleber-swf.ocean-dark-extended"
-vscode "misogi.ruby-rubocop"
-vscode "ms-azuretools.vscode-containers"
-vscode "ms-azuretools.vscode-docker"
-vscode "ms-playwright.playwright"
-vscode "ms-vscode-remote.remote-containers"
-vscode "ms-vscode-remote.remote-wsl"
-vscode "ms-vscode.cmake-tools"
-vscode "ms-vscode.cpp-devtools"
-vscode "ms-vscode.cpptools"
-vscode "ms-vscode.cpptools-extension-pack"
-vscode "ms-vscode.cpptools-themes"
-vscode "ms-vsliveshare.vsliveshare"
-vscode "rust-lang.rust-analyzer"
-vscode "sorbet.sorbet-vscode-extension"
-vscode "stylelint.vscode-stylelint"
-vscode "unifiedjs.vscode-mdx"
-vscode "will-wow.vscode-alternate-file"
-vscode "yoavbls.pretty-ts-errors"
-go "github.com/rhysd/actionlint/cmd/actionlint"
-go "github.com/cosmtrek/air"
-go "github.com/klauspost/asmfmt/cmd/asmfmt"
-go "github.com/go-delve/delve/cmd/dlv"
-go "github.com/kisielk/errcheck"
-go "github.com/davidrjenni/reftools/cmd/fillstruct"
-go "github.com/rogpeppe/godef"
-go "golang.org/x/tools/cmd/goimports"
-go "github.com/golangci/golangci-lint/cmd/golangci-lint"
-go "github.com/fatih/gomodifytags"
-go "golang.org/x/tools/gopls"
-go "golang.org/x/tools/cmd/gorename"
-go "github.com/jstemmer/gotags"
-go "golang.org/x/tools/cmd/guru"
-go "github.com/koron/iferr"
-go "github.com/josharian/impl"
-go "honnef.co/go/tools/cmd/keyify"
-go "github.com/fatih/motion"
-go "honnef.co/go/tools/cmd/staticcheck"
-cargo "cargo-binstall"
-cargo "cargo-expand"
-cargo "cargo-insta"
-cargo "cargo-shear"
-cargo "cargo-watch"
-cargo "gerust"
-cargo "git-branch-stash-cli"
-cargo "git-stack"
-cargo "rustlings"
-cargo "sqlx-cli"
-npm "@github/copilot"
-npm "@primer/mcp"
-npm "corepack"
+# Knowledge base that works on top of a local folder of plain text Markdown files
+cask "obsidian"

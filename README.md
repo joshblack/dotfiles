@@ -1,6 +1,6 @@
 # dotfiles
 
-> Dotfiles for git, zsh, iTerm2, Homebrew, Neovim, and more
+> Dotfiles for git, zsh, Ghostty, Homebrew, Neovim, and more
 
 ## Features
 
@@ -14,6 +14,13 @@
 
 ```bash
 ln -s ~/dotfiles/.config/* .config/
+ln -s ~/dotfiles/.gitconfig .gitconfig
+ln -s ~/dotfiles/.gitconfig-github .gitconfig-github
+ln -s ~/dotfiles/.gitconfig-macos .gitconfig-macos
+ln -s ~/dotfiles/.gitconfig-nbdsystem .gitconfig-nbdsystem
+ln -s ~/dotfiles/.gitignore_global .gitignore
+ln -s ~/dotfiles/.zshrc .zshrc
+ln -s ~/dotfiles/Brewfile Brewfile
 ```
 
 ## Tips
@@ -22,5 +29,5 @@ ln -s ~/dotfiles/.config/* .config/
 
 ```bash
 # Dump installed homebrew packages into `Brewfile`
-brew bundle dump --describe --force --file Brewfile
+brew bundle dump --no-dump-npm --no-dump-cargo --no-dump-vscode --no-dump-go -f
 ```
