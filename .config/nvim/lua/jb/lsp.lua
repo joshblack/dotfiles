@@ -85,17 +85,11 @@ return {
       })
       vim.lsp.enable('terraformls')
 
-      vim.lsp.config('ts_ls', {
+      vim.lsp.config('tsc', {
         on_attach = on_attach,
         capabilities = capabilities,
       })
-      vim.lsp.enable('ts_ls')
-
-      -- vim.lsp.config('tsgo', {
-      --   on_attach = on_attach,
-      --   capabilities = capabilities,
-      -- })
-      -- vim.lsp.enable('tsgo')
+      vim.lsp.enable('tsc')
 
       vim.lsp.config('rust_analyzer', {
         on_attach = on_attach,
@@ -126,13 +120,14 @@ return {
           end
 
           -- Send structured progress to Neovim's UI and terminal system
-          vim.api.nvim_echo({}, false, {
+          vim.api.nvim_echo({ { value.message or "done" } }, false, {
+            id = "lsp" .. ev.data.client_id,
             kind = "progress",
+            source = "vim.lsp",
             title = ev.data.client_id and
-            vim.lsp.get_client_by_id(ev.data.client_id).name or "LSP",
+                vim.lsp.get_client_by_id(ev.data.client_id).name or "LSP",
             status = status,
             percent = value.percentage,
-            message = value.message or value.title,
           })
         end,
       })

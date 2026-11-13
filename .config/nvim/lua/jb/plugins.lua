@@ -8,6 +8,7 @@ return {
     config = function()
       require('tokyonight').setup({
         style = 'moon',
+        dim_inactive = true,
         styles = {
           keywords = {
             italic = false,
@@ -154,6 +155,25 @@ return {
     'folke/snacks.nvim',
     priority = 1000,
     lazy = false,
+    init = function()
+      if vim.env.TERM_PROGRAM ~= 'rex' then
+        return
+      end
+      vim.api.nvim_create_autocmd({ 'BufEnter', 'BufLeave', 'BufWinEnter', 'BufWinLeave' }, {
+        group = vim.api.nvim_create_augroup('rex_snacks_image', { clear = true }),
+        callback = function(event)
+          if vim.bo[event.buf].filetype ~= 'image' then
+            return
+          end
+          Snacks.image.placement.clean(event.buf)
+          vim.schedule(function()
+            if vim.api.nvim_buf_is_valid(event.buf) and #vim.fn.win_findbuf(event.buf) > 0 then
+              Snacks.image.buf.attach(event.buf)
+            end
+          end)
+        end,
+      })
+    end,
     ---@type snacks.Config
     opts = {
       bigfile = {
@@ -161,7 +181,11 @@ return {
         notify = true,
       },
       gh = {
+        enabled = false,
+      },
+      image = {
         enabled = true,
+        force = vim.env.TERM_PROGRAM == 'rex',
       },
       indent = {
         enabled = false,

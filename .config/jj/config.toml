@@ -4,7 +4,7 @@ email = "josh@josh.black"
 
 # https://andre.arko.net/2025/09/28/stupid-jj-tricks/
 [[--scope]]
---when.repositories = ["~/gh/primer"]
+--when.repositories = ["~/gh/primer", "~/gh/github"]
 [--scope.user]
 email = "joshblack@github.com"
 
@@ -17,5 +17,3 @@ pager = "delta"
 diff-formatter = ":git"
 
 [aliases]
-# https://andre.arko.net/2025/09/28/stupid-jj-tricks/
-tug = ["bookmark", "move", "--from", "heads(::@- & bookmarks())", "--to", "@-"]

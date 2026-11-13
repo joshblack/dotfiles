@@ -1,13 +1,23 @@
+wrappers = { cargo = { command = "mbx", env = { MBX_CARGO_SHIM_MODE = "1" } } }
+
 [tools]
-"cargo:cargo-nextest" = "0.9.143"
-node = "26"
+"cargo:cargo-nextest" = "0.9.151"
 "npm:@github/copilot" = "latest"
 "npm:@primer/mcp" = "latest"
 "npm:agent-browser" = "latest"
 "npm:corepack" = "latest"
 "npm:next-devtools-mcp" = "latest"
-rust = "1.98.1"
+bun = "1.4.4"
+hunk = "latest"
+node = "26"
+pi = "latest"
+python = "latest"
+rust = "1.100.0"
 
 [settings]
 idiomatic_version_file_enable_tools = ["rust"]
+
+[tool_alias]
+npm = "npm:npm"
+pnpm = "npm:pnpm"
 

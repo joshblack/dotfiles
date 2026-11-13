@@ -26,6 +26,7 @@ export UPDATE_ZSH_DAYS=7
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   git
+  jj
   ssh-agent
 )
 
@@ -109,6 +110,175 @@ function +vi-git-untracked() {
   fi
 }
 
+if [[ -n ${ZSH_JJ_PROMPT_FD:-} ]]; then
+  zle -F "$ZSH_JJ_PROMPT_FD"
+  exec {ZSH_JJ_PROMPT_FD}<&-
+fi
+
+typeset -g ZSH_JJ_PROMPT_FD=""
+typeset -g ZSH_JJ_PROMPT_WORKSPACE=""
+typeset -g ZSH_JJ_PROMPT_JOB_WORKSPACE=""
+typeset -g ZSH_JJ_PROMPT_DISPLAY=""
+typeset -gA ZSH_JJ_PROMPT_CACHE
+typeset -gi ZSH_JJ_PROMPT_GENERATION=0
+typeset -gi ZSH_JJ_PROMPT_JOB_GENERATION=0
+
+function jj-prompt-workspace() {
+  emulate -L zsh
+
+  local directory=${PWD:A}
+  while [[ $directory != / && ! -d $directory/.jj ]]; do
+    directory=${directory:h}
+  done
+
+  reply=""
+  if [[ -d $directory/.jj ]]; then
+    reply=$directory
+  fi
+}
+
+function jj-prompt-info() {
+  emulate -L zsh
+
+  local revision bookmark distance display
+
+  # Read only the last snapshot; never snapshot files while drawing the prompt.
+  if ! revision=$(command jj log \
+      --repository "$1" \
+      --ignore-working-copy \
+      --no-graph \
+      --color always \
+      -r @ \
+      -T 'change_id.shortest(4)' 2>&1); then
+    print -r -- "[%F{red}jj error%f] "
+    print -r -- "${revision//$'\n'/ }"
+    return 1
+  fi
+
+  if ! bookmark=$(command jj log \
+      --repository "$1" \
+      --ignore-working-copy \
+      --no-graph \
+      --color never \
+      -r 'heads(::@ & bookmarks())' \
+      -T 'local_bookmarks.map(|b| b.name()).join(", ") ++ "\n"' 2>&1); then
+    print -r -- "[%F{red}jj error%f] "
+    print -r -- "${bookmark//$'\n'/ }"
+    return 1
+  fi
+
+  bookmark=${bookmark//$'\n'/, }
+  bookmark=${bookmark//\%/%%}
+  display=$(print -r -- "$revision" | command sed -E $'s/\033\\[[0-9;]*m/%{&%}/g')
+  if [[ -n $bookmark ]]; then
+    display="$bookmark $display"
+    if ! distance=$(command jj log \
+        --repository "$1" \
+        --ignore-working-copy \
+        --color never \
+        -r 'heads(::@ & bookmarks())..@' \
+        --count 2>&1); then
+      print -r -- "[%F{red}jj error%f] "
+      print -r -- "${distance//$'\n'/ }"
+      return 1
+    fi
+    if (( distance > 0 )); then
+      display+=" %F{yellow}↑${distance}%f"
+    fi
+  fi
+
+  print -r -- "[${display}] "
+  print -r -- ""
+}
+
+function jj-prompt-start() {
+  emulate -L zsh
+
+  ZSH_JJ_PROMPT_JOB_WORKSPACE=$ZSH_JJ_PROMPT_WORKSPACE
+  ZSH_JJ_PROMPT_JOB_GENERATION=$ZSH_JJ_PROMPT_GENERATION
+  if ! exec {ZSH_JJ_PROMPT_FD}< <(jj-prompt-info "$ZSH_JJ_PROMPT_JOB_WORKSPACE"); then
+    vcs_info_msg_0_="[%F{red}jj error%f] "
+    return 1
+  fi
+
+  if ! zle -F "$ZSH_JJ_PROMPT_FD" jj-prompt-callback; then
+    exec {ZSH_JJ_PROMPT_FD}<&-
+    ZSH_JJ_PROMPT_FD=""
+    vcs_info_msg_0_="[%F{red}jj error%f] "
+    return 1
+  fi
+}
+
+function jj-prompt-callback() {
+  emulate -L zsh
+
+  local fd=$1 display error
+  local -i changed=0
+  zle -F "$fd"
+  if ! IFS= read -r -u "$fd" display ||
+      ! IFS= read -r -u "$fd" error; then
+    display="[%F{red}jj error%f] "
+    error="jj prompt: background job ended without a complete result"
+  fi
+  exec {fd}<&-
+  ZSH_JJ_PROMPT_FD=""
+
+  # A result from before the latest command must not overwrite newer state.
+  if [[ $ZSH_JJ_PROMPT_JOB_WORKSPACE != $ZSH_JJ_PROMPT_WORKSPACE ]] ||
+      (( ZSH_JJ_PROMPT_JOB_GENERATION != ZSH_JJ_PROMPT_GENERATION )); then
+    if [[ -n $ZSH_JJ_PROMPT_WORKSPACE ]]; then
+      jj-prompt-start
+    fi
+    return
+  fi
+
+  if [[ -z $error ]]; then
+    ZSH_JJ_PROMPT_CACHE[$ZSH_JJ_PROMPT_WORKSPACE]=$display
+  fi
+  if [[ $vcs_info_msg_0_ != $display ]]; then
+    changed=1
+  fi
+  ZSH_JJ_PROMPT_DISPLAY=$display
+  vcs_info_msg_0_=$display
+  if zle; then
+    if (( changed )); then
+      zle reset-prompt
+      zle -R
+    fi
+    if [[ -n $error ]]; then
+      zle -M "$error"
+    fi
+  elif [[ -n $error ]]; then
+    print -ru2 -- "$error"
+  fi
+}
+
+function prompt-vcs-info() {
+  emulate -L zsh
+
+  local reply=""
+  (( ++ZSH_JJ_PROMPT_GENERATION ))
+  if command -v jj > /dev/null 2>&1; then
+    jj-prompt-workspace
+  fi
+
+  if [[ $ZSH_JJ_PROMPT_WORKSPACE != $reply ]]; then
+    ZSH_JJ_PROMPT_WORKSPACE=$reply
+    ZSH_JJ_PROMPT_DISPLAY=""
+    if [[ -n $reply ]]; then
+      ZSH_JJ_PROMPT_DISPLAY=${ZSH_JJ_PROMPT_CACHE[$reply]:-}
+    fi
+  fi
+
+  if [[ -n $ZSH_JJ_PROMPT_WORKSPACE ]]; then
+    vcs_info_msg_0_=${ZSH_JJ_PROMPT_DISPLAY:-"[jj] "}
+    if [[ -z $ZSH_JJ_PROMPT_FD ]]; then
+      jj-prompt-start
+    fi
+  else
+    git-prompt-vcs-info
+  fi
+}
 
 RPROMPT_BASE="\${vcs_info_msg_0_}%F{blue}%~%f"
 setopt PROMPT_SUBST
@@ -173,8 +343,8 @@ function auto-ls-after-cd() {
 }
 add-zsh-hook chpwd auto-ls-after-cd
 
-# for prompt, this is what renders the git status circles
-add-zsh-hook precmd git-prompt-vcs-info
+add-zsh-hook -d precmd git-prompt-vcs-info
+add-zsh-hook precmd prompt-vcs-info
 
 # History
 export HISTSIZE=100000
