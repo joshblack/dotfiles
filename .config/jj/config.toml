@@ -17,3 +17,16 @@ pager = "delta"
 diff-formatter = ":git"
 
 [aliases]
+pr = ["util", "exec", "--", "bash", "-c", """
+  set -e
+  bookmark=$(jj log -r 'closest_bookmark(@)' -T 'bookmarks.map(|b| b.name()).join(" ")' --no-graph | awk '{print $1}')
+  if [ -z "$bookmark" ]; then
+    echo "Error: No bookmark found on or before @" >&2
+    exit 1
+  fi
+  jj git push --bookmark "$bookmark"
+  gh pr create --head "$bookmark" "$@"
+""", ""]
+
+[revset-aliases]
+'closest_bookmark(to)' = 'heads(::to & bookmarks())'

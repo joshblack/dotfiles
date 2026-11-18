@@ -12,7 +12,9 @@ hunk = "latest"
 node = "26"
 pi = "latest"
 python = "latest"
-rust = "1.100.0"
+rust = { version = "latest", mr_boxington = true }
+"npm:pnpm" = "12.17.0"
+mr-boxington = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["rust"]
