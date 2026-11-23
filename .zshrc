@@ -376,14 +376,15 @@ alias hl="pbpaste | highlight --font-size 36 --font 'IBM Plex Mono' --syntax=js 
 alias vim="nvim"
 alias gcom='git checkout $(git_main_branch)'
 
-# Homebrew sbin support
-export PATH="/usr/local/sbin:$PATH"
-eval "$(brew shellenv)"
-
 OS="$(uname)"
 if [[ "${OS}" == "Linux" ]]; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
+
+# Homebrew sbin support
+export PATH="/usr/local/sbin:$PATH"
+eval "$(brew shellenv)"
+
 
 # Golang support
 export GOPATH=$HOME/go
