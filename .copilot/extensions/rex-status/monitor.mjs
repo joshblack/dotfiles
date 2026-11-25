@@ -3,6 +3,7 @@ import { setTimeout } from "node:timers/promises";
 const eventTypes = [
     "session.start",
     "session.resume",
+    "session.context_changed",
     "user.message",
     "assistant.turn_start",
     "tool.execution_start",
@@ -25,13 +26,14 @@ const eventTypes = [
     "session.shutdown",
 ];
 
-export async function monitorSession({ session, tracker, report, onError }) {
+export async function monitorSession({ session, tracker, report, onError, onContextChange }) {
     const controller = new AbortController();
     const { signal } = controller;
     let cursor;
     let hydrated = false;
     let caughtUp = false;
     let polling;
+    let contextChanged = true;
 
     async function pause() {
         try {
@@ -80,8 +82,21 @@ export async function monitorSession({ session, tracker, report, onError }) {
                 caughtUp = !page.hasMore;
                 for (const event of page.events) {
                     tracker.handle(event);
+                    if (!event.agentId && [
+                        "session.start",
+                        "session.resume",
+                        "session.context_changed",
+                    ].includes(event.type)) {
+                        contextChanged = true;
+                    }
                 }
                 if (caughtUp) {
+                    if (contextChanged && tracker.report() !== "state=clear") {
+                        if (onContextChange) {
+                            await onContextChange();
+                        }
+                        contextChanged = false;
+                    }
                     report(tracker.report());
                     if (tracker.report() === "state=clear") {
                         break;

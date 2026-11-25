@@ -165,3 +165,85 @@ test("unrelated subagent activity does not discard an in-flight permission snaps
     assert.equal(tracker.report(), "state=clear");
     assert.deepEqual(errors, []);
 });
+
+test("refreshes resume context only after replay and main-session context changes", async () => {
+    const batches = [
+        { events: [event("session.shutdown")], hasMore: true },
+        { events: [event("session.resume")], hasMore: false },
+        { events: [event("session.context_changed", undefined, "child")], hasMore: false },
+        { events: [event("assistant.turn_start")], hasMore: false },
+        { events: [event("session.context_changed")], hasMore: false },
+        { events: [event("session.shutdown")], hasMore: false },
+    ];
+    const refreshedAt = [];
+    const reports = [];
+    let reads = 0;
+    const session = {
+        rpc: {
+            eventLog: {
+                async read({ types }) {
+                    const batch = batches[reads++];
+                    return {
+                        ...batch,
+                        events: batch.events.filter((value) => types.includes(value.type)),
+                        cursor: String(reads),
+                    };
+                },
+            },
+            permissions: {
+                async pendingRequests() {
+                    return { items: [] };
+                },
+            },
+        },
+    };
+    await monitorSession({
+        session,
+        tracker: createStatusTracker(),
+        report(value) {
+            reports.push(value);
+        },
+        async onContextChange() {
+            refreshedAt.push(reads);
+        },
+        onError(error) {
+            throw error;
+        },
+    });
+    assert.deepEqual(refreshedAt, [2, 5]);
+    assert.equal(reports.at(-1), "state=clear");
+});
+
+test("initial hydration publishes resume context even without lifecycle events", async () => {
+    let reads = 0;
+    let refreshed = 0;
+    await monitorSession({
+        session: {
+            rpc: {
+                eventLog: {
+                    async read() {
+                        return {
+                            events: reads++ === 0 ? [] : [event("session.shutdown")],
+                            hasMore: false,
+                            cursor: String(reads),
+                        };
+                    },
+                },
+                permissions: {
+                    async pendingRequests() {
+                        return { items: [] };
+                    },
+                },
+            },
+        },
+        tracker: createStatusTracker(),
+        report() {},
+        async onContextChange() {
+            refreshed += 1;
+        },
+        onError(error) {
+            throw error;
+        },
+    });
+    assert.equal(refreshed, 1);
+});
