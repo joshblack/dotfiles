@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
 import { monitorSession } from "./monitor.mjs";
+import { createResumeReporter, refreshResumeContext } from "./resume.mjs";
 import { createStatusTracker } from "./status.mjs";
 
 function event(type, requestId, agentId) {
@@ -246,4 +247,217 @@ test("initial hydration publishes resume context even without lifecycle events",
         },
     });
     assert.equal(refreshed, 1);
+});
+
+test("retries snapshot and terminal failures while reporting status during a long poll", async () => {
+    for (const failure of ["snapshot", "write"]) {
+        let deliverEvents;
+        let attempts = 0;
+        const attemptTimes = [];
+        let writes = 0;
+        let resolvePublished;
+        const published = new Promise((resolve) => { resolvePublished = resolve; });
+        const reports = [];
+        const reporter = createResumeReporter({
+            token: "test-token-with-at-least-22-characters",
+            pid: 1234,
+            write() {
+                if (failure === "write" && writes++ === 0) {
+                    throw new Error("terminal unavailable");
+                }
+                resolvePublished();
+            },
+        });
+        let reads = 0;
+        const session = {
+            rpc: {
+                eventLog: {
+                    async read() {
+                        if (reads++ === 0) {
+                            return { events: [event("assistant.turn_start")], hasMore: false };
+                        }
+                        return new Promise((resolve) => { deliverEvents = resolve; });
+                    },
+                },
+                permissions: { async pendingRequests() { return { items: [] }; } },
+            },
+        };
+        const monitoring = monitorSession({
+            session,
+            tracker: createStatusTracker(),
+            report: (value) => reports.push(value),
+            onContextChange: (isCurrent) => refreshResumeContext({
+                resume: reporter,
+                async snapshot() {
+                    attempts += 1;
+                    attemptTimes.push(Date.now());
+                    if (failure === "snapshot" && attempts === 1) {
+                        throw new Error("metadata unavailable");
+                    }
+                    return { sessionId: "session", workingDirectory: "/tmp", isRemote: false };
+                },
+                isCurrent,
+                onError() {},
+            }),
+            onError(error) { throw error; },
+        });
+        const timeout = setTimeout(() => resolvePublished(new Error("retry timed out")), 4000);
+        const result = await published;
+        clearTimeout(timeout);
+        assert.equal(result, undefined);
+        assert.equal(attempts, 2);
+        assert.ok(attemptTimes[1] - attemptTimes[0] >= 900);
+        assert.ok(reports.includes("state=working:app=copilot"));
+        deliverEvents({ events: [event("session.shutdown")], hasMore: false });
+        await monitoring;
+    }
+});
+
+test("discards in-flight snapshots after context changes and shutdown", async () => {
+    let deliverEvents;
+    const snapshots = [];
+    const writes = [];
+    const reports = [];
+    const reporter = createResumeReporter({
+        token: "test-token-with-at-least-22-characters",
+        pid: 1234,
+        write: (value) => writes.push(value),
+    });
+    let reads = 0;
+    const monitoring = monitorSession({
+        session: {
+            rpc: {
+                eventLog: {
+                    async read() {
+                        if (reads++ === 0) {
+                            return { events: [], hasMore: false };
+                        }
+                        return new Promise((resolve) => { deliverEvents = resolve; });
+                    },
+                },
+                permissions: { async pendingRequests() { return { items: [] }; } },
+            },
+        },
+        tracker: createStatusTracker(),
+        report: (value) => reports.push(value),
+        onContextChange: (isCurrent) => refreshResumeContext({
+            resume: reporter,
+            snapshot: () => new Promise((resolve) => snapshots.push(resolve)),
+            isCurrent,
+            onError() {},
+        }),
+        onError(error) { throw error; },
+    });
+    await Promise.resolve();
+    assert.equal(snapshots.length, 1);
+    deliverEvents({ events: [event("session.context_changed"), event("assistant.turn_start")], hasMore: false });
+    await new Promise((resolve) => setImmediate(resolve));
+    assert.ok(reports.includes("state=working:app=copilot"));
+    snapshots[0]({ sessionId: "old", workingDirectory: "/tmp" });
+    await new Promise((resolve) => setImmediate(resolve));
+    assert.equal(writes.length, 0);
+    assert.equal(snapshots.length, 2);
+    deliverEvents({ events: [event("session.shutdown")], hasMore: false });
+    await monitoring;
+    snapshots[1]({ sessionId: "new", workingDirectory: "/tmp" });
+    await new Promise((resolve) => setImmediate(resolve));
+    assert.equal(writes.length, 0);
+});
+
+test("rejected remote context is not retried until the context changes", async () => {
+    let deliverEvents;
+    let attempts = 0;
+    let resolvePublished;
+    const published = new Promise((resolve) => { resolvePublished = resolve; });
+    const reporter = createResumeReporter({
+        token: "test-token-with-at-least-22-characters",
+        pid: 1234,
+        write: () => resolvePublished(),
+    });
+    let reads = 0;
+    const monitoring = monitorSession({
+        session: {
+            rpc: {
+                eventLog: {
+                    async read() {
+                        if (reads++ === 0) {
+                            return { events: [], hasMore: false };
+                        }
+                        return new Promise((resolve) => { deliverEvents = resolve; });
+                    },
+                },
+                permissions: { async pendingRequests() { return { items: [] }; } },
+            },
+        },
+        tracker: createStatusTracker(),
+        report() {},
+        onContextChange: (isCurrent) => refreshResumeContext({
+            resume: reporter,
+            snapshot: async () => ({
+                sessionId: "session",
+                workingDirectory: "/tmp",
+                isRemote: ++attempts === 1,
+            }),
+            isCurrent,
+            onError() {},
+        }),
+        onError(error) { throw error; },
+    });
+    await new Promise((resolve) => setTimeout(resolve, 1100));
+    assert.equal(attempts, 1);
+    deliverEvents({ events: [event("session.context_changed")], hasMore: false });
+    await published;
+    assert.equal(attempts, 2);
+    deliverEvents({ events: [event("session.shutdown")], hasMore: false });
+    await monitoring;
+});
+
+test("refreshes again if a snapshot finishes while replay is catching up", async () => {
+    let deliverEvents;
+    const snapshots = [];
+    const writes = [];
+    const reporter = createResumeReporter({
+        token: "test-token-with-at-least-22-characters",
+        pid: 1234,
+        write: (value) => writes.push(value),
+    });
+    let reads = 0;
+    const monitoring = monitorSession({
+        session: {
+            rpc: {
+                eventLog: {
+                    async read() {
+                        if (reads++ === 0) {
+                            return { events: [], hasMore: false };
+                        }
+                        return new Promise((resolve) => { deliverEvents = resolve; });
+                    },
+                },
+                permissions: { async pendingRequests() { return { items: [] }; } },
+            },
+        },
+        tracker: createStatusTracker(),
+        report() {},
+        onContextChange: (isCurrent) => refreshResumeContext({
+            resume: reporter,
+            snapshot: () => new Promise((resolve) => snapshots.push(resolve)),
+            isCurrent,
+            onError() {},
+        }),
+        onError(error) { throw error; },
+    });
+    await Promise.resolve();
+    deliverEvents({ events: [], hasMore: true });
+    await new Promise((resolve) => setImmediate(resolve));
+    snapshots[0]({ sessionId: "session", workingDirectory: "/tmp" });
+    await new Promise((resolve) => setImmediate(resolve));
+    assert.equal(writes.length, 0);
+    deliverEvents({ events: [], hasMore: false });
+    await new Promise((resolve) => setImmediate(resolve));
+    assert.equal(snapshots.length, 2);
+    snapshots[1]({ sessionId: "session", workingDirectory: "/tmp" });
+    await new Promise((resolve) => setImmediate(resolve));
+    assert.equal(writes.length, 1);
+    deliverEvents({ events: [event("session.shutdown")], hasMore: false });
+    await monitoring;
 });

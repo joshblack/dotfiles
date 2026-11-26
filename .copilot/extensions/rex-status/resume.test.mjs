@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import { createHash } from "node:crypto";
 import { test } from "node:test";
-import { createResumeReporter } from "./resume.mjs";
+import { createResumeReporter, refreshResumeContext } from "./resume.mjs";
 
 const token = "test-token-with-at-least-22-characters";
 const metadata = {
@@ -145,4 +145,64 @@ test("failed terminal writes do not suppress a later retry", () => {
     reporter.report(metadata);
     assert.equal(output.length, 1);
     assert.ok(decode(output[0]).argv);
+});
+
+test("classifies snapshot and write failures separately from rejected contexts", async () => {
+    let failWrite = false;
+    const reporter = createResumeReporter({
+        token,
+        pid: 1234,
+        write() {
+            if (failWrite) {
+                throw new Error("terminal unavailable");
+            }
+        },
+    });
+    const errors = [];
+    const refresh = (snapshot) => refreshResumeContext({
+        resume: reporter,
+        snapshot,
+        isCurrent: () => true,
+        onError: (message) => errors.push(message),
+    });
+    assert.equal(await refresh(async () => { throw new Error("metadata unavailable"); }), false);
+    failWrite = true;
+    assert.equal(await refresh(async () => metadata), false);
+    failWrite = false;
+    assert.equal(await refresh(async () => metadata), undefined);
+    for (const invalid of [null, { ...metadata, isRemote: true }, { ...metadata, sessionId: "" }]) {
+        assert.equal(await refresh(async () => invalid), true);
+    }
+    assert.equal(errors.length, 5);
+});
+
+test("retries a rejected context if clearing the previous report fails", async () => {
+    let failClear = false;
+    const reporter = createResumeReporter({
+        token,
+        pid: 1234,
+        write() {
+            if (failClear) {
+                throw new Error("terminal unavailable");
+            }
+        },
+    });
+    reporter.report(metadata);
+    failClear = true;
+    const errors = [];
+    const result = await refreshResumeContext({
+        resume: reporter,
+        snapshot: async () => ({ ...metadata, isRemote: true }),
+        isCurrent: () => true,
+        onError: (message) => errors.push(message),
+    });
+    assert.equal(result, false);
+    assert.equal(errors.length, 2);
+    failClear = false;
+    assert.equal(await refreshResumeContext({
+        resume: reporter,
+        snapshot: async () => ({ ...metadata, isRemote: true }),
+        isCurrent: () => true,
+        onError() {},
+    }), true);
 });

@@ -33,7 +33,9 @@ export async function monitorSession({ session, tracker, report, onError, onCont
     let hydrated = false;
     let caughtUp = false;
     let polling;
-    let contextChanged = true;
+    let contextRevision = 1;
+    let refreshedRevision = 0;
+    let contextRefresh;
 
     async function pause() {
         try {
@@ -66,6 +68,35 @@ export async function monitorSession({ session, tracker, report, onError, onCont
         }
     }
 
+    function refreshContext() {
+        if (!onContextChange || contextRefresh || signal.aborted || !caughtUp ||
+            tracker.report() === "state=clear" || refreshedRevision === contextRevision) {
+            return;
+        }
+        const revision = contextRevision;
+        const isCurrent = () => !signal.aborted && caughtUp &&
+            tracker.report() !== "state=clear" && revision === contextRevision;
+        contextRefresh = (async () => {
+            let outcome;
+            try {
+                outcome = await onContextChange(isCurrent);
+            } catch (error) {
+                if (!signal.aborted) {
+                    onError(error);
+                }
+                outcome = false;
+            }
+            if (outcome !== false && isCurrent()) {
+                refreshedRevision = revision;
+            } else if (outcome === false && revision === contextRevision) {
+                await pause();
+            }
+        })().finally(() => {
+            contextRefresh = undefined;
+            refreshContext();
+        });
+    }
+
     try {
         while (!signal.aborted) {
             try {
@@ -87,16 +118,11 @@ export async function monitorSession({ session, tracker, report, onError, onCont
                         "session.resume",
                         "session.context_changed",
                     ].includes(event.type)) {
-                        contextChanged = true;
+                        contextRevision += 1;
                     }
                 }
                 if (caughtUp) {
-                    if (contextChanged && tracker.report() !== "state=clear") {
-                        if (onContextChange) {
-                            await onContextChange();
-                        }
-                        contextChanged = false;
-                    }
+                    refreshContext();
                     report(tracker.report());
                     if (tracker.report() === "state=clear") {
                         break;

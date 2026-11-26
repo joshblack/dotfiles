@@ -1,5 +1,30 @@
 import { createHash } from "node:crypto";
 
+export class InvalidResumeContextError extends Error {}
+
+export async function refreshResumeContext({ resume, snapshot, isCurrent, onError }) {
+    if (!resume) {
+        return;
+    }
+    try {
+        const metadata = await snapshot();
+        if (isCurrent()) {
+            resume.report(metadata);
+        }
+    } catch (error) {
+        if (!isCurrent()) {
+            return;
+        }
+        try {
+            resume.clear();
+        } catch (clearError) {
+            onError(`Failed to clear resume command: ${clearError.message}`);
+        }
+        onError(`Failed to report resume command: ${error.message}`);
+        return error instanceof InvalidResumeContextError;
+    }
+}
+
 export function createResumeReporter({ token, pid, write }) {
     if (!/^[A-Za-z0-9_-]{22,64}$/.test(token)) {
         throw new Error("Invalid OSC7577_TOKEN");
@@ -23,22 +48,26 @@ export function createResumeReporter({ token, pid, write }) {
         }
     }
 
-    function report({ sessionId, workingDirectory, isRemote }) {
+    function report(metadata) {
         try {
+            if (!metadata || typeof metadata !== "object") {
+                throw new InvalidResumeContextError("Missing Copilot session metadata");
+            }
+            const { sessionId, workingDirectory, isRemote } = metadata;
             if (isRemote) {
-                throw new Error("Remote Copilot sessions cannot be reported for Rex resume");
+                throw new InvalidResumeContextError("Remote Copilot sessions cannot be reported for Rex resume");
             }
             if (typeof sessionId !== "string" || !sessionId) {
-                throw new Error("Missing Copilot session ID");
+                throw new InvalidResumeContextError("Missing Copilot session ID");
             }
             if (typeof workingDirectory !== "string" || !workingDirectory.startsWith("/")) {
-                throw new Error("Copilot working directory must be an absolute path");
+                throw new InvalidResumeContextError("Copilot working directory must be an absolute path");
             }
 
             const argv = ["copilot", "--experimental", `--resume=${sessionId}`];
             const encode = (value) => {
                 if (/[\u0000-\u001f\u007f-\u009f]/u.test(value) || !value.isWellFormed()) {
-                    throw new Error("Resume arguments and directory must be UTF-8 text without control characters");
+                    throw new InvalidResumeContextError("Resume arguments and directory must be UTF-8 text without control characters");
                 }
                 return Buffer.from(value, "utf8").toString("base64");
             };
@@ -48,7 +77,7 @@ export function createResumeReporter({ token, pid, write }) {
             }
             const output = sequence(value);
             if (Buffer.byteLength(output) > 2048) {
-                throw new Error("Copilot resume report exceeds Rex's 2048-byte limit");
+                throw new InvalidResumeContextError("Copilot resume report exceeds Rex's 2048-byte limit");
             }
             write(output);
             lastReport = value;

@@ -1,7 +1,7 @@
 import { closeSync, openSync, writeSync } from "node:fs";
 import { joinSession } from "@github/copilot-sdk/extension";
 import { monitorSession } from "./monitor.mjs";
-import { createResumeReporter } from "./resume.mjs";
+import { createResumeReporter, refreshResumeContext } from "./resume.mjs";
 import { createStatusTracker } from "./status.mjs";
 
 if (process.env.REX_SESSION && process.env.REX_BLOCK) {
@@ -70,16 +70,13 @@ if (process.env.REX_SESSION && process.env.REX_BLOCK) {
         session,
         tracker,
         report,
-        async onContextChange() {
-            if (!resume) {
-                return;
-            }
-            try {
-                resume.report(await session.rpc.metadata.snapshot());
-            } catch (error) {
-                clearResume();
-                console.error(`[rex-status] Failed to report resume command: ${error.message}`);
-            }
+        onContextChange(isCurrent) {
+            return refreshResumeContext({
+                resume,
+                snapshot: () => session.rpc.metadata.snapshot(),
+                isCurrent,
+                onError: (message) => console.error(`[rex-status] ${message}`),
+            });
         },
         onError(error) {
             if (error.message !== lastMonitorError) {
